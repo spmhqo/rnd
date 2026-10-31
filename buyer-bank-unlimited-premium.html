@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Buyer Bank</title><style>
+:root{
+ --bg:#fbfaf6;--white:#fff;--bank:#123d2c;--bank2:#1e5a40;
+ --gold-dark:#a87408;--gold:#d4a72c;--gold-light:#f1dc9a;--gold-pale:#fff8df;
+ --text:#27231f;--muted:#706a62;--border:#e4ddd2;--shadow:0 6px 18px rgba(25,55,40,.08);
+}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif;line-height:1.5}
+.wrapper{width:100%;max-width:950px;margin:0 auto;padding:30px 24px 60px}
+.hero{padding:0;margin:0 0 28px;text-align:center}
+.hero-logo{display:block;width:100%;max-width:300px;height:auto;margin:0 auto 18px}
+.hero h1{margin:0 0 10px;color:var(--bank);font-size:clamp(32px,5vw,52px);line-height:1.03}
+.hero-sub{max-width:760px;font-size:18px;color:var(--muted);margin:0 auto}
+.context-panel,.traffic-panel{background:var(--white);border:1px solid var(--border);box-shadow:var(--shadow);padding:30px;margin-bottom:36px}
+.context-panel{border-top:6px solid var(--gold)}
+.section-eyebrow{color:var(--gold-dark);text-transform:uppercase;letter-spacing:1px;font-size:12px;font-weight:800;margin-bottom:5px}
+.context-panel h2,.traffic-panel h2{margin:0 0 8px;color:var(--bank);font-size:28px}
+.context-panel p,.traffic-panel p{margin:0 0 20px;color:var(--muted)}
+.setup-prompt{width:100%;min-height:330px;resize:vertical;background:#fffdfa;color:var(--text);border:2px solid var(--border);padding:16px;font:14px/1.5 Arial,Helvetica,sans-serif;outline:none;white-space:pre-wrap}
+.context-actions,.prompt-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.primary-btn,.prompt-copy-btn,.traffic-btn{border:0;cursor:pointer;padding:12px 16px;font-size:13px;font-weight:800;background:var(--bank2);color:#fff}
+.primary-btn:hover,.prompt-copy-btn:hover,.traffic-btn:hover{background:var(--bank)}
+.category{margin-bottom:44px}
+.category-header{display:flex;align-items:center;gap:15px;margin-bottom:18px}
+.category-number{width:45px;height:45px;flex:0 0 45px;background:var(--gold);color:var(--bank);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:20px}
+.category-title h2{margin:0;color:var(--bank);font-size:27px}
+.category-title p{margin:3px 0 0;color:var(--muted);font-size:14px}
+.prompt-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;align-items:start}
+.prompt-card{background:var(--white);border:1px solid var(--border);border-left:5px solid var(--gold);padding:18px;position:relative;transition:.18s ease}
+.prompt-card:hover{transform:translateY(-2px);box-shadow:var(--shadow);border-left-color:var(--bank2)}
+.prompt-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.prompt-number{color:#8b7359;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px}
+.prompt-card h3{margin:0;color:var(--bank);font-size:18px}
+.prompt-card p{margin:8px 0 14px;color:var(--muted);font-size:13px;line-height:1.45}
+.gold-chip{background:var(--gold-pale);border:1px solid var(--gold-light);color:var(--gold-dark);font-size:10px;font-weight:800;padding:5px 7px;white-space:nowrap}
+.prompt-textarea{width:100%;min-height:315px;resize:vertical;background:#fffdfa;color:var(--text);border:2px solid var(--border);padding:14px;font:13px/1.48 Arial,Helvetica,sans-serif;outline:none;white-space:pre-wrap}
+.prompt-textarea:focus,.creator-input:focus,.setup-prompt:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(212,167,44,.13)}
+.creator-section{margin-top:54px}.creator-panel{border-top:6px solid var(--bank2)}
+.creator-input{width:100%;min-height:180px;resize:vertical;background:#fffdfa;color:var(--text);border:2px solid var(--border);padding:18px;font:16px/1.5 Arial,Helvetica,sans-serif;outline:none}
+.traffic-actions.one{display:grid;grid-template-columns:1fr;gap:10px;margin-top:14px}
+.footer-note{text-align:center;color:var(--muted);font-size:13px;margin-top:50px}
+.footer-note a{color:var(--bank2);font-weight:800;text-decoration:none}.footer-note a:hover{text-decoration:underline}
+.toast{position:fixed;right:20px;bottom:20px;background:var(--bank);color:#fff;border:2px solid var(--gold);padding:12px 16px;opacity:0;pointer-events:none;transition:.2s;z-index:99}.toast.show{opacity:1}
+@media(max-width:780px){.wrapper{padding:18px 14px 40px}.prompt-grid{grid-template-columns:1fr}.prompt-textarea{min-height:300px}.context-panel,.traffic-panel{padding:22px}}
+
+.ai-action-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px}
+.ai-open-btn,.clear-btn{border:0;cursor:pointer;padding:12px 14px;font-size:12px;font-weight:800;color:#fff;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;min-height:40px}
+.ai-open-btn{background:var(--bank)}.ai-open-btn:hover{background:var(--bank2)}
+.clear-btn{background:#766d62}.clear-btn:hover{background:#5f574e}
+.creator-panel .traffic-actions.one{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.creator-panel .traffic-btn{flex:1 1 190px}.creator-panel .ai-open-btn,.creator-panel .clear-btn{flex:0 1 auto}
+@media(max-width:780px){.ai-action-row,.creator-panel .traffic-actions.one{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.ai-action-row .primary-btn,.creator-panel .traffic-btn{grid-column:1/-1}.ai-open-btn,.clear-btn{width:100%}}
+</style></head>
+<body><div class="wrapper">
+<section class="hero">
+<h1>Turn Buyer Intent Into Promotional Content</h1>
+<p class="hero-sub">Load what you're promoting once, run any of the 30 buyer-intent prompts, then turn any discovery into promotional material.</p>
+</section>
+
+<section class="context-panel">
+<div class="section-eyebrow">STEP 1 • SETUP</div>
+<h2>Load Your Offer</h2>
+<p>Copy this setup prompt into one ChatGPT, Claude, or Grok chat. Then paste your sales material or URL into that same chat.</p>
+<textarea class="setup-prompt" id="setupPrompt" readonly>We are going to use this single chat as the working environment for promoting one specific offer. Everything I provide after this prompt becomes the Offer Context for all prompts I run later in this same conversation.
+
+Study the supplied sales material and retain the useful context needed to analyze buyer intent and later create promotional material. Extract what is being sold, intended buyer, deliverables, supported outcomes, mechanism, features, differentiators, price, proof, guarantees, bonuses, terms, and other relevant sales information actually supplied. Clearly mark important information that is unknown. Never invent missing facts.
+
+If I provide a URL, attempt to access and analyze it. If you can&#x27;t access the URL or can&#x27;t reliably retrieve enough information, clearly say you can&#x27;t get the information and ask me to paste the sales material into this chat. Never pretend you analyzed a URL you couldn&#x27;t access.
+
+Don&#x27;t begin buyer-intent analysis yet. First load and organize the offer context so later prompts can refer to the offer loaded earlier in this conversation.
+
+At the end ask:
+“Paste all available sales material for what you&#x27;re promoting below. You can also provide a URL.”</textarea>
+<div class="context-actions ai-action-row">
+<button class="primary-btn" id="copySetup">Copy Setup Prompt</button>
+<a class="ai-open-btn" href="https://chatgpt.com/" target="_blank" rel="noopener noreferrer">Open ChatGPT</a>
+<a class="ai-open-btn" href="https://claude.ai/new" target="_blank" rel="noopener noreferrer">Open Claude</a>
+<a class="ai-open-btn" href="https://gemini.google.com/app" target="_blank" rel="noopener noreferrer">Open Gemini</a>
+<a class="ai-open-btn" href="https://grok.com/" target="_blank" rel="noopener noreferrer">Open Grok</a>
+<button class="clear-btn" id="clearAll" type="button">Clear All</button>
+</div>
+</section>
+
+<section class="category">
+<div class="category-header">
+<div class="category-number">30</div>
+<div class="category-title"><h2>Buyer Intent Prompts</h2><p>Every prompt is displayed in full. Copy any one and run it in the same AI chat.</p></div>
+</div>
+<div class="prompt-grid">
+
+    <article class="prompt-card">
+      <div class="prompt-top">
+        <div>
+          <div class="prompt-number">Buyer Intent 01</div>
+          <h3>Buying Trigger</h3>
+        </div>
+        <span class="gold-chip">BUYER INTENT</span>
+      </div>
+      <p>Find events or changes that move someone from interest into active buying consideration.</p>
+      <textarea class="prompt-textarea" readonly>Using only the offer context loaded earlier in this conversation, run a Buying Trigger analysis.
+
+Find events or changes that move someone from interest into active buying consideration.
+
+Focus solely on buyer intent and the purchase decision. Don&#x27;t drift into general audience pain points, frustrations, demographics, or broad persona research. Don&#x27;t invent facts, proof, pricing, testimonials, guarantees, scarcity, bonuses, results, features, or claims that weren&#x27;t supplied.
+
+Return 7 discoveries. For each use:
+DISCOVERY TITLE
+Buyer Intent: The specific purchase-related discovery.
+Why It Matters To The Purchase: Why it can affect the buying decision.
+Promotional Opportunity: How the loaded offer can legitimately connect to this discovery.
+
+Make every discovery specific enough to copy into a promotional content creator later in this same chat.</textarea>
+      <div class="prompt-actions">
+        <button class="prompt-copy-btn">Copy Prompt</button>
+      </div>
+    </article>
+    <article class="prompt-card">
+      <div class="prompt-top">
+        <div>
+          <div class="prompt-number">Buyer Intent 02</div>
+          <h3>Buying Moment</h3>
+        </div>
+        <span class="gold-chip">BUYER INTENT</span>
+      </div>
+      <p>Find circumstances where someone is most receptive to purchasing the loaded offer.</p>
+      <textarea class="prompt-textarea" readonly>Using only the offer context loaded earlier in this conversation, run a Buying Moment analysis.
+
+Find circumstances where someone is most receptive to purchasing the loaded offer.
+
+Focus solely on buyer intent and the purchase decision. Don&#x27;t drift into general audience pain points, frustrations, demographics, or broad persona research. Don&#x27;t invent facts, proof, pricing, testimonials, guarantees, scarcity, bonuses, results, features, or claims that weren&#x27;t supplied.
+
+Return 7 discoveries. For each use:
+DISCOVERY TITLE
+Buyer Intent: The specific purchase-related discovery.
+Why It Matters To The Purchase: Why it can affect the buying decision.
+Promotional Opportunity: How the loaded offer can legitimately connect to this discovery.
+
+Make every discovery specific enough to copy into a promotional content creator later in this same chat.</textarea>
+      <div class="prompt-actions">
+        <button class="prompt-copy-btn">Copy Prompt</button>
+      </div>
+    </article>
+    <article class="prompt-card">
+      <div class="prompt-top">
+        <div>
+          <div class="prompt-number">Buyer Intent 03</div>
+          <h3>Purchase Readiness</h3>
+        </div>
+        <span class="gold-chip">BUYER INTENT</span>
+      </div>
+      <p>Find signals that someone has moved beyond curiosity and toward a purchase.</p>
+      <textarea class="prompt-textarea" readonly>Using only the offer context loaded earlier in this conversation, run a Purchase Readiness analysis.
+
+Find signals that someone has moved beyond curiosity and toward a purchase.
+
+Focus solely on buyer intent and the purchase decision. Don&#x27;t drift into general audience pain points, frustrations, demographics, or broad persona research. Don&#x27;t invent facts, proof, pricing, testimonials, guarantees, scarcity, bonuses, results, features, or claims that weren&#x27;t supplied.
+
+Return 7 discoveries. For each use:
+DISCOVERY TITLE
+Buyer Intent: The specific purchase-related discovery.
+Why It Matters To The Purchase: Why it can affect the buying decision.
+Promotional Opportunity: How the loaded offer can legitimately connect to this discovery.
+
+Make every discovery specific enough to copy into a promotional content creator later in this same chat.</textarea>
+      <div class="prompt-actions">
+        <button class="prompt-copy-btn">Copy Prompt</button>
+      </div>
+    </article>
+    <article class="prompt-card">
+      <div class="prompt-top">
+        <div>
+          <div class="prompt-number">Buyer Intent 04</div>
+          <h3>Intent Signal</h3>
+        </div>
+        <span class="gold-chip">BUYER INTENT</span>
+      </div>
+      <p>Identify observable signals of increasingly strong commercial intent.</p>
+      <textarea class="prompt-textarea" readonly>Using only the offer context loaded earlier in this conversation, run a Intent Signal analysis.
+
+Identify observable signals of increasingly strong commercial intent.
+
+Focus solely on buyer intent and the purchase decision. Don&#x27;t drift into general audience pain points, frustrations, demographics, or broad persona research. Don&#x27;t invent facts, proof, pricing, testimonials, guarantees, scarcity, bonuses, results, features, or claims that weren&#x27;t supplied.
+
+Return 7 discoveries. For each use:
+DISCOVERY TITLE
+Buyer Intent: The specific purchase-related discovery.
+Why It Matters To The Purchase: Why it can affect the buying decision.
+Promotional Opportunity: How the loaded offer can legitimately connect to this discovery.
+
+Make every discovery specific enough to copy into a promotional content creator later in this same chat.</textarea>
+      <div class="prompt-actions">
+        <button class="prompt-copy-btn">Copy Prompt</button>
+      </div>
+    </article>
+    <article class="prompt-card">
+      <div class="prompt-top">
+        <div>
+          <div class="prompt-number">Buyer Intent 05</div>
+          <h3>Commitment Signal</h3>
+        </div>
+        <span class="gold-chip">BUYER INTENT</span>
+      </div>
+      <p>Find behaviors showing willingness to commit money, time, effort, or resources.</p>
+      <textarea class="prompt-textarea" readonly>Using only the offer context loaded earlier in this conversation, run a Commitment Signal analysis.
+
+Find behaviors showing willingness to commit money, time, effort, or resources.
+
+Focus solely on buyer intent and the purchase decision. Don&#x27;t drift into general audience pain points, frustrations, demographics, or broad persona research. Don&#x27;t invent facts, proof, pricing, testimonials, guarantees, scarcity, bonuses, results, features, or claims that weren&#x27;t supplied.
+
+Return 7 discoveries. For each use:
+DISCOVERY TITLE
+Buyer Intent: The specific purchase-related discovery.
+Why It Matters To The Purchase: Why it can affect the buying decision.
+Promotional Opportunity: How the loaded offer can legitimately connect to this discovery.
+
+Make every discovery specific enough to copy into a promotional content creator later in this same chat.</textarea>
+      <div class="prompt-actions">
+        <button class="prompt-copy-btn">Copy Prompt</button>
+      </div>
+    </article>
+    <article class="prompt-card">
+      <div class="prompt-top">
+        <div>
+          <div class="prompt-number">Buyer Intent 06</div>
+          <h3>Cost Of Delay</h3>
+        </div>
+        <span class="gold-chip">BUYER INTENT</span>
+      </div>
+      <p>Find situations where waiting has a meaningful cost and buying now makes more sense.</p>
+      <textarea class="prompt-textarea" readonly>Using only the offer context loaded earlier in this conversation, run a Cost Of Delay analysis.
+
+Find situations where waiting has a meaningful cost and buying now makes more sense.
+
+Focus solely on buyer intent and the purchase decision. Don&#x27;t drift into general audience pain points, frustrations, demographics, or broad persona research. Don&#x27;t invent facts, proof, pricing, testimonials, guarantees, scarcity, bonuses, results, features, or claims that weren&#x27;t supplied.
+
+Return 7 discoveries. For each use:
+DISCOVERY TITLE
+Buyer Intent: The specific purchase-related discovery.
+Why It Matters To The Purchase: Why it can affect the buying decision.
+Promotional Opportunity: How the loaded offer can legitimately connect to this discovery.
+
+Make every discovery specific enough to copy into a promotional content creator later in this same chat.</textarea>
+      <div class="prompt-actions">
+        <button class="prompt-copy-btn">Copy Prompt</button>
+      </div>
+    </article>
+    <article class="prompt-card">
+      <div class="prompt-top">
+        <div>
+          <div class="prompt-number">Buyer Intent 07</div>
+          <h3>Decision Criteria</h3>
+        </div>
+        <span class="gold-chip">BUYER INTENT</span>
+      </div>
+      <p>Identify the criteria buyers use to decide whether this offer deserves their money.</p>
+      <textarea class="prompt-textarea" readonly>Using only the offer context loaded earlier in this conversation, run a Decision Criteria analysis.
+
+Identify the criteria buyers use to decide whether this offer deserves their money.
+
+Focus solely on buyer intent and the purchase decision. Don&#x27;t drift into general audience pain points, frustrations, demographics, or broad persona research. Don&#x27;t invent facts, proof, pricing, testimonials, guarantees, scarcity, bonuses, results, features, or claims that weren&#x27;t supplied.
+
+Return 7 discoveries. For each use:
+DISCOVERY TITLE
+Buyer Intent: The specific purchase-related discovery.
+Why It Matters To The Purchase: Why it can affect the buying decision.
+Promotional Opportunity: How the loaded offer can legitimately connect to this discovery.
+
+Make every discovery specific enough to copy into a promotional content creator later in this same chat.</textarea>
+      <div class="prompt-actions">
+        <button class="prompt-copy-btn">Copy Prompt</button>
+      </div>
+    </article>
+    <article class="prompt-card">
+      <div class="prompt-top">
+        <div>
+          <div class="prompt-number">Buyer Intent 08</div>
+          <h3>Must-Have Criteria</h3>
+        </div>
+        <span class="gold-chip">BUYER INTENT</span>
+      </div>
+      <p>Find conditions, features, outcomes, or terms that can become purchase requirements.</p>
+      <textarea class="prompt-textarea" readonly>Using only the offer context loaded earlier in this conversation, run a Must-Have Criteria analysis.
+
+Find conditions, features, outcomes, or terms that can become purchase requirements.
+
+Focus solely on buyer intent and the purchase decision. Don&#x27;t drift into general audience pain points, frustrations, demographics, or broad persona research. Don&#x27;t invent facts, proof, pricing, testimonials, guarantees, scarcity, bonuses, results, features, or claims that weren&#x27;t supplied.
+
+Return 7 discoveries. For each use:
+DISCOVERY TITLE
+Buyer Intent: The specific purchase-related discovery.
+Why It Matters To The Purchase: Why it can affect the buying decision.
+Promotional Opportunity: How the loaded offer can legitimately connect to this discovery.
+
+Make every discovery specific enough to copy into a promotional content creator later in this same chat.</textarea>
+      <div class="prompt-actions">
+        <button class="prompt-copy-btn">Copy Prompt</button>
+      </div>
+    </article>
+    <article class="prompt-card">
+      <div class="prompt-top">
+        <div>
+          <div class="prompt-number">Buyer Intent 09</div>
+          <h3>Feature Priority</h3>
+        </div>
+        <span class="gold-chip">BUYER INTENT</span>
+      </div>
+      <p>Determine which supplied features are most likely to influence the buying decision.</p>
+      <textarea class="prompt-textarea" readonly>Using only the offer context loaded earlier in this conversation, run a Feature Priority analysis.
+
+Determine which supplied features are most likely to influence the buying decision.
+
+Focus solely on buyer intent and the purchase decision. Don&#x27;t drift into general audience pain points, frustrations, demographics, or broad persona research. Don&#x27;t invent facts, proof, pricing, testimonials, guarantees, scarcity, bonuses, results, features, or claims that weren&#x27;t supplied.
+
+Return 7 discoveries. For each use:
+DISCOVERY TITLE
+Buyer Intent: The specific purchase-related discovery.
+Why It Matters To The Purchase: Why it can affect the buying decision.
+Promotional Opportunity: How the loaded offer can legitimately connect to this discovery.
+
+Make every discovery specific enough to copy into a promotional content creator later in this same chat.</textarea>
+      <div class="prompt-actions">
+        <button class="prompt-copy-btn">Copy Prompt</button>
+      </div>
+    </article>
+    <article class="prompt-card">
+      <div class="prompt-top">
+        <div>
+          <div class="prompt-number">Buyer Intent 10</div>
+          <h3>Outcome Priority</h3>
+        </div>
+        <span class="gold-chip">BUYER INTENT</span>
+      </div>
+      <p>Determine which supported outcomes carry the most weight in the buying decision.</p>
+      <textarea class="prompt-textarea" readonly>Using only the offer context loaded earlier in this conversation, run a Outcome Priority analysis.
+
+Determine which supported outcomes carry the most weight in the buying decision.
+
+Focus solely on buyer intent and the purchase decision. Don&#x27;t drift into general audience pain points, frustrations, demographics, or broad persona research. Don&#x27;t invent facts, proof, pricing, testimonials, guarantees, scarcity, bonuses, results, features, or claims that weren&#x27;t supplied.
+
+Return 7 discoveries. For each use:
+DISCOVERY TITLE
+Buyer Intent: The specific purchase-related discovery.
+Why It Matters To The Purchase: Why it can affect the buying decision.
+Promotional Opportunity: How the loaded offer can legitimately connect to this discovery.
+
+Make every discovery specific enough to copy into a promotional content creator later in this same chat.</textarea>
+      <div class="prompt-actions">
+        <button class="prompt-copy-btn">Copy Prompt</button>
+      </div>
+    </article>
+    <article class="prompt-card">
+      <div class="prompt-top">
+        <div>
+          <div class="prompt-number">Buyer Intent 11</div>
+          <h3>Decision Shortcut</h3>
+        </div>
+        <span class="gold-chip">BUYER INTENT</span>
+      </div>
+      <p>Find information or demonstrations that could make the purchase decision easier.</p>
+      <textarea class="prompt-textarea" readonly>Using only the offer context loaded earlier in this conversation, run a Decision Shortcut analysis.
+
+Find information or demonstrations that could make the purchase decision easier.
+
+Focus solely on buyer intent and the purchase decision. Don&#x27;t drift into general audience pain points, frustrations, demographics, or broad persona research. Don&#x27;t invent facts, proof, pricing, testimonials, guarantees, scarcity, bonuses, results, features, or claims that weren&#x27;t supplied.
+
+Return 7 discoveries. For each use:
+DISCOVERY TITLE
+Buyer Intent: The specific purchase-related discovery.
+Why It Matters To The Purchase: Why it can affect the buying decision.
+Promotional Opportunity: How the loaded offer can legitimately connect to this discovery.
+
+Make every discovery specific enough to copy into a promotional content creator later in this same chat.</textarea>
+      <div class="prompt-actions">
+        <button class="prompt-copy-btn">Copy Prompt</button>
+      </div>
+    </article>
+    <article class="prompt-card">
+      <div class="prompt-top">
+        <div>
+          <div class="prompt-number">Buyer Intent 12</div>
+          <h3>Final Question</h3>
+        </div>
+        <span class="gold-chip">BUYER INTENT</span>
+      </div>
+      <p>Find questions most likely to remain immediately before purchase.</p>
+      <textarea class="prompt-textarea" readonly>Using only the offer context loaded earlier in this conversation, run a Final Question analysis.
+
+Find questions most likely to remain immediately before purchase.
+
+Focus solely on buyer intent and the purchase decision. Don&#x27;t drift into general audience pain points, frustrations, demographics, or broad persona research. Don&#x27;t invent facts, proof, pricing, testimonials, guarantees, scarcity, bonuses, results, features, or claims that weren&#x27;t supplied.
+
+Return 7 discoveries. For each use:
+DISCOVERY TITLE
+Buyer Intent: The specific purchase-related discovery.
+Why It Matters To The Purchase: Why it can affect the buying decision.
+Promotional Opportunity: How the loaded offer can legitimately connect to this discovery.
+
+Make every discovery specific enough to copy into a promotional content creator later in this same chat.</textarea>
+      <div class="prompt-actions">
+        <button class="prompt-copy-btn">Copy Prompt</button>
+      </div>
+    </article>
+    <article class="prompt-card">
+      <div class="prompt-top">
+        <div>
+          <div class="prompt-number">Buyer Intent 13</div>
+          <h3>Comparison Criteria</h3>
+        </div>
+        <span class="gold-chip">BUYER INTENT</span>
+      </div>
+      <p>Determine what buyers compare when evaluating this offer against alternatives.</p>
+      <textarea class="prompt-textarea" readonly>Using only the offer context loaded earlier in this conversation, run a Comparison Criteria analysis.
+
+Determine what buyers compare when evaluating this offer against alternatives.
+
+Focus solely on buyer intent and the purchase decision. Don&#x27;t drift into general audience pain points, frustrations, demographics, or broad persona research. Don&#x27;t invent facts, proof, pricing, testimonials, guarantees, scarcity, bonuses, results, features, or claims that weren&#x27;t supplied.
+
+Return 7 discoveries. For each use:
+DISCOVERY TITLE
+Buyer Intent: The specific purchase-related discovery.
+Why It Matters To The Purchase: Why it can affect the buying decision.
+Promotional Opportunity: How the loaded offer can legitimately connect to this discovery.
+
+Make every discovery specific enough to copy into a promotional content creator later in this same chat.</textarea>
+      <div class="prompt-actions">
+        <button class="prompt-copy-btn">Copy Prompt</button>
+      </div>
+    </article>
+    <article class="prompt-card">
+      <div class="prompt-top">
+        <div>
+          <div class="prompt-number">Buyer Intent 14</div>
+          <h3>Alternative Evaluation</h3>
+        </div>
+        <span class="gold-chip">BUYER INTENT</span>
+      </div>
+      <p>Identify other products, methods, services, approaches, or doing nothing competing for the purchase.</p>
+      <textarea class="prompt-textarea" readonly>Using only the offer context loaded earlier in this conversation, run a Alternative Evaluation analysis.
+
+Identify other products, methods, services, approaches, or doing nothing competing for the purchase.
+
+Focus solely on buyer intent and the purchase decision. Don&#x27;t drift into general audience pain points, frustrations, demographics, or broad persona research. Don&#x27;t invent facts, proof, pricing, testimonials, guarantees, scarcity, bonuses, results, features, or claims that weren&#x27;t supplied.
+
+Return 7 discoveries. For each use:
+DISCOVERY TITLE
+Buyer Intent: The specific purchase-related discovery.
+Why It Matters To The Purchase: Why it can affect the buying decision.
+Promotional Opportunity: How the loaded offer can legitimately connect to this discovery.
+
+Make every discovery specific enough to copy into a promotional content creator later in this same chat.</textarea>
+      <div class="prompt-actions">
+        <button class="prompt-copy-btn">Copy Prompt</button>
+      </div>
+    </article>
+    <article class="prompt-card">
+      <div class="prompt-top">
+        <div>
+          <div class="prompt-number">Buyer Intent 15</div>
+          <h3>Switching Trigger</h3>
+        </div>
+        <span class="gold-chip">BUYER INTENT</span>
+      </div>
+      <p>Find what causes someone using another solution to seek a replacement.</p>
+      <textarea class="prompt-textarea" readonly>Using only the offer context loaded earlier in this conversation, run a Switching Trigger analysis.
+
+Find what causes someone using another solution to seek a replacement.
+
+Focus solely on buyer intent and the purchase decision. Don&#x27;t drift into general audience pain points, frustrations, demographics, or broad persona research. Don&#x27;t invent facts, proof, pricing, testimonials, guarantees, scarcity, bonuses, results, features, or claims that weren&#x27;t supplied.
+
+Return 7 discoveries. For each use:
+DISCOVERY TITLE
+Buyer Intent: The specific purchase-related discovery.
+Why It Matters To The Purchase: Why it can affect the buying decision.
+Promotional Opportunity: How the loaded offer can legitimately connect to this discovery.
+
+Make every discovery specific enough to copy into a promotional content creator later in this same chat.</textarea>
+      <div class="prompt-actions">
+        <button class="prompt-copy-btn">Copy Prompt</button>
+      </div>
+    </article>
+    <article class="prompt-card">
+      <div class="prompt-top">
+        <div>
+          <div class="prompt-number">Buyer Intent 16</div>
+          <h3>Upgrade Trigger</h3>
+        </div>
+        <span class="gold-chip">BUYER INTENT</span>
+      </div>
+      <p>Find circumstances that make a better, faster, easier, or more complete solution worth buying.</p>
+      <textarea class="prompt-textarea" readonly>Using only the offer context loaded earlier in this conversation, run a Upgrade Trigger analysis.
+
+Find circumstances that make a better, faster, easier, or more complete solution worth buying.
+
+Focus solely on buyer intent and the purchase decision. Don&#x27;t drift into general audience pain points, frustrations, demographics, or broad persona research. Don&#x27;t invent facts, proof, pricing, testimonials, guarantees, scarcity, bonuses, results, features, or claims that weren&#x27;t supplied.
+
+Return 7 discoveries. For each use:
+DISCOVERY TITLE
+Buyer Intent: The specific purchase-related discovery.
+Why It Matters To The Purchase: Why it can affect the buying decision.
+Promotional Opportunity: How the loaded offer can legitimately connect to this discovery.
+
+Make every discovery specific enough to copy into a promotional content creator later in this same chat.</textarea>
+      <div class="prompt-actions">
+        <button class="prompt-copy-btn">Copy Prompt</button>
+      </div>
+    </article>
+    <article class="prompt-card">
+      <div class="prompt-top">
+        <div>
+          <div class="prompt-number">Buyer Intent 17</div>
+          <h3>Competitive Advantage</h3>
+        </div>
+        <span class="gold-chip">BUYER INTENT</span>
+      </div>
+      <p>Identify legitimate, supported reasons to choose this offer over alternatives.</p>
+      <textarea class="prompt-textarea" readonly>Using only the offer context loaded earlier in this conversation, run a Competitive Advantage analysis.
+
+Identify legitimate, supported reasons to choose this offer over alternatives.
+
+Focus solely on buyer intent and the purchase decision. Don&#x27;t drift into general audience pain points, frustrations, demographics, or broad persona research. Don&#x27;t invent facts, proof, pricing, testimonials, guarantees, scarcity, bonuses, results, features, or claims that weren&#x27;t supplied.
+
+Return 7 discoveries. For each use:
+DISCOVERY TITLE
+Buyer Intent: The specific purchase-related discovery.
+Why It Matters To The Purchase: Why it can affect the buying decision.
+Promotional Opportunity: How the loaded offer can legitimately connect to this discovery.
+
+Make every discovery specific enough to copy into a promotional content creator later in this same chat.</textarea>
+      <div class="prompt-actions">
+        <button class="prompt-copy-btn">Copy Prompt</button>
+      </div>
+    </article>
+    <article class="prompt-card">
+      <div class="prompt-top">
+        <div>
+          <div class="prompt-number">Buyer Intent 18</div>
+          <h3>Deal Breaker</h3>
+        </div>
+        <span class="gold-chip">BUYER INTENT</span>
+      </div>
+      <p>Identify conditions that could eliminate the offer from consideration.</p>
+      <textarea class="prompt-textarea" readonly>Using only the offer context loaded earlier in this conversation, run a Deal Breaker analysis.
+
+Identify conditions that could eliminate the offer from consideration.
+
+Focus solely on buyer intent and the purchase decision. Don&#x27;t drift into general audience pain points, frustrations, demographics, or broad persona research. Don&#x27;t invent facts, proof, pricing, testimonials, guarantees, scarcity, bonuses, results, features, or claims that weren&#x27;t supplied.
+
+Return 7 discoveries. For each use:
+DISCOVERY TITLE
+Buyer Intent: The specific purchase-related discovery.
+Why It Matters To The Purchase: Why it can affect the buying decision.
+Promotional Opportunity: How the loaded offer can legitimately connect to this discovery.
+
+Make every discovery specific enough to copy into a promotional content creator later in this same chat.</textarea>
+      <div class="prompt-actions">
+        <button class="prompt-copy-btn">Copy Prompt</button>
+      </div>
+    </article>
+    <article class="prompt-card">
+      <div class="prompt-top">
+        <div>
+          <div class="prompt-number">Buyer Intent 19</div>
+          <h3>Proof Requirement</h3>
+        </div>
+        <span class="gold-chip">BUYER INTENT</span>
+      </div>
+      <p>Identify evidence that would materially strengthen the purchase decision.</p>
+      <textarea class="prompt-textarea" readonly>Using only the offer context loaded earlier in this conversation, run a Proof Requirement analysis.
+
+Identify evidence that would materially strengthen the purchase decision.
+
+Focus solely on buyer intent and the purchase decision. Don&#x27;t drift into general audience pain points, frustrations, demographics, or broad persona research. Don&#x27;t invent facts, proof, pricing, testimonials, guarantees, scarcity, bonuses, results, features, or claims that weren&#x27;t supplied.
+
+Return 7 discoveries. For each use:
+DISCOVERY TITLE
+Buyer Intent: The specific purchase-related discovery.
+Why It Matters To The Purchase: Why it can affect the buying decision.
+Promotional Opportunity: How the loaded offer can legitimately connect to this discovery.
+
+Make every discovery specific enough to copy into a promotional content creator later in this same chat.</textarea>
+      <div class="prompt-actions">
+        <button class="prompt-copy-btn">Copy Prompt</button>
+      </div>
+    </article>
+    <article class="prompt-card">
+      <div class="prompt-top">
+        <div>
+          <div class="prompt-number">Buyer Intent 20</div>
+          <h3>Trust Requirement</h3>
+        </div>
+        <span class="gold-chip">BUYER INTENT</span>
+      </div>
+      <p>Identify what buyers need to know or verify before trusting the offer enough to purchase.</p>
+      <textarea class="prompt-textarea" readonly>Using only the offer context loaded earlier in this conversation, run a Trust Requirement analysis.
+
+Identify what buyers need to know or verify before trusting the offer enough to purchase.
+
+Focus solely on buyer intent and the purchase decision. Don&#x27;t drift into general audience pain points, frustrations, demographics, or broad persona research. Don&#x27;t invent facts, proof, pricing, testimonials, guarantees, scarcity, bonuses, results, features, or claims that weren&#x27;t supplied.
+
+Return 7 discoveries. For each use:
+DISCOVERY TITLE
+Buyer Intent: The specific purchase-related discovery.
+Why It Matters To The Purchase: Why it can affect the buying decision.
+Promotional Opportunity: How the loaded offer can legitimately connect to this discovery.
+
+Make every discovery specific enough to copy into a promotional content creator later in this same chat.</textarea>
+      <div class="prompt-actions">
+        <button class="prompt-copy-btn">Copy Prompt</button>
+      </div>
+    </article>
+    <article class="prompt-card">
+      <div class="prompt-top">
+        <div>
+          <div class="prompt-number">Buyer Intent 21</div>
+          <h3>Risk Evaluation</h3>
+        </div>
+        <span class="gold-chip">BUYER INTENT</span>
+      </div>
+      <p>Identify purchase-specific financial, implementation, opportunity, switching, or time risks.</p>
+      <textarea class="prompt-textarea" readonly>Using only the offer context loaded earlier in this conversation, run a Risk Evaluation analysis.
+
+Identify purchase-specific financial, implementation, opportunity, switching, or time risks.
+
+Focus solely on buyer intent and the purchase decision. Don&#x27;t drift into general audience pain points, frustrations, demographics, or broad persona research. Don&#x27;t invent facts, proof, pricing, testimonials, guarantees, scarcity, bonuses, results, features, or claims that weren&#x27;t supplied.
+
+Return 7 discoveries. For each use:
+DISCOVERY TITLE
+Buyer Intent: The specific purchase-related discovery.
+Why It Matters To The Purchase: Why it can affect the buying decision.
+Promotional Opportunity: How the loaded offer can legitimately connect to this discovery.
+
+Make every discovery specific enough to copy into a promotional content creator later in this same chat.</textarea>
+      <div class="prompt-actions">
+        <button class="prompt-copy-btn">Copy Prompt</button>
+      </div>
+    </article>
+    <article class="prompt-card">
+      <div class="prompt-top">
+        <div>
+          <div class="prompt-number">Buyer Intent 22</div>
+          <h3>Risk Reversal</h3>
+        </div>
+        <span class="gold-chip">BUYER INTENT</span>
+      </div>
+      <p>Identify legitimate supplied elements that reduce perceived purchase risk.</p>
+      <textarea class="prompt-textarea" readonly>Using only the offer context loaded earlier in this conversation, run a Risk Reversal analysis.
+
+Identify legitimate supplied elements that reduce perceived purchase risk.
+
+Focus solely on buyer intent and the purchase decision. Don&#x27;t drift into general audience pain points, frustrations, demographics, or broad persona research. Don&#x27;t invent facts, proof, pricing, testimonials, guarantees, scarcity, bonuses, results, features, or claims that weren&#x27;t supplied.
+
+Return 7 discoveries. For each use:
+DISCOVERY TITLE
+Buyer Intent: The specific purchase-related discovery.
+Why It Matters To The Purchase: Why it can affect the buying decision.
+Promotional Opportunity: How the loaded offer can legitimately connect to this discovery.
+
+Make every discovery specific enough to copy into a promotional content creator later in this same chat.</textarea>
+      <div class="prompt-actions">
+        <button class="prompt-copy-btn">Copy Prompt</button>
+      </div>
+    </article>
+    <article class="prompt-card">
+      <div class="prompt-top">
+        <div>
+          <div class="prompt-number">Buyer Intent 23</div>
+          <h3>Purchase Anxiety</h3>
+        </div>
+        <span class="gold-chip">BUYER INTENT</span>
+      </div>
+      <p>Identify uncertainty caused specifically by choosing and buying this offer.</p>
+      <textarea class="prompt-textarea" readonly>Using only the offer context loaded earlier in this conversation, run a Purchase Anxiety analysis.
+
+Identify uncertainty caused specifically by choosing and buying this offer.
+
+Focus solely on buyer intent and the purchase decision. Don&#x27;t drift into general audience pain points, frustrations, demographics, or broad persona research. Don&#x27;t invent facts, proof, pricing, testimonials, guarantees, scarcity, bonuses, results, features, or claims that weren&#x27;t supplied.
+
+Return 7 discoveries. For each use:
+DISCOVERY TITLE
+Buyer Intent: The specific purchase-related discovery.
+Why It Matters To The Purchase: Why it can affect the buying decision.
+Promotional Opportunity: How the loaded offer can legitimately connect to this discovery.
+
+Make every discovery specific enough to copy into a promotional content creator later in this same chat.</textarea>
+      <div class="prompt-actions">
+        <button class="prompt-copy-btn">Copy Prompt</button>
+      </div>
+    </article>
+    <article class="prompt-card">
+      <div class="prompt-top">
+        <div>
+          <div class="prompt-number">Buyer Intent 24</div>
+          <h3>Certainty Requirement</h3>
+        </div>
+        <span class="gold-chip">BUYER INTENT</span>
+      </div>
+      <p>Find what buyers need to understand, see, or verify to feel confident purchasing.</p>
+      <textarea class="prompt-textarea" readonly>Using only the offer context loaded earlier in this conversation, run a Certainty Requirement analysis.
+
+Find what buyers need to understand, see, or verify to feel confident purchasing.
+
+Focus solely on buyer intent and the purchase decision. Don&#x27;t drift into general audience pain points, frustrations, demographics, or broad persona research. Don&#x27;t invent facts, proof, pricing, testimonials, guarantees, scarcity, bonuses, results, features, or claims that weren&#x27;t supplied.
+
+Return 7 discoveries. For each use:
+DISCOVERY TITLE
+Buyer Intent: The specific purchase-related discovery.
+Why It Matters To The Purchase: Why it can affect the buying decision.
+Promotional Opportunity: How the loaded offer can legitimately connect to this discovery.
+
+Make every discovery specific enough to copy into a promotional content creator later in this same chat.</textarea>
+      <div class="prompt-actions">
+        <button class="prompt-copy-btn">Copy Prompt</button>
+      </div>
+    </article>
+    <article class="prompt-card">
+      <div class="prompt-top">
+        <div>
+          <div class="prompt-number">Buyer Intent 25</div>
+          <h3>Price Evaluation</h3>
+        </div>
+        <span class="gold-chip">BUYER INTENT</span>
+      </div>
+      <p>Analyze how buyers may evaluate the stated price against supported value and alternatives.</p>
+      <textarea class="prompt-textarea" readonly>Using only the offer context loaded earlier in this conversation, run a Price Evaluation analysis.
+
+Analyze how buyers may evaluate the stated price against supported value and alternatives.
+
+Focus solely on buyer intent and the purchase decision. Don&#x27;t drift into general audience pain points, frustrations, demographics, or broad persona research. Don&#x27;t invent facts, proof, pricing, testimonials, guarantees, scarcity, bonuses, results, features, or claims that weren&#x27;t supplied.
+
+Return 7 discoveries. For each use:
+DISCOVERY TITLE
+Buyer Intent: The specific purchase-related discovery.
+Why It Matters To The Purchase: Why it can affect the buying decision.
+Promotional Opportunity: How the loaded offer can legitimately connect to this discovery.
+
+Make every discovery specific enough to copy into a promotional content creator later in this same chat.</textarea>
+      <div class="prompt-actions">
+        <button class="prompt-copy-btn">Copy Prompt</button>
+      </div>
+    </article>
+    <article class="prompt-card">
+      <div class="prompt-top">
+        <div>
+          <div class="prompt-number">Buyer Intent 26</div>
+          <h3>Price Justification</h3>
+        </div>
+        <span class="gold-chip">BUYER INTENT</span>
+      </div>
+      <p>Find legitimate ways buyers can rationally justify the stated price.</p>
+      <textarea class="prompt-textarea" readonly>Using only the offer context loaded earlier in this conversation, run a Price Justification analysis.
+
+Find legitimate ways buyers can rationally justify the stated price.
+
+Focus solely on buyer intent and the purchase decision. Don&#x27;t drift into general audience pain points, frustrations, demographics, or broad persona research. Don&#x27;t invent facts, proof, pricing, testimonials, guarantees, scarcity, bonuses, results, features, or claims that weren&#x27;t supplied.
+
+Return 7 discoveries. For each use:
+DISCOVERY TITLE
+Buyer Intent: The specific purchase-related discovery.
+Why It Matters To The Purchase: Why it can affect the buying decision.
+Promotional Opportunity: How the loaded offer can legitimately connect to this discovery.
+
+Make every discovery specific enough to copy into a promotional content creator later in this same chat.</textarea>
+      <div class="prompt-actions">
+        <button class="prompt-copy-btn">Copy Prompt</button>
+      </div>
+    </article>
+    <article class="prompt-card">
+      <div class="prompt-top">
+        <div>
+          <div class="prompt-number">Buyer Intent 27</div>
+          <h3>Budget Justification</h3>
+        </div>
+        <span class="gold-chip">BUYER INTENT</span>
+      </div>
+      <p>Find what could make this expenditure take priority over other uses of money.</p>
+      <textarea class="prompt-textarea" readonly>Using only the offer context loaded earlier in this conversation, run a Budget Justification analysis.
+
+Find what could make this expenditure take priority over other uses of money.
+
+Focus solely on buyer intent and the purchase decision. Don&#x27;t drift into general audience pain points, frustrations, demographics, or broad persona research. Don&#x27;t invent facts, proof, pricing, testimonials, guarantees, scarcity, bonuses, results, features, or claims that weren&#x27;t supplied.
+
+Return 7 discoveries. For each use:
+DISCOVERY TITLE
+Buyer Intent: The specific purchase-related discovery.
+Why It Matters To The Purchase: Why it can affect the buying decision.
+Promotional Opportunity: How the loaded offer can legitimately connect to this discovery.
+
+Make every discovery specific enough to copy into a promotional content creator later in this same chat.</textarea>
+      <div class="prompt-actions">
+        <button class="prompt-copy-btn">Copy Prompt</button>
+      </div>
+    </article>
+    <article class="prompt-card">
+      <div class="prompt-top">
+        <div>
+          <div class="prompt-number">Buyer Intent 28</div>
+          <h3>Value Evidence</h3>
+        </div>
+        <span class="gold-chip">BUYER INTENT</span>
+      </div>
+      <p>Identify supplied elements providing the strongest concrete evidence of value.</p>
+      <textarea class="prompt-textarea" readonly>Using only the offer context loaded earlier in this conversation, run a Value Evidence analysis.
+
+Identify supplied elements providing the strongest concrete evidence of value.
+
+Focus solely on buyer intent and the purchase decision. Don&#x27;t drift into general audience pain points, frustrations, demographics, or broad persona research. Don&#x27;t invent facts, proof, pricing, testimonials, guarantees, scarcity, bonuses, results, features, or claims that weren&#x27;t supplied.
+
+Return 7 discoveries. For each use:
+DISCOVERY TITLE
+Buyer Intent: The specific purchase-related discovery.
+Why It Matters To The Purchase: Why it can affect the buying decision.
+Promotional Opportunity: How the loaded offer can legitimately connect to this discovery.
+
+Make every discovery specific enough to copy into a promotional content creator later in this same chat.</textarea>
+      <div class="prompt-actions">
+        <button class="prompt-copy-btn">Copy Prompt</button>
+      </div>
+    </article>
+    <article class="prompt-card">
+      <div class="prompt-top">
+        <div>
+          <div class="prompt-number">Buyer Intent 29</div>
+          <h3>Purchase Language</h3>
+        </div>
+        <span class="gold-chip">BUYER INTENT</span>
+      </div>
+      <p>Generate high-intent questions, comparisons, phrases, and searches used near purchase.</p>
+      <textarea class="prompt-textarea" readonly>Using only the offer context loaded earlier in this conversation, run a Purchase Language analysis.
+
+Generate high-intent questions, comparisons, phrases, and searches used near purchase.
+
+Focus solely on buyer intent and the purchase decision. Don&#x27;t drift into general audience pain points, frustrations, demographics, or broad persona research. Don&#x27;t invent facts, proof, pricing, testimonials, guarantees, scarcity, bonuses, results, features, or claims that weren&#x27;t supplied.
+
+Return 7 discoveries. For each use:
+DISCOVERY TITLE
+Buyer Intent: The specific purchase-related discovery.
+Why It Matters To The Purchase: Why it can affect the buying decision.
+Promotional Opportunity: How the loaded offer can legitimately connect to this discovery.
+
+Make every discovery specific enough to copy into a promotional content creator later in this same chat.</textarea>
+      <div class="prompt-actions">
+        <button class="prompt-copy-btn">Copy Prompt</button>
+      </div>
+    </article>
+    <article class="prompt-card">
+      <div class="prompt-top">
+        <div>
+          <div class="prompt-number">Buyer Intent 30</div>
+          <h3>Conversion Opportunity</h3>
+        </div>
+        <span class="gold-chip">BUYER INTENT</span>
+      </div>
+      <p>Find promotional angles where this offer intersects with strong purchase intent.</p>
+      <textarea class="prompt-textarea" readonly>Using only the offer context loaded earlier in this conversation, run a Conversion Opportunity analysis.
+
+Find promotional angles where this offer intersects with strong purchase intent.
+
+Focus solely on buyer intent and the purchase decision. Don&#x27;t drift into general audience pain points, frustrations, demographics, or broad persona research. Don&#x27;t invent facts, proof, pricing, testimonials, guarantees, scarcity, bonuses, results, features, or claims that weren&#x27;t supplied.
+
+Return 7 discoveries. For each use:
+DISCOVERY TITLE
+Buyer Intent: The specific purchase-related discovery.
+Why It Matters To The Purchase: Why it can affect the buying decision.
+Promotional Opportunity: How the loaded offer can legitimately connect to this discovery.
+
+Make every discovery specific enough to copy into a promotional content creator later in this same chat.</textarea>
+      <div class="prompt-actions">
+        <button class="prompt-copy-btn">Copy Prompt</button>
+      </div>
+    </article>
+</div>
+</section>
+
+<section class="creator-section">
+<div class="category-header">
+<div class="category-number">✓</div>
+<div class="category-title"><h2>Promotional Creators</h2><p>Paste any discovery from the prompts above and build the next prompt.</p></div>
+</div>
+
+    <div class="traffic-panel creator-panel">
+      <div class="section-eyebrow">PROMOTIONAL CREATOR</div>
+      <h2>Social Posts</h2>
+      <p>Paste any Buyer Bank discovery below.</p>
+      <textarea class="creator-input" placeholder="Paste any Buyer Bank discovery here..."></textarea>
+      <div class="traffic-actions one">
+        <button class="traffic-btn creator-build" data-i="Create 5 promotional social posts">Build &amp; Copy Prompt</button>
+        <a class="ai-open-btn" href="https://chatgpt.com/" target="_blank" rel="noopener noreferrer">ChatGPT</a>
+        <a class="ai-open-btn" href="https://claude.ai/new" target="_blank" rel="noopener noreferrer">Claude</a>
+        <a class="ai-open-btn" href="https://gemini.google.com/app" target="_blank" rel="noopener noreferrer">Gemini</a>
+        <a class="ai-open-btn" href="https://grok.com/" target="_blank" rel="noopener noreferrer">Grok</a>
+        <button class="clear-btn creator-clear" type="button">Clear All</button>
+      </div>
+    </div>
+    <div class="traffic-panel creator-panel">
+      <div class="section-eyebrow">PROMOTIONAL CREATOR</div>
+      <h2>Blog Post</h2>
+      <p>Paste any Buyer Bank discovery below.</p>
+      <textarea class="creator-input" placeholder="Paste any Buyer Bank discovery here..."></textarea>
+      <div class="traffic-actions one">
+        <button class="traffic-btn creator-build" data-i="Create a 1,000 to 1,500 word promotional blog post">Build &amp; Copy Prompt</button>
+        <a class="ai-open-btn" href="https://chatgpt.com/" target="_blank" rel="noopener noreferrer">ChatGPT</a>
+        <a class="ai-open-btn" href="https://claude.ai/new" target="_blank" rel="noopener noreferrer">Claude</a>
+        <a class="ai-open-btn" href="https://gemini.google.com/app" target="_blank" rel="noopener noreferrer">Gemini</a>
+        <a class="ai-open-btn" href="https://grok.com/" target="_blank" rel="noopener noreferrer">Grok</a>
+        <button class="clear-btn creator-clear" type="button">Clear All</button>
+      </div>
+    </div>
+    <div class="traffic-panel creator-panel">
+      <div class="section-eyebrow">PROMOTIONAL CREATOR</div>
+      <h2>Promotional Emails</h2>
+      <p>Paste any Buyer Bank discovery below.</p>
+      <textarea class="creator-input" placeholder="Paste any Buyer Bank discovery here..."></textarea>
+      <div class="traffic-actions one">
+        <button class="traffic-btn creator-build" data-i="Create 3 promotional emails: direct, educational, and decision-focused">Build &amp; Copy Prompt</button>
+        <a class="ai-open-btn" href="https://chatgpt.com/" target="_blank" rel="noopener noreferrer">ChatGPT</a>
+        <a class="ai-open-btn" href="https://claude.ai/new" target="_blank" rel="noopener noreferrer">Claude</a>
+        <a class="ai-open-btn" href="https://gemini.google.com/app" target="_blank" rel="noopener noreferrer">Gemini</a>
+        <a class="ai-open-btn" href="https://grok.com/" target="_blank" rel="noopener noreferrer">Grok</a>
+        <button class="clear-btn creator-clear" type="button">Clear All</button>
+      </div>
+    </div>
+    <div class="traffic-panel creator-panel">
+      <div class="section-eyebrow">PROMOTIONAL CREATOR</div>
+      <h2>Social Image</h2>
+      <p>Paste any Buyer Bank discovery below.</p>
+      <textarea class="creator-input" placeholder="Paste any Buyer Bank discovery here..."></textarea>
+      <div class="traffic-actions one">
+        <button class="traffic-btn creator-build" data-i="Create an image concept, overlay copy, visual direction, and image-generation prompt">Build &amp; Copy Prompt</button>
+        <a class="ai-open-btn" href="https://chatgpt.com/" target="_blank" rel="noopener noreferrer">ChatGPT</a>
+        <a class="ai-open-btn" href="https://claude.ai/new" target="_blank" rel="noopener noreferrer">Claude</a>
+        <a class="ai-open-btn" href="https://gemini.google.com/app" target="_blank" rel="noopener noreferrer">Gemini</a>
+        <a class="ai-open-btn" href="https://grok.com/" target="_blank" rel="noopener noreferrer">Grok</a>
+        <button class="clear-btn creator-clear" type="button">Clear All</button>
+      </div>
+    </div>
+    <div class="traffic-panel creator-panel">
+      <div class="section-eyebrow">PROMOTIONAL CREATOR</div>
+      <h2>Pinterest Pin</h2>
+      <p>Paste any Buyer Bank discovery below.</p>
+      <textarea class="creator-input" placeholder="Paste any Buyer Bank discovery here..."></textarea>
+      <div class="traffic-actions one">
+        <button class="traffic-btn creator-build" data-i="Create a pin headline, supporting copy, description, visual concept, and image-generation prompt">Build &amp; Copy Prompt</button>
+        <a class="ai-open-btn" href="https://chatgpt.com/" target="_blank" rel="noopener noreferrer">ChatGPT</a>
+        <a class="ai-open-btn" href="https://claude.ai/new" target="_blank" rel="noopener noreferrer">Claude</a>
+        <a class="ai-open-btn" href="https://gemini.google.com/app" target="_blank" rel="noopener noreferrer">Gemini</a>
+        <a class="ai-open-btn" href="https://grok.com/" target="_blank" rel="noopener noreferrer">Grok</a>
+        <button class="clear-btn creator-clear" type="button">Clear All</button>
+      </div>
+    </div>
+    <div class="traffic-panel creator-panel">
+      <div class="section-eyebrow">PROMOTIONAL CREATOR</div>
+      <h2>Video Script</h2>
+      <p>Paste any Buyer Bank discovery below.</p>
+      <textarea class="creator-input" placeholder="Paste any Buyer Bank discovery here..."></textarea>
+      <div class="traffic-actions one">
+        <button class="traffic-btn creator-build" data-i="Create a 30 to 60 second script and a 2 to 5 minute script">Build &amp; Copy Prompt</button>
+        <a class="ai-open-btn" href="https://chatgpt.com/" target="_blank" rel="noopener noreferrer">ChatGPT</a>
+        <a class="ai-open-btn" href="https://claude.ai/new" target="_blank" rel="noopener noreferrer">Claude</a>
+        <a class="ai-open-btn" href="https://gemini.google.com/app" target="_blank" rel="noopener noreferrer">Gemini</a>
+        <a class="ai-open-btn" href="https://grok.com/" target="_blank" rel="noopener noreferrer">Grok</a>
+        <button class="clear-btn creator-clear" type="button">Clear All</button>
+      </div>
+    </div>
+</section>
+
+<div class="footer-note">Copyright &copy; <script>document.write(new Date().getFullYear())</script> Siva Prasad Mukherjee. All Rights Reserved.</div>
+</div><div class="toast" id="toast">Copied to clipboard</div><script>
+const toast=document.getElementById('toast');
+function showToast(){toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),1200)}
+async function copyText(t){await navigator.clipboard.writeText(t);showToast()}
+document.getElementById('copySetup').addEventListener('click',()=>copyText(document.getElementById('setupPrompt').value));
+document.querySelectorAll('.prompt-copy-btn').forEach(btn=>{
+ btn.addEventListener('click',()=>copyText(btn.closest('.prompt-card').querySelector('.prompt-textarea').value));
+});
+document.querySelectorAll('.creator-build').forEach(btn=>{
+ btn.addEventListener('click',()=>{
+   const box=btn.closest('.creator-panel').querySelector('.creator-input');
+   const x=box.value.trim();
+   if(!x){alert('Paste a buyer-intent discovery first.');return;}
+   const q=`Using the offer context already loaded earlier in this same conversation and the buyer-intent discovery below, ${btn.dataset.i}. Naturally connect the material to the loaded offer. Keep every factual claim grounded in the supplied offer context. Don't invent proof, pricing, results, scarcity, testimonials, guarantees, features, bonuses, or other facts.\n\nBUYER-INTENT DISCOVERY:\n${x}`;
+   copyText(q);
+ });
+});
+
+document.getElementById('clearAll').addEventListener('click',()=>{document.querySelectorAll('.creator-input').forEach(box=>box.value='');showToastMessage('Cleared')});
+document.querySelectorAll('.creator-clear').forEach(btn=>{btn.addEventListener('click',()=>{const box=btn.closest('.creator-panel').querySelector('.creator-input');if(box)box.value='';showToastMessage('Cleared')})});
+function showToastMessage(message){const original=toast.textContent;toast.textContent=message;showToast();setTimeout(()=>{toast.textContent=original},1300)}
+</script></body></html>

@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>ClickBaiter | 30 Techniques, 5 Ideas Each</title><style>
+:root{--bg:#ffffff;--panel:#ffffff;--panel2:#f6f6ff;--pink:#f000a8;--cyan:#00a9cf;--violet:#6a35df;--ink:#141322;--muted:#626477;--stroke:#dfe1ee;--light:#f8f9ff;--black:#151225}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#fff;color:var(--ink);font:15px/1.56 'Segoe UI',Arial,sans-serif}
+.wrapper{max-width:1120px;margin:0 auto;padding:0 24px 68px}.topbar{display:flex;align-items:center;justify-content:space-between;padding:22px 0;gap:18px;border-bottom:2px solid var(--black)}
+.wordmark{font-size:25px;font-weight:950;letter-spacing:-1.5px;color:var(--black);text-transform:uppercase}.wordmark span{color:var(--pink)}.top-links{display:flex;gap:20px;flex-wrap:wrap}.top-links a{color:var(--ink);font-weight:850;font-size:12px;text-decoration:none;text-transform:uppercase;letter-spacing:.6px}.top-links a:hover{color:var(--pink)}
+.hero{position:relative;display:grid;grid-template-columns:1fr 235px;gap:35px;align-items:center;padding:55px 28px 58px;margin:24px 0 42px;background:linear-gradient(110deg,#fff 0%,#fff 65%,#f8f5ff 100%);border:2px solid var(--black);box-shadow:9px 9px 0 #e9ddff;overflow:hidden}
+.hero:before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(0,170,209,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(0,170,209,.055) 1px,transparent 1px);background-size:29px 29px;pointer-events:none}.hero:after{content:'';position:absolute;height:7px;bottom:0;left:0;right:0;background:linear-gradient(90deg,var(--pink) 0% 52%,var(--cyan) 52% 82%,var(--violet) 82%)}.hero>*{position:relative;z-index:1}.hero-logo{display:none}
+.section-eyebrow{font-size:11px;font-weight:950;letter-spacing:1.5px;color:var(--violet);text-transform:uppercase}.hero .section-eyebrow{display:inline-block;padding:7px 12px;border:1px solid var(--pink);background:#fff0fa;color:#c10084;transform:skew(-6deg)}
+.hero h1{font-size:clamp(38px,5vw,61px);letter-spacing:-2.8px;line-height:1.06;margin:19px 0 16px;max-width:760px;text-transform:uppercase;font-weight:950;color:var(--black)}.hero h1 em{color:var(--pink);font-style:normal}.hero-sub{font-size:17px;color:#4f5064;max-width:640px;margin:0;line-height:1.55}.hero-display{height:218px;border:2px solid var(--black);background:linear-gradient(145deg,#fff,#f4f8ff);box-shadow:7px 7px 0 var(--cyan);display:flex;align-items:center;justify-content:center;flex-direction:column;position:relative;overflow:hidden}.hero-display:before,.hero-display:after{content:'';position:absolute;width:190px;height:190px;border:2px solid #e3beff;transform:rotate(45deg)}.hero-display:after{width:124px;height:124px;border-color:#a8e9fa;transform:rotate(45deg)}.hero-display .mega{font-size:96px;line-height:1;color:var(--pink);text-shadow:3px 3px 0 #111;letter-spacing:-7px;font-weight:950;z-index:1}.hero-display .mega-label{font-size:11px;font-weight:950;letter-spacing:2px;color:var(--black);z-index:1;text-align:center}
+.step-header{display:flex;align-items:center;gap:14px;margin:0 0 19px}.step-n{background:var(--black);color:#fff;font-size:14px;font-weight:950;padding:10px 13px;min-width:46px;text-align:center;box-shadow:4px 4px 0 var(--cyan)}.step-header h2{margin:0;font-size:26px;letter-spacing:-.8px;color:var(--ink)}.step-header p{margin:2px 0 0;color:var(--muted);font-size:13px}
+.context-panel{margin:36px 0 55px;padding:28px 30px;background:#fff;border:2px solid var(--black);box-shadow:7px 7px 0 #ebdafa}.context-panel h2,.selection-panel h2,.creator-panel h2{font-size:25px;margin:7px 0 9px;letter-spacing:-.7px;color:var(--black)}.context-panel p,.selection-panel p,.creator-panel p{color:var(--muted);margin:0 0 17px}
+.setup-prompt{width:100%;min-height:190px;resize:vertical;background:#f9faff;border:1px solid #cdd2e2;color:#292637;padding:17px;font:13px/1.6 Consolas,monospace;outline:none}.setup-prompt:focus,#selectedIdea:focus,.inline-output-textarea:focus,.prompt-textarea:focus{border-color:var(--pink);box-shadow:0 0 0 3px #f000a820}
+.context-actions,.ai-action-row{display:flex;align-items:center;flex-wrap:wrap;gap:9px;margin-top:13px}.primary-btn,.prompt-copy-btn,.traffic-btn,.selection-actions button{border:2px solid var(--black);background:var(--pink);color:#fff;font-weight:900;font-size:13px;padding:12px 17px;cursor:pointer;min-height:44px;box-shadow:3px 3px 0 var(--black);transition:.12s}.primary-btn:hover,.prompt-copy-btn:hover,.traffic-btn:hover,.selection-actions button:hover{background:var(--violet);transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--black)}.ai-open-btn{background:#fff;color:var(--black);text-decoration:none;border:1px solid #bcbdd1;display:inline-flex;align-items:center;justify-content:center;font-size:12px;font-weight:850;padding:11px 13px;min-height:43px}.ai-open-btn:hover{border-color:var(--cyan);background:#e9fbff;color:#075b6b}.clear-btn{min-height:43px;background:#fff;color:#b00078;border:1px solid #e8a4d0;cursor:pointer;padding:11px 14px;font-weight:800;font-size:12px}.clear-btn:hover{background:#fff0fa}
+.category{margin:0 0 62px}.category-header{display:none}.technique-intro{margin-bottom:17px}.technique-intro h2{font-size:32px;letter-spacing:-1px;margin:5px 0;color:var(--black);text-transform:uppercase}.technique-intro p{color:var(--muted);margin:0}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0}.filter-btn{border:1px solid #c6cadd;background:#fff;color:#333344;padding:10px 14px;font-size:12px;font-weight:850;cursor:pointer;text-transform:uppercase;letter-spacing:.3px}.filter-btn.active,.filter-btn:hover{border-color:var(--black);background:var(--black);color:#fff;box-shadow:3px 3px 0 var(--cyan)}
+.prompt-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;align-items:stretch}.prompt-card{background:#fff;border:1px solid #d9d9e8;border-top:4px solid var(--violet);padding:19px;display:flex;flex-direction:column;min-height:222px;transition:box-shadow .16s,transform .16s}.prompt-card:nth-child(3n+2){border-top-color:var(--pink)}.prompt-card:nth-child(3n+3){border-top-color:var(--cyan)}.prompt-card:hover{border-color:var(--black);box-shadow:5px 5px 0 #e8eaff;transform:translateY(-2px)}.prompt-card[hidden]{display:none}.prompt-top{display:flex;align-items:flex-start;gap:13px}.tech-index{display:flex;width:42px;height:42px;flex:none;background:#f6edff;border:1px solid #dac8ff;color:var(--violet);font-weight:950;font-size:18px;align-items:center;justify-content:center;clip-path:polygon(0 0,100% 0,100% 80%,80% 100%,0 100%)}.prompt-number{font-size:10px;letter-spacing:1.2px;color:var(--violet);text-transform:uppercase;font-weight:900}.prompt-card h3{color:var(--black);font-size:18px;line-height:1.25;margin:4px 0 0;letter-spacing:-.35px}.prompt-card p{color:var(--muted);font-size:13px;line-height:1.5;margin:14px 0;flex:1}.prompt-actions{display:flex;gap:8px;margin-top:auto}.prompt-copy-btn{width:100%;background:var(--black);color:#fff;border:1px solid var(--black);box-shadow:none}.prompt-copy-btn:hover{background:var(--pink);color:#fff;box-shadow:3px 3px 0 #eac2e6}
+.prompt-details{margin:13px 0 10px;border-top:1px solid var(--stroke);padding-top:10px}.prompt-details summary{cursor:pointer;color:var(--violet);font-size:12px;font-weight:850;padding:5px 0;list-style:none}.prompt-details summary:before{content:'＋ ';color:var(--pink)}.prompt-details[open] summary:before{content:'－ '}.prompt-textarea{width:100%;min-height:305px;resize:vertical;background:#f8f9ff;border:1px solid #c9cede;padding:12px;color:#242336;font:12px/1.6 Consolas,monospace;margin-top:8px;outline:none}
+.creator-section{margin-top:45px}.creator-layout{display:grid;grid-template-columns:335px minmax(0,1fr);gap:19px;align-items:start}.selection-panel{background:#f9f7ff;border:2px solid var(--black);padding:23px;position:sticky;top:15px;box-shadow:5px 5px 0 #dbd1ff}.selection-panel textarea{width:100%;min-height:235px;resize:vertical;background:#fff;color:#242336;border:1px solid #c7c7db;padding:14px;font:13px/1.55 Arial,sans-serif;outline:none}.selection-actions{margin-top:12px}.selection-actions button{width:100%;background:white;color:var(--violet);border:1px solid var(--violet);box-shadow:none}.selection-actions button:hover{background:#f0e9ff;color:var(--black);box-shadow:none}
+.creator-panel{margin:0;background:#fff;border:2px solid var(--black);padding:24px;box-shadow:5px 5px 0 #d6f5fc}.content-button-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:21px 0}.content-button-grid .traffic-btn{background:#fff;color:var(--black);border:1px solid #bfc2d8;box-shadow:none;text-align:left;padding:16px;min-height:65px;font-size:13px}.content-button-grid .traffic-btn:hover{background:#f7ecff;color:var(--black);border-color:var(--violet);box-shadow:3px 3px 0 var(--cyan)}
+.inline-output{margin-top:24px;padding:20px;background:#f7f8ff;border:1px solid #cfd4e4;border-left:4px solid var(--pink)}.inline-output[hidden]{display:none!important}.inline-output h3{font-size:19px;color:var(--black);margin:0 0 5px}.inline-output p{font-size:13px;color:var(--muted);margin:0 0 12px}.inline-output-textarea{width:100%;min-height:270px;resize:vertical;background:#fff;border:1px solid #c6cadc;color:var(--black);padding:14px;font:13px/1.6 Consolas,monospace;outline:none}.inline-output-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:11px}.inline-output-actions .prompt-copy-btn{width:auto;background:var(--pink);color:white;border:1px solid var(--black)}
+.footer-note{text-align:center;margin-top:60px;color:var(--muted);font-size:13px}.footer-note a{color:var(--violet);font-weight:800}.toast{position:fixed;right:20px;bottom:20px;color:white;background:var(--black);border-bottom:4px solid var(--cyan);padding:14px 20px;font-weight:850;opacity:0;pointer-events:none;z-index:500;transition:.2s}.toast.show{opacity:1}
+@media(max-width:990px){.prompt-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.creator-layout{grid-template-columns:290px minmax(0,1fr)}}@media(max-width:710px){.wrapper{padding:0 16px 45px}.hero{grid-template-columns:1fr;padding:36px 22px}.hero-display{display:none}.top-links{gap:10px}.top-links a{font-size:11px}.prompt-grid,.creator-layout{grid-template-columns:1fr}.selection-panel{position:static}.content-button-grid{grid-template-columns:1fr}.context-panel,.selection-panel,.creator-panel{padding:19px}.hero h1{letter-spacing:-1.5px}.prompt-card{min-height:unset}}
+.brand-logo{display:block;width:100%;max-width:325px;height:auto;object-fit:contain;flex:0 1 325px}.topbar{min-height:112px}@media(max-width:710px){.topbar{flex-wrap:wrap;justify-content:center;gap:8px;padding:14px 0}.brand-logo{max-width:300px;flex-basis:300px}.top-links{justify-content:center}}</style></head><body><div class="wrapper"><nav class="topbar">
+
+<div class="top-links"><a href="#load-offer">Load Offer</a><a href="#techniques">30 Techniques</a><a href="#create-content">Create Content</a></div></nav>
+<section class="context-panel" id="load-offer"><div class="section-eyebrow">STEP 1 · LOAD YOUR OFFER</div><h2>Load Your Offer</h2><p>Copy this setup prompt into your preferred AI chat, then paste your product or the affiliate offer you're promoting in that same chat.</p><textarea class="setup-prompt" id="setupPrompt" readonly="">We are using this ONE AI chat as the working environment for promoting one specific offer. The offer I provide next becomes the MASTER OFFER CONTEXT. It is source material for generating ideas and fact-checking promotions, not the main creative instruction once I select an idea.
+
+I may provide my own product or someone else's product that I'm promoting as an affiliate. Read the supplied offer description, sales material, or URL carefully. Identify what is being sold, who it is for, its actual deliverables, supported benefits, mechanism, features, proof, price, guarantees and terms, when explicitly provided. Then build a BUYER-OUTCOME MAP: the actual frustrations, desired improvements, everyday situations, decisions and meaningful advantages that the offer is relevant to. Separate confirmed offer facts from reasonable buyer motivations and keep missing information marked as unknown. Don't invent unsupported facts.
+
+If I supply a URL, attempt to access it. If you cannot access it reliably, tell me and ask me to paste the relevant sales content. Never claim you reviewed a URL you could not retrieve.
+
+For the 30 technique prompts, use the BUYER-OUTCOME MAP and verified offer details to generate five distinct promotional ideas. These are ideas for PUBLIC-FACING content that ordinary prospective buyers would care about, not articles about the software, its features, the sales page, how the prompts work, or instructions inside the offer. A marketer or an affiliate should be able to publish the resulting content to attract potential buyers who have never heard of the product. Each idea will contain an Idea title, Click Hook, Click Payoff, and Offer Connection. When I later paste ONE selected idea into a content creator, treat THAT SELECTED IDEA as the primary creative brief: its hook drives the opening, its payoff drives the substance, and its offer connection drives the transition. Consult this earlier offer only to verify facts or fill in relevant accurate details. Do not switch back to a generic promotion of the offer. No fake claims, fake scarcity, invented testimonials, or invented first-hand experience. If the offer is not a good match for a certain hook, select a more relevant buyer-facing premise. A hook must create intrigue or felt relevance before the product is mentioned. Product mechanics belong primarily in Offer Connection, not in the headline or Click Payoff. Write in clear, natural language.
+
+Do not generate any click-worthy ideas until I choose a technique prompt after supplying the offer. For now your next reply must ask exactly:
+"Paste the sales copy or description for the offer you're promoting. You can also provide its URL."</textarea><div class="context-actions ai-action-row"><button class="primary-btn" id="copySetup" type="button">Copy Setup Prompt</button><a class="ai-open-btn" href="https://chatgpt.com/" rel="noopener noreferrer" target="_blank">Open ChatGPT</a><a class="ai-open-btn" href="https://claude.ai/new" rel="noopener noreferrer" target="_blank">Open Claude</a><a class="ai-open-btn" href="https://gemini.google.com/app" rel="noopener noreferrer" target="_blank">Open Gemini</a><a class="ai-open-btn" href="https://grok.com/" rel="noopener noreferrer" target="_blank">Open Grok</a><button class="clear-btn" id="clearAll" type="button">Clear All</button></div></section>
+<section class="category" id="techniques"><div class="technique-intro"><div class="section-eyebrow">STEP 2 / FIND YOUR CLICK</div><h2>30 Click-Worthy Techniques</h2><p>Pick a technique, copy its prompt, and generate 5 different ideas tied to your loaded offer.</p></div><div aria-label="Filter techniques" class="filters"><button class="filter-btn active" data-group="0" type="button">All 30</button><button class="filter-btn" data-group="1" type="button">Curiosity</button><button class="filter-btn" data-group="2" type="button">Surprise</button><button class="filter-btn" data-group="3" type="button">Decisions</button><button class="filter-btn" data-group="4" type="button">Reframes</button><button class="filter-btn" data-group="5" type="button">Provocation</button></div><div class="prompt-grid"><article class="prompt-card" data-group="1"><div class="prompt-top"><div class="tech-index">01</div><div><div class="prompt-number">TECHNIQUE / 01</div><h3>The Missing Answer</h3></div></div><p>Withhold the answer to one highly relevant, specific question until the promotion delivers it. The missing answer must be something the loaded offer can genuinely illuminate.</p><details class="prompt-details"><summary>View full prompt</summary><textarea class="prompt-textarea" readonly="">Use the offer details previously loaded in THIS AI conversation. You are creating PUBLIC-FACING promotional IDEAS for people who might buy the offer, not commentary ABOUT its design. The marketer may own the offer or promote it as an affiliate. Do not mention any prompt-dashboard brand or technique name in your output.
+
+TECHNIQUE 01: The Missing Answer
+UNIQUE IDEA ENGINE: Build a high-stakes unanswered question around the buyer's real frustration or desired result. The answer must reveal a useful consumer-facing insight, NOT the product's internal design. Ask a question buyers would independently care about before seeing the offer.
+HOOK PATTERN: Question-withheld headline.
+
+BEFORE WRITING, SILENTLY:
+1. Identify the buyer's actual everyday frustrations, decisions, desires, aspirations, common experiences and specific outcomes this offer could credibly help with.
+2. Identify confirmed facts about the offer and keep them separate from plausible buyer motivations. Mark missing proof as unknown; do not make up evidence.
+3. Find five genuinely distinct BUYER-FACING premises that apply this technique. Start with what readers care about, NOT product features, tool settings or internal implementation.
+
+GENERATE EXACTLY FIVE FINISHED CLICK-WORTHY PROMOTIONAL IDEAS. Each must focus on a DIFFERENT buyer problem, desire, situation, decision, useful revelation or outcome. These are concepts for ads, articles, videos and social posts that could attract an audience unfamiliar with the offer. Favor specific relatable situations and strong, surprising, emotional but truthful insights. The hook should generally be 6-16 words and sound like something a real person would say.
+
+FOR EACH IDEA, OUTPUT EXACTLY:
+Idea [1-5]: [Short natural-language title of the PUBLIC-FACING content concept]
+Click Hook: [One compelling, publishable buyer-facing opening or headline using this technique]
+Click Payoff: [The concrete answer, useful shift, demonstration, explanation or insight that content will ACTUALLY deliver to the reader, understandable without seeing the product]
+Offer Connection: [One accurate, natural sentence connecting that payoff to the specific loaded offer without making the piece a feature tour]
+
+NON-NEGOTIABLE BUYER-FIRST FILTER:
+- Imagine a distracted stranger scrolling Facebook who has NEVER HEARD OF THE OFFER. Would they care enough to click? If not, rewrite the idea.
+- No software or prompt trivia posing as hooks: NO discussions of numbered lines, word limits, dashboard fields, prompts, setup steps, upload processes, CTA instructions, output counts, image dimensions, product features, software menus, or how AI processes a sales page. Those can be supporting details only when absolutely necessary to explain a buyer-facing payoff, never the central intrigue.
+- If the offer IS software, training, a prompt set or an AI tool, promote the REAL-WORLD JOB it helps buyers accomplish. A reader wants the result, NOT a tour of the machinery.
+- No generic platitudes, surface-level synonyms, interchangeable curiosity teasers or the same promised payoff repeated five times.
+- Click Payoff must REVEAL the promised insight and be valuable in the content itself. Do not keep withholding the answer or describe an outline like 'walk through the platform'.
+- Offer Connection must name the exact offer only when supported, say what it credibly helps buyers do, and must not claim new features or results.
+- Never invent studies, results, time savings, financial outcomes, prices, reviews, scarcity, endorsements, screenshots, product appearance or guarantees. No fake 'secret' or made-up controversy. Qualify uncertain general advice.
+- Be punchy, conversational, and relevant. Use natural capitalization, not ALL-CAPS headlines.
+- Do not explain the marketing technique to the end reader. Do not include instruction notes, quality checks or analysis in the final output.
+
+SILENT FINAL CHECK: For EVERY idea ask 'Does this make a potential customer curious about their own life, problem or desired outcome, or merely curious about the product's interface?' Reject product-interface ideas. Five ideas should feel like five publishable editorial directions, not five feature explanations.
+
+Finish with this one sentence: Choose ONE complete idea and paste it into the Selected Idea box to create your promotions.</textarea></details><div class="prompt-actions"><button class="prompt-copy-btn" type="button">Copy Prompt</button></div></article><article class="prompt-card" data-group="1"><div class="prompt-top"><div class="tech-index">02</div><div><div class="prompt-number">TECHNIQUE / 02</div><h3>The Unexpected Detail</h3></div></div><p>Spot an unusually specific, verifiable feature, step, inclusion, or use case buried in the offer and tease why it matters.</p><details class="prompt-details"><summary>View full prompt</summary><textarea class="prompt-textarea" readonly="">Use the offer details previously loaded in THIS AI conversation. You are creating PUBLIC-FACING promotional IDEAS for people who might buy the offer, not commentary ABOUT its design. The marketer may own the offer or promote it as an affiliate. Do not mention any prompt-dashboard brand or technique name in your output.
+
+TECHNIQUE 02: The Unexpected Detail
+UNIQUE IDEA ENGINE: Find a small surprising detail that affects the buyer's experience or result, not a hidden button, word count, internal feature, prompt instruction, or format. Tie its significance to an everyday decision.
+HOOK PATTERN: Concrete-detail teaser.
+
+BEFORE WRITING, SILENTLY:
+1. Identify the buyer's actual everyday frustrations, decisions, desires, aspirations, common experiences and specific outcomes this offer could credibly help with.
+2. Identify confirmed facts about the offer and keep them separate from plausible buyer motivations. Mark missing proof as unknown; do not make up evidence.
+3. Find five genuinely distinct BUYER-FACING premises that apply this technique. Start with what readers care about, NOT product features, tool settings or internal implementation.
+
+GENERATE EXACTLY FIVE FINISHED CLICK-WORTHY PROMOTIONAL IDEAS. Each must focus on a DIFFERENT buyer problem, desire, situation, decision, useful revelation or outcome. These are concepts for ads, articles, videos and social posts that could attract an audience unfamiliar with the offer. Favor specific relatable situations and strong, surprising, emotional but truthful insights. The hook should generally be 6-16 words and sound like something a real person would say.
+
+FOR EACH IDEA, OUTPUT EXACTLY:
+Idea [1-5]: [Short natural-language title of the PUBLIC-FACING content concept]
+Click Hook: [One compelling, publishable buyer-facing opening or headline using this technique]
+Click Payoff: [The concrete answer, useful shift, demonstration, explanation or insight that content will ACTUALLY deliver to the reader, understandable without seeing the product]
+Offer Connection: [One accurate, natural sentence connecting that payoff to the specific loaded offer without making the piece a feature tour]
+
+NON-NEGOTIABLE BUYER-FIRST FILTER:
+- Imagine a distracted stranger scrolling Facebook who has NEVER HEARD OF THE OFFER. Would they care enough to click? If not, rewrite the idea.
+- No software or prompt trivia posing as hooks: NO discussions of numbered lines, word limits, dashboard fields, prompts, setup steps, upload processes, CTA instructions, output counts, image dimensions, product features, software menus, or how AI processes a sales page. Those can be supporting details only when absolutely necessary to explain a buyer-facing payoff, never the central intrigue.
+- If the offer IS software, training, a prompt set or an AI tool, promote the REAL-WORLD JOB it helps buyers accomplish. A reader wants the result, NOT a tour of the machinery.
+- No generic platitudes, surface-level synonyms, interchangeable curiosity teasers or the same promised payoff repeated five times.
+- Click Payoff must REVEAL the promised insight and be valuable in the content itself. Do not keep withholding the answer or describe an outline like 'walk through the platform'.
+- Offer Connection must name the exact offer only when supported, say what it credibly helps buyers do, and must not claim new features or results.
+- Never invent studies, results, time savings, financial outcomes, prices, reviews, scarcity, endorsements, screenshots, product appearance or guarantees. No fake 'secret' or made-up controversy. Qualify uncertain general advice.
+- Be punchy, conversational, and relevant. Use natural capitalization, not ALL-CAPS headlines.
+- Do not explain the marketing technique to the end reader. Do not include instruction notes, quality checks or analysis in the final output.
+
+SILENT FINAL CHECK: For EVERY idea ask 'Does this make a potential customer curious about their own life, problem or desired outcome, or merely curious about the product's interface?' Reject product-interface ideas. Five ideas should feel like five publishable editorial directions, not five feature explanations.
+
+Finish with this one sentence: Choose ONE complete idea and paste it into the Selected Idea box to create your promotions.</textarea></details><div class="prompt-actions"><button class="prompt-copy-btn" type="button">Copy Prompt</button></div></article><article class="prompt-card" data-group="1"><div class="prompt-top"><div class="tech-index">03</div><div><div class="prompt-number">TECHNIQUE / 03</div><h3>The Before-You-Do-It</h3></div></div><p>Build a timely warning around something worth checking before the reader attempts a task linked to the offer.</p><details class="prompt-details"><summary>View full prompt</summary><textarea class="prompt-textarea" readonly="">Use the offer details previously loaded in THIS AI conversation. You are creating PUBLIC-FACING promotional IDEAS for people who might buy the offer, not commentary ABOUT its design. The marketer may own the offer or promote it as an affiliate. Do not mention any prompt-dashboard brand or technique name in your output.
+
+TECHNIQUE 03: The Before-You-Do-It
+UNIQUE IDEA ENGINE: Identify an actual buyer-facing mistake or missed consideration before attempting a relevant task. Avoid warnings about what button to press or how this product works.
+HOOK PATTERN: Before-action caution.
+
+BEFORE WRITING, SILENTLY:
+1. Identify the buyer's actual everyday frustrations, decisions, desires, aspirations, common experiences and specific outcomes this offer could credibly help with.
+2. Identify confirmed facts about the offer and keep them separate from plausible buyer motivations. Mark missing proof as unknown; do not make up evidence.
+3. Find five genuinely distinct BUYER-FACING premises that apply this technique. Start with what readers care about, NOT product features, tool settings or internal implementation.
+
+GENERATE EXACTLY FIVE FINISHED CLICK-WORTHY PROMOTIONAL IDEAS. Each must focus on a DIFFERENT buyer problem, desire, situation, decision, useful revelation or outcome. These are concepts for ads, articles, videos and social posts that could attract an audience unfamiliar with the offer. Favor specific relatable situations and strong, surprising, emotional but truthful insights. The hook should generally be 6-16 words and sound like something a real person would say.
+
+FOR EACH IDEA, OUTPUT EXACTLY:
+Idea [1-5]: [Short natural-language title of the PUBLIC-FACING content concept]
+Click Hook: [One compelling, publishable buyer-facing opening or headline using this technique]
+Click Payoff: [The concrete answer, useful shift, demonstration, explanation or insight that content will ACTUALLY deliver to the reader, understandable without seeing the product]
+Offer Connection: [One accurate, natural sentence connecting that payoff to the specific loaded offer without making the piece a feature tour]
+
+NON-NEGOTIABLE BUYER-FIRST FILTER:
+- Imagine a distracted stranger scrolling Facebook who has NEVER HEARD OF THE OFFER. Would they care enough to click? If not, rewrite the idea.
+- No software or prompt trivia posing as hooks: NO discussions of numbered lines, word limits, dashboard fields, prompts, setup steps, upload processes, CTA instructions, output counts, image dimensions, product features, software menus, or how AI processes a sales page. Those can be supporting details only when absolutely necessary to explain a buyer-facing payoff, never the central intrigue.
+- If the offer IS software, training, a prompt set or an AI tool, promote the REAL-WORLD JOB it helps buyers accomplish. A reader wants the result, NOT a tour of the machinery.
+- No generic platitudes, surface-level synonyms, interchangeable curiosity teasers or the same promised payoff repeated five times.
+- Click Payoff must REVEAL the promised insight and be valuable in the content itself. Do not keep withholding the answer or describe an outline like 'walk through the platform'.
+- Offer Connection must name the exact offer only when supported, say what it credibly helps buyers do, and must not claim new features or results.
+- Never invent studies, results, time savings, financial outcomes, prices, reviews, scarcity, endorsements, screenshots, product appearance or guarantees. No fake 'secret' or made-up controversy. Qualify uncertain general advice.
+- Be punchy, conversational, and relevant. Use natural capitalization, not ALL-CAPS headlines.
+- Do not explain the marketing technique to the end reader. Do not include instruction notes, quality checks or analysis in the final output.
+
+SILENT FINAL CHECK: For EVERY idea ask 'Does this make a potential customer curious about their own life, problem or desired outcome, or merely curious about the product's interface?' Reject product-interface ideas. Five ideas should feel like five publishable editorial directions, not five feature explanations.
+
+Finish with this one sentence: Choose ONE complete idea and paste it into the Selected Idea box to create your promotions.</textarea></details><div class="prompt-actions"><button class="prompt-copy-btn" type="button">Copy Prompt</button></div></article><article class="prompt-card" data-group="1"><div class="prompt-top"><div class="tech-index">04</div><div><div class="prompt-number">TECHNIQUE / 04</div><h3>The Overlooked Step</h3></div></div><p>Expose a real, easily missed step in a process the target audience cares about.</p><details class="prompt-details"><summary>View full prompt</summary><textarea class="prompt-textarea" readonly="">Use the offer details previously loaded in THIS AI conversation. You are creating PUBLIC-FACING promotional IDEAS for people who might buy the offer, not commentary ABOUT its design. The marketer may own the offer or promote it as an affiliate. Do not mention any prompt-dashboard brand or technique name in your output.
+
+TECHNIQUE 04: The Overlooked Step
+UNIQUE IDEA ENGINE: Expose a helpful overlooked step in achieving a desired outcome. The step should make sense to anyone in the target market even if they have never heard of the offer.
+HOOK PATTERN: Missed-step reveal.
+
+BEFORE WRITING, SILENTLY:
+1. Identify the buyer's actual everyday frustrations, decisions, desires, aspirations, common experiences and specific outcomes this offer could credibly help with.
+2. Identify confirmed facts about the offer and keep them separate from plausible buyer motivations. Mark missing proof as unknown; do not make up evidence.
+3. Find five genuinely distinct BUYER-FACING premises that apply this technique. Start with what readers care about, NOT product features, tool settings or internal implementation.
+
+GENERATE EXACTLY FIVE FINISHED CLICK-WORTHY PROMOTIONAL IDEAS. Each must focus on a DIFFERENT buyer problem, desire, situation, decision, useful revelation or outcome. These are concepts for ads, articles, videos and social posts that could attract an audience unfamiliar with the offer. Favor specific relatable situations and strong, surprising, emotional but truthful insights. The hook should generally be 6-16 words and sound like something a real person would say.
+
+FOR EACH IDEA, OUTPUT EXACTLY:
+Idea [1-5]: [Short natural-language title of the PUBLIC-FACING content concept]
+Click Hook: [One compelling, publishable buyer-facing opening or headline using this technique]
+Click Payoff: [The concrete answer, useful shift, demonstration, explanation or insight that content will ACTUALLY deliver to the reader, understandable without seeing the product]
+Offer Connection: [One accurate, natural sentence connecting that payoff to the specific loaded offer without making the piece a feature tour]
+
+NON-NEGOTIABLE BUYER-FIRST FILTER:
+- Imagine a distracted stranger scrolling Facebook who has NEVER HEARD OF THE OFFER. Would they care enough to click? If not, rewrite the idea.
+- No software or prompt trivia posing as hooks: NO discussions of numbered lines, word limits, dashboard fields, prompts, setup steps, upload processes, CTA instructions, output counts, image dimensions, product features, software menus, or how AI processes a sales page. Those can be supporting details only when absolutely necessary to explain a buyer-facing payoff, never the central intrigue.
+- If the offer IS software, training, a prompt set or an AI tool, promote the REAL-WORLD JOB it helps buyers accomplish. A reader wants the result, NOT a tour of the machinery.
+- No generic platitudes, surface-level synonyms, interchangeable curiosity teasers or the same promised payoff repeated five times.
+- Click Payoff must REVEAL the promised insight and be valuable in the content itself. Do not keep withholding the answer or describe an outline like 'walk through the platform'.
+- Offer Connection must name the exact offer only when supported, say what it credibly helps buyers do, and must not claim new features or results.
+- Never invent studies, results, time savings, financial outcomes, prices, reviews, scarcity, endorsements, screenshots, product appearance or guarantees. No fake 'secret' or made-up controversy. Qualify uncertain general advice.
+- Be punchy, conversational, and relevant. Use natural capitalization, not ALL-CAPS headlines.
+- Do not explain the marketing technique to the end reader. Do not include instruction notes, quality checks or analysis in the final output.
+
+SILENT FINAL CHECK: For EVERY idea ask 'Does this make a potential customer curious about their own life, problem or desired outcome, or merely curious about the product's interface?' Reject product-interface ideas. Five ideas should feel like five publishable editorial directions, not five feature explanations.
+
+Finish with this one sentence: Choose ONE complete idea and paste it into the Selected Idea box to create your promotions.</textarea></details><div class="prompt-actions"><button class="prompt-copy-btn" type="button">Copy Prompt</button></div></article><article class="prompt-card" data-group="1"><div class="prompt-top"><div class="tech-index">05</div><div><div class="prompt-number">TECHNIQUE / 05</div><h3>The Surprising Question</h3></div></div><p>Pose a question that challenges the expected question about this niche while remaining answerable from known facts.</p><details class="prompt-details"><summary>View full prompt</summary><textarea class="prompt-textarea" readonly="">Use the offer details previously loaded in THIS AI conversation. You are creating PUBLIC-FACING promotional IDEAS for people who might buy the offer, not commentary ABOUT its design. The marketer may own the offer or promote it as an affiliate. Do not mention any prompt-dashboard brand or technique name in your output.
+
+TECHNIQUE 05: The Surprising Question
+UNIQUE IDEA ENGINE: Frame an unexpected but answerable question about a buyer pain, frustration, choice or aspiration. The question must intrigue people outside the product owner's audience.
+HOOK PATTERN: Unexpected question.
+
+BEFORE WRITING, SILENTLY:
+1. Identify the buyer's actual everyday frustrations, decisions, desires, aspirations, common experiences and specific outcomes this offer could credibly help with.
+2. Identify confirmed facts about the offer and keep them separate from plausible buyer motivations. Mark missing proof as unknown; do not make up evidence.
+3. Find five genuinely distinct BUYER-FACING premises that apply this technique. Start with what readers care about, NOT product features, tool settings or internal implementation.
+
+GENERATE EXACTLY FIVE FINISHED CLICK-WORTHY PROMOTIONAL IDEAS. Each must focus on a DIFFERENT buyer problem, desire, situation, decision, useful revelation or outcome. These are concepts for ads, articles, videos and social posts that could attract an audience unfamiliar with the offer. Favor specific relatable situations and strong, surprising, emotional but truthful insights. The hook should generally be 6-16 words and sound like something a real person would say.
+
+FOR EACH IDEA, OUTPUT EXACTLY:
+Idea [1-5]: [Short natural-language title of the PUBLIC-FACING content concept]
+Click Hook: [One compelling, publishable buyer-facing opening or headline using this technique]
+Click Payoff: [The concrete answer, useful shift, demonstration, explanation or insight that content will ACTUALLY deliver to the reader, understandable without seeing the product]
+Offer Connection: [One accurate, natural sentence connecting that payoff to the specific loaded offer without making the piece a feature tour]
+
+NON-NEGOTIABLE BUYER-FIRST FILTER:
+- Imagine a distracted stranger scrolling Facebook who has NEVER HEARD OF THE OFFER. Would they care enough to click? If not, rewrite the idea.
+- No software or prompt trivia posing as hooks: NO discussions of numbered lines, word limits, dashboard fields, prompts, setup steps, upload processes, CTA instructions, output counts, image dimensions, product features, software menus, or how AI processes a sales page. Those can be supporting details only when absolutely necessary to explain a buyer-facing payoff, never the central intrigue.
+- If the offer IS software, training, a prompt set or an AI tool, promote the REAL-WORLD JOB it helps buyers accomplish. A reader wants the result, NOT a tour of the machinery.
+- No generic platitudes, surface-level synonyms, interchangeable curiosity teasers or the same promised payoff repeated five times.
+- Click Payoff must REVEAL the promised insight and be valuable in the content itself. Do not keep withholding the answer or describe an outline like 'walk through the platform'.
+- Offer Connection must name the exact offer only when supported, say what it credibly helps buyers do, and must not claim new features or results.
+- Never invent studies, results, time savings, financial outcomes, prices, reviews, scarcity, endorsements, screenshots, product appearance or guarantees. No fake 'secret' or made-up controversy. Qualify uncertain general advice.
+- Be punchy, conversational, and relevant. Use natural capitalization, not ALL-CAPS headlines.
+- Do not explain the marketing technique to the end reader. Do not include instruction notes, quality checks or analysis in the final output.
+
+SILENT FINAL CHECK: For EVERY idea ask 'Does this make a potential customer curious about their own life, problem or desired outcome, or merely curious about the product's interface?' Reject product-interface ideas. Five ideas should feel like five publishable editorial directions, not five feature explanations.
+
+Finish with this one sentence: Choose ONE complete idea and paste it into the Selected Idea box to create your promotions.</textarea></details><div class="prompt-actions"><button class="prompt-copy-btn" type="button">Copy Prompt</button></div></article><article class="prompt-card" data-group="1"><div class="prompt-top"><div class="tech-index">06</div><div><div class="prompt-number">TECHNIQUE / 06</div><h3>The Open Loop</h3></div></div><p>Begin an intriguing scenario with one unresolved consequence, then specify the honest payoff the promotional content must deliver.</p><details class="prompt-details"><summary>View full prompt</summary><textarea class="prompt-textarea" readonly="">Use the offer details previously loaded in THIS AI conversation. You are creating PUBLIC-FACING promotional IDEAS for people who might buy the offer, not commentary ABOUT its design. The marketer may own the offer or promote it as an affiliate. Do not mention any prompt-dashboard brand or technique name in your output.
+
+TECHNIQUE 06: The Open Loop
+UNIQUE IDEA ENGINE: Present the buyer in an unfinished but recognizable real-world situation; tease a specific practical resolution. Do not tease a tour of the product.
+HOOK PATTERN: Unfinished-scenario teaser.
+
+BEFORE WRITING, SILENTLY:
+1. Identify the buyer's actual everyday frustrations, decisions, desires, aspirations, common experiences and specific outcomes this offer could credibly help with.
+2. Identify confirmed facts about the offer and keep them separate from plausible buyer motivations. Mark missing proof as unknown; do not make up evidence.
+3. Find five genuinely distinct BUYER-FACING premises that apply this technique. Start with what readers care about, NOT product features, tool settings or internal implementation.
+
+GENERATE EXACTLY FIVE FINISHED CLICK-WORTHY PROMOTIONAL IDEAS. Each must focus on a DIFFERENT buyer problem, desire, situation, decision, useful revelation or outcome. These are concepts for ads, articles, videos and social posts that could attract an audience unfamiliar with the offer. Favor specific relatable situations and strong, surprising, emotional but truthful insights. The hook should generally be 6-16 words and sound like something a real person would say.
+
+FOR EACH IDEA, OUTPUT EXACTLY:
+Idea [1-5]: [Short natural-language title of the PUBLIC-FACING content concept]
+Click Hook: [One compelling, publishable buyer-facing opening or headline using this technique]
+Click Payoff: [The concrete answer, useful shift, demonstration, explanation or insight that content will ACTUALLY deliver to the reader, understandable without seeing the product]
+Offer Connection: [One accurate, natural sentence connecting that payoff to the specific loaded offer without making the piece a feature tour]
+
+NON-NEGOTIABLE BUYER-FIRST FILTER:
+- Imagine a distracted stranger scrolling Facebook who has NEVER HEARD OF THE OFFER. Would they care enough to click? If not, rewrite the idea.
+- No software or prompt trivia posing as hooks: NO discussions of numbered lines, word limits, dashboard fields, prompts, setup steps, upload processes, CTA instructions, output counts, image dimensions, product features, software menus, or how AI processes a sales page. Those can be supporting details only when absolutely necessary to explain a buyer-facing payoff, never the central intrigue.
+- If the offer IS software, training, a prompt set or an AI tool, promote the REAL-WORLD JOB it helps buyers accomplish. A reader wants the result, NOT a tour of the machinery.
+- No generic platitudes, surface-level synonyms, interchangeable curiosity teasers or the same promised payoff repeated five times.
+- Click Payoff must REVEAL the promised insight and be valuable in the content itself. Do not keep withholding the answer or describe an outline like 'walk through the platform'.
+- Offer Connection must name the exact offer only when supported, say what it credibly helps buyers do, and must not claim new features or results.
+- Never invent studies, results, time savings, financial outcomes, prices, reviews, scarcity, endorsements, screenshots, product appearance or guarantees. No fake 'secret' or made-up controversy. Qualify uncertain general advice.
+- Be punchy, conversational, and relevant. Use natural capitalization, not ALL-CAPS headlines.
+- Do not explain the marketing technique to the end reader. Do not include instruction notes, quality checks or analysis in the final output.
+
+SILENT FINAL CHECK: For EVERY idea ask 'Does this make a potential customer curious about their own life, problem or desired outcome, or merely curious about the product's interface?' Reject product-interface ideas. Five ideas should feel like five publishable editorial directions, not five feature explanations.
+
+Finish with this one sentence: Choose ONE complete idea and paste it into the Selected Idea box to create your promotions.</textarea></details><div class="prompt-actions"><button class="prompt-copy-btn" type="button">Copy Prompt</button></div></article><article class="prompt-card" data-group="2"><div class="prompt-top"><div class="tech-index">07</div><div><div class="prompt-number">TECHNIQUE / 07</div><h3>The Self-Test</h3></div></div><p>Create a specific non-diagnostic self-check or quick challenge the reader can do to learn something useful about their situation.</p><details class="prompt-details"><summary>View full prompt</summary><textarea class="prompt-textarea" readonly="">Use the offer details previously loaded in THIS AI conversation. You are creating PUBLIC-FACING promotional IDEAS for people who might buy the offer, not commentary ABOUT its design. The marketer may own the offer or promote it as an affiliate. Do not mention any prompt-dashboard brand or technique name in your output.
+
+TECHNIQUE 07: The Self-Test
+UNIQUE IDEA ENGINE: Offer a meaningful self-check readers can apply to their own situation and explain what each outcome tells them. Do not require the buyer to purchase or open the product to complete the test.
+HOOK PATTERN: Try-it-yourself test.
+
+BEFORE WRITING, SILENTLY:
+1. Identify the buyer's actual everyday frustrations, decisions, desires, aspirations, common experiences and specific outcomes this offer could credibly help with.
+2. Identify confirmed facts about the offer and keep them separate from plausible buyer motivations. Mark missing proof as unknown; do not make up evidence.
+3. Find five genuinely distinct BUYER-FACING premises that apply this technique. Start with what readers care about, NOT product features, tool settings or internal implementation.
+
+GENERATE EXACTLY FIVE FINISHED CLICK-WORTHY PROMOTIONAL IDEAS. Each must focus on a DIFFERENT buyer problem, desire, situation, decision, useful revelation or outcome. These are concepts for ads, articles, videos and social posts that could attract an audience unfamiliar with the offer. Favor specific relatable situations and strong, surprising, emotional but truthful insights. The hook should generally be 6-16 words and sound like something a real person would say.
+
+FOR EACH IDEA, OUTPUT EXACTLY:
+Idea [1-5]: [Short natural-language title of the PUBLIC-FACING content concept]
+Click Hook: [One compelling, publishable buyer-facing opening or headline using this technique]
+Click Payoff: [The concrete answer, useful shift, demonstration, explanation or insight that content will ACTUALLY deliver to the reader, understandable without seeing the product]
+Offer Connection: [One accurate, natural sentence connecting that payoff to the specific loaded offer without making the piece a feature tour]
+
+NON-NEGOTIABLE BUYER-FIRST FILTER:
+- Imagine a distracted stranger scrolling Facebook who has NEVER HEARD OF THE OFFER. Would they care enough to click? If not, rewrite the idea.
+- No software or prompt trivia posing as hooks: NO discussions of numbered lines, word limits, dashboard fields, prompts, setup steps, upload processes, CTA instructions, output counts, image dimensions, product features, software menus, or how AI processes a sales page. Those can be supporting details only when absolutely necessary to explain a buyer-facing payoff, never the central intrigue.
+- If the offer IS software, training, a prompt set or an AI tool, promote the REAL-WORLD JOB it helps buyers accomplish. A reader wants the result, NOT a tour of the machinery.
+- No generic platitudes, surface-level synonyms, interchangeable curiosity teasers or the same promised payoff repeated five times.
+- Click Payoff must REVEAL the promised insight and be valuable in the content itself. Do not keep withholding the answer or describe an outline like 'walk through the platform'.
+- Offer Connection must name the exact offer only when supported, say what it credibly helps buyers do, and must not claim new features or results.
+- Never invent studies, results, time savings, financial outcomes, prices, reviews, scarcity, endorsements, screenshots, product appearance or guarantees. No fake 'secret' or made-up controversy. Qualify uncertain general advice.
+- Be punchy, conversational, and relevant. Use natural capitalization, not ALL-CAPS headlines.
+- Do not explain the marketing technique to the end reader. Do not include instruction notes, quality checks or analysis in the final output.
+
+SILENT FINAL CHECK: For EVERY idea ask 'Does this make a potential customer curious about their own life, problem or desired outcome, or merely curious about the product's interface?' Reject product-interface ideas. Five ideas should feel like five publishable editorial directions, not five feature explanations.
+
+Finish with this one sentence: Choose ONE complete idea and paste it into the Selected Idea box to create your promotions.</textarea></details><div class="prompt-actions"><button class="prompt-copy-btn" type="button">Copy Prompt</button></div></article><article class="prompt-card" data-group="2"><div class="prompt-top"><div class="tech-index">08</div><div><div class="prompt-number">TECHNIQUE / 08</div><h3>The A-or-B Showdown</h3></div></div><p>Set two real competing approaches, priorities, or practices against each other and explain what determines which makes sense.</p><details class="prompt-details"><summary>View full prompt</summary><textarea class="prompt-textarea" readonly="">Use the offer details previously loaded in THIS AI conversation. You are creating PUBLIC-FACING promotional IDEAS for people who might buy the offer, not commentary ABOUT its design. The marketer may own the offer or promote it as an affiliate. Do not mention any prompt-dashboard brand or technique name in your output.
+
+TECHNIQUE 08: The A-or-B Showdown
+UNIQUE IDEA ENGINE: Contrast two meaningful approaches or decisions an end user genuinely weighs. Name the decision criterion and explain the trade-off without fake absolutes.
+HOOK PATTERN: A-versus-B choice.
+
+BEFORE WRITING, SILENTLY:
+1. Identify the buyer's actual everyday frustrations, decisions, desires, aspirations, common experiences and specific outcomes this offer could credibly help with.
+2. Identify confirmed facts about the offer and keep them separate from plausible buyer motivations. Mark missing proof as unknown; do not make up evidence.
+3. Find five genuinely distinct BUYER-FACING premises that apply this technique. Start with what readers care about, NOT product features, tool settings or internal implementation.
+
+GENERATE EXACTLY FIVE FINISHED CLICK-WORTHY PROMOTIONAL IDEAS. Each must focus on a DIFFERENT buyer problem, desire, situation, decision, useful revelation or outcome. These are concepts for ads, articles, videos and social posts that could attract an audience unfamiliar with the offer. Favor specific relatable situations and strong, surprising, emotional but truthful insights. The hook should generally be 6-16 words and sound like something a real person would say.
+
+FOR EACH IDEA, OUTPUT EXACTLY:
+Idea [1-5]: [Short natural-language title of the PUBLIC-FACING content concept]
+Click Hook: [One compelling, publishable buyer-facing opening or headline using this technique]
+Click Payoff: [The concrete answer, useful shift, demonstration, explanation or insight that content will ACTUALLY deliver to the reader, understandable without seeing the product]
+Offer Connection: [One accurate, natural sentence connecting that payoff to the specific loaded offer without making the piece a feature tour]
+
+NON-NEGOTIABLE BUYER-FIRST FILTER:
+- Imagine a distracted stranger scrolling Facebook who has NEVER HEARD OF THE OFFER. Would they care enough to click? If not, rewrite the idea.
+- No software or prompt trivia posing as hooks: NO discussions of numbered lines, word limits, dashboard fields, prompts, setup steps, upload processes, CTA instructions, output counts, image dimensions, product features, software menus, or how AI processes a sales page. Those can be supporting details only when absolutely necessary to explain a buyer-facing payoff, never the central intrigue.
+- If the offer IS software, training, a prompt set or an AI tool, promote the REAL-WORLD JOB it helps buyers accomplish. A reader wants the result, NOT a tour of the machinery.
+- No generic platitudes, surface-level synonyms, interchangeable curiosity teasers or the same promised payoff repeated five times.
+- Click Payoff must REVEAL the promised insight and be valuable in the content itself. Do not keep withholding the answer or describe an outline like 'walk through the platform'.
+- Offer Connection must name the exact offer only when supported, say what it credibly helps buyers do, and must not claim new features or results.
+- Never invent studies, results, time savings, financial outcomes, prices, reviews, scarcity, endorsements, screenshots, product appearance or guarantees. No fake 'secret' or made-up controversy. Qualify uncertain general advice.
+- Be punchy, conversational, and relevant. Use natural capitalization, not ALL-CAPS headlines.
+- Do not explain the marketing technique to the end reader. Do not include instruction notes, quality checks or analysis in the final output.
+
+SILENT FINAL CHECK: For EVERY idea ask 'Does this make a potential customer curious about their own life, problem or desired outcome, or merely curious about the product's interface?' Reject product-interface ideas. Five ideas should feel like five publishable editorial directions, not five feature explanations.
+
+Finish with this one sentence: Choose ONE complete idea and paste it into the Selected Idea box to create your promotions.</textarea></details><div class="prompt-actions"><button class="prompt-copy-btn" type="button">Copy Prompt</button></div></article><article class="prompt-card" data-group="2"><div class="prompt-top"><div class="tech-index">09</div><div><div class="prompt-number">TECHNIQUE / 09</div><h3>The Strange Connection</h3></div></div><p>Connect two seemingly unrelated but supportable aspects of the offer or use case and explain their causal link.</p><details class="prompt-details"><summary>View full prompt</summary><textarea class="prompt-textarea" readonly="">Use the offer details previously loaded in THIS AI conversation. You are creating PUBLIC-FACING promotional IDEAS for people who might buy the offer, not commentary ABOUT its design. The marketer may own the offer or promote it as an affiliate. Do not mention any prompt-dashboard brand or technique name in your output.
+
+TECHNIQUE 09: The Strange Connection
+UNIQUE IDEA ENGINE: Connect two seemingly unrelated buyer experiences or decisions with a defensible, understandable causal relationship. Do not manufacture research or claim secret correlations.
+HOOK PATTERN: Unexpected connection.
+
+BEFORE WRITING, SILENTLY:
+1. Identify the buyer's actual everyday frustrations, decisions, desires, aspirations, common experiences and specific outcomes this offer could credibly help with.
+2. Identify confirmed facts about the offer and keep them separate from plausible buyer motivations. Mark missing proof as unknown; do not make up evidence.
+3. Find five genuinely distinct BUYER-FACING premises that apply this technique. Start with what readers care about, NOT product features, tool settings or internal implementation.
+
+GENERATE EXACTLY FIVE FINISHED CLICK-WORTHY PROMOTIONAL IDEAS. Each must focus on a DIFFERENT buyer problem, desire, situation, decision, useful revelation or outcome. These are concepts for ads, articles, videos and social posts that could attract an audience unfamiliar with the offer. Favor specific relatable situations and strong, surprising, emotional but truthful insights. The hook should generally be 6-16 words and sound like something a real person would say.
+
+FOR EACH IDEA, OUTPUT EXACTLY:
+Idea [1-5]: [Short natural-language title of the PUBLIC-FACING content concept]
+Click Hook: [One compelling, publishable buyer-facing opening or headline using this technique]
+Click Payoff: [The concrete answer, useful shift, demonstration, explanation or insight that content will ACTUALLY deliver to the reader, understandable without seeing the product]
+Offer Connection: [One accurate, natural sentence connecting that payoff to the specific loaded offer without making the piece a feature tour]
+
+NON-NEGOTIABLE BUYER-FIRST FILTER:
+- Imagine a distracted stranger scrolling Facebook who has NEVER HEARD OF THE OFFER. Would they care enough to click? If not, rewrite the idea.
+- No software or prompt trivia posing as hooks: NO discussions of numbered lines, word limits, dashboard fields, prompts, setup steps, upload processes, CTA instructions, output counts, image dimensions, product features, software menus, or how AI processes a sales page. Those can be supporting details only when absolutely necessary to explain a buyer-facing payoff, never the central intrigue.
+- If the offer IS software, training, a prompt set or an AI tool, promote the REAL-WORLD JOB it helps buyers accomplish. A reader wants the result, NOT a tour of the machinery.
+- No generic platitudes, surface-level synonyms, interchangeable curiosity teasers or the same promised payoff repeated five times.
+- Click Payoff must REVEAL the promised insight and be valuable in the content itself. Do not keep withholding the answer or describe an outline like 'walk through the platform'.
+- Offer Connection must name the exact offer only when supported, say what it credibly helps buyers do, and must not claim new features or results.
+- Never invent studies, results, time savings, financial outcomes, prices, reviews, scarcity, endorsements, screenshots, product appearance or guarantees. No fake 'secret' or made-up controversy. Qualify uncertain general advice.
+- Be punchy, conversational, and relevant. Use natural capitalization, not ALL-CAPS headlines.
+- Do not explain the marketing technique to the end reader. Do not include instruction notes, quality checks or analysis in the final output.
+
+SILENT FINAL CHECK: For EVERY idea ask 'Does this make a potential customer curious about their own life, problem or desired outcome, or merely curious about the product's interface?' Reject product-interface ideas. Five ideas should feel like five publishable editorial directions, not five feature explanations.
+
+Finish with this one sentence: Choose ONE complete idea and paste it into the Selected Idea box to create your promotions.</textarea></details><div class="prompt-actions"><button class="prompt-copy-btn" type="button">Copy Prompt</button></div></article><article class="prompt-card" data-group="2"><div class="prompt-top"><div class="tech-index">10</div><div><div class="prompt-number">TECHNIQUE / 10</div><h3>The Hidden Payoff</h3></div></div><p>Surface a genuinely useful, secondary advantage that typical descriptions of this offer might overlook.</p><details class="prompt-details"><summary>View full prompt</summary><textarea class="prompt-textarea" readonly="">Use the offer details previously loaded in THIS AI conversation. You are creating PUBLIC-FACING promotional IDEAS for people who might buy the offer, not commentary ABOUT its design. The marketer may own the offer or promote it as an affiliate. Do not mention any prompt-dashboard brand or technique name in your output.
+
+TECHNIQUE 10: The Hidden Payoff
+UNIQUE IDEA ENGINE: Identify an overlooked practical payoff that buyers would personally value. Show how that payoff feels or looks in normal life; do not list additional product formats or components.
+HOOK PATTERN: Secondary-benefit discovery.
+
+BEFORE WRITING, SILENTLY:
+1. Identify the buyer's actual everyday frustrations, decisions, desires, aspirations, common experiences and specific outcomes this offer could credibly help with.
+2. Identify confirmed facts about the offer and keep them separate from plausible buyer motivations. Mark missing proof as unknown; do not make up evidence.
+3. Find five genuinely distinct BUYER-FACING premises that apply this technique. Start with what readers care about, NOT product features, tool settings or internal implementation.
+
+GENERATE EXACTLY FIVE FINISHED CLICK-WORTHY PROMOTIONAL IDEAS. Each must focus on a DIFFERENT buyer problem, desire, situation, decision, useful revelation or outcome. These are concepts for ads, articles, videos and social posts that could attract an audience unfamiliar with the offer. Favor specific relatable situations and strong, surprising, emotional but truthful insights. The hook should generally be 6-16 words and sound like something a real person would say.
+
+FOR EACH IDEA, OUTPUT EXACTLY:
+Idea [1-5]: [Short natural-language title of the PUBLIC-FACING content concept]
+Click Hook: [One compelling, publishable buyer-facing opening or headline using this technique]
+Click Payoff: [The concrete answer, useful shift, demonstration, explanation or insight that content will ACTUALLY deliver to the reader, understandable without seeing the product]
+Offer Connection: [One accurate, natural sentence connecting that payoff to the specific loaded offer without making the piece a feature tour]
+
+NON-NEGOTIABLE BUYER-FIRST FILTER:
+- Imagine a distracted stranger scrolling Facebook who has NEVER HEARD OF THE OFFER. Would they care enough to click? If not, rewrite the idea.
+- No software or prompt trivia posing as hooks: NO discussions of numbered lines, word limits, dashboard fields, prompts, setup steps, upload processes, CTA instructions, output counts, image dimensions, product features, software menus, or how AI processes a sales page. Those can be supporting details only when absolutely necessary to explain a buyer-facing payoff, never the central intrigue.
+- If the offer IS software, training, a prompt set or an AI tool, promote the REAL-WORLD JOB it helps buyers accomplish. A reader wants the result, NOT a tour of the machinery.
+- No generic platitudes, surface-level synonyms, interchangeable curiosity teasers or the same promised payoff repeated five times.
+- Click Payoff must REVEAL the promised insight and be valuable in the content itself. Do not keep withholding the answer or describe an outline like 'walk through the platform'.
+- Offer Connection must name the exact offer only when supported, say what it credibly helps buyers do, and must not claim new features or results.
+- Never invent studies, results, time savings, financial outcomes, prices, reviews, scarcity, endorsements, screenshots, product appearance or guarantees. No fake 'secret' or made-up controversy. Qualify uncertain general advice.
+- Be punchy, conversational, and relevant. Use natural capitalization, not ALL-CAPS headlines.
+- Do not explain the marketing technique to the end reader. Do not include instruction notes, quality checks or analysis in the final output.
+
+SILENT FINAL CHECK: For EVERY idea ask 'Does this make a potential customer curious about their own life, problem or desired outcome, or merely curious about the product's interface?' Reject product-interface ideas. Five ideas should feel like five publishable editorial directions, not five feature explanations.
+
+Finish with this one sentence: Choose ONE complete idea and paste it into the Selected Idea box to create your promotions.</textarea></details><div class="prompt-actions"><button class="prompt-copy-btn" type="button">Copy Prompt</button></div></article><article class="prompt-card" data-group="2"><div class="prompt-top"><div class="tech-index">11</div><div><div class="prompt-number">TECHNIQUE / 11</div><h3>The Costly Misstep</h3></div></div><p>Show an avoidable, realistic mistake involving the audience’s task and tease the specific correction. Never manufacture financial losses.</p><details class="prompt-details"><summary>View full prompt</summary><textarea class="prompt-textarea" readonly="">Use the offer details previously loaded in THIS AI conversation. You are creating PUBLIC-FACING promotional IDEAS for people who might buy the offer, not commentary ABOUT its design. The marketer may own the offer or promote it as an affiliate. Do not mention any prompt-dashboard brand or technique name in your output.
+
+TECHNIQUE 11: The Costly Misstep
+UNIQUE IDEA ENGINE: Identify a real action, belief, or choice that wastes the buyer's time or effort. Give the better alternative without invented money losses or dramatic dangers.
+HOOK PATTERN: Error-and-fix reveal.
+
+BEFORE WRITING, SILENTLY:
+1. Identify the buyer's actual everyday frustrations, decisions, desires, aspirations, common experiences and specific outcomes this offer could credibly help with.
+2. Identify confirmed facts about the offer and keep them separate from plausible buyer motivations. Mark missing proof as unknown; do not make up evidence.
+3. Find five genuinely distinct BUYER-FACING premises that apply this technique. Start with what readers care about, NOT product features, tool settings or internal implementation.
+
+GENERATE EXACTLY FIVE FINISHED CLICK-WORTHY PROMOTIONAL IDEAS. Each must focus on a DIFFERENT buyer problem, desire, situation, decision, useful revelation or outcome. These are concepts for ads, articles, videos and social posts that could attract an audience unfamiliar with the offer. Favor specific relatable situations and strong, surprising, emotional but truthful insights. The hook should generally be 6-16 words and sound like something a real person would say.
+
+FOR EACH IDEA, OUTPUT EXACTLY:
+Idea [1-5]: [Short natural-language title of the PUBLIC-FACING content concept]
+Click Hook: [One compelling, publishable buyer-facing opening or headline using this technique]
+Click Payoff: [The concrete answer, useful shift, demonstration, explanation or insight that content will ACTUALLY deliver to the reader, understandable without seeing the product]
+Offer Connection: [One accurate, natural sentence connecting that payoff to the specific loaded offer without making the piece a feature tour]
+
+NON-NEGOTIABLE BUYER-FIRST FILTER:
+- Imagine a distracted stranger scrolling Facebook who has NEVER HEARD OF THE OFFER. Would they care enough to click? If not, rewrite the idea.
+- No software or prompt trivia posing as hooks: NO discussions of numbered lines, word limits, dashboard fields, prompts, setup steps, upload processes, CTA instructions, output counts, image dimensions, product features, software menus, or how AI processes a sales page. Those can be supporting details only when absolutely necessary to explain a buyer-facing payoff, never the central intrigue.
+- If the offer IS software, training, a prompt set or an AI tool, promote the REAL-WORLD JOB it helps buyers accomplish. A reader wants the result, NOT a tour of the machinery.
+- No generic platitudes, surface-level synonyms, interchangeable curiosity teasers or the same promised payoff repeated five times.
+- Click Payoff must REVEAL the promised insight and be valuable in the content itself. Do not keep withholding the answer or describe an outline like 'walk through the platform'.
+- Offer Connection must name the exact offer only when supported, say what it credibly helps buyers do, and must not claim new features or results.
+- Never invent studies, results, time savings, financial outcomes, prices, reviews, scarcity, endorsements, screenshots, product appearance or guarantees. No fake 'secret' or made-up controversy. Qualify uncertain general advice.
+- Be punchy, conversational, and relevant. Use natural capitalization, not ALL-CAPS headlines.
+- Do not explain the marketing technique to the end reader. Do not include instruction notes, quality checks or analysis in the final output.
+
+SILENT FINAL CHECK: For EVERY idea ask 'Does this make a potential customer curious about their own life, problem or desired outcome, or merely curious about the product's interface?' Reject product-interface ideas. Five ideas should feel like five publishable editorial directions, not five feature explanations.
+
+Finish with this one sentence: Choose ONE complete idea and paste it into the Selected Idea box to create your promotions.</textarea></details><div class="prompt-actions"><button class="prompt-copy-btn" type="button">Copy Prompt</button></div></article><article class="prompt-card" data-group="2"><div class="prompt-top"><div class="tech-index">12</div><div><div class="prompt-number">TECHNIQUE / 12</div><h3>The Reverse Take</h3></div></div><p>Invert the typical question or assumption about the task, producing a fresh, defensible insight and answer.</p><details class="prompt-details"><summary>View full prompt</summary><textarea class="prompt-textarea" readonly="">Use the offer details previously loaded in THIS AI conversation. You are creating PUBLIC-FACING promotional IDEAS for people who might buy the offer, not commentary ABOUT its design. The marketer may own the offer or promote it as an affiliate. Do not mention any prompt-dashboard brand or technique name in your output.
+
+TECHNIQUE 12: The Reverse Take
+UNIQUE IDEA ENGINE: Invert an ordinary buyer assumption to expose a useful exception or overlooked approach. Prioritize behavior and outcomes over contrarian statements about the offer itself.
+HOOK PATTERN: Inverted premise.
+
+BEFORE WRITING, SILENTLY:
+1. Identify the buyer's actual everyday frustrations, decisions, desires, aspirations, common experiences and specific outcomes this offer could credibly help with.
+2. Identify confirmed facts about the offer and keep them separate from plausible buyer motivations. Mark missing proof as unknown; do not make up evidence.
+3. Find five genuinely distinct BUYER-FACING premises that apply this technique. Start with what readers care about, NOT product features, tool settings or internal implementation.
+
+GENERATE EXACTLY FIVE FINISHED CLICK-WORTHY PROMOTIONAL IDEAS. Each must focus on a DIFFERENT buyer problem, desire, situation, decision, useful revelation or outcome. These are concepts for ads, articles, videos and social posts that could attract an audience unfamiliar with the offer. Favor specific relatable situations and strong, surprising, emotional but truthful insights. The hook should generally be 6-16 words and sound like something a real person would say.
+
+FOR EACH IDEA, OUTPUT EXACTLY:
+Idea [1-5]: [Short natural-language title of the PUBLIC-FACING content concept]
+Click Hook: [One compelling, publishable buyer-facing opening or headline using this technique]
+Click Payoff: [The concrete answer, useful shift, demonstration, explanation or insight that content will ACTUALLY deliver to the reader, understandable without seeing the product]
+Offer Connection: [One accurate, natural sentence connecting that payoff to the specific loaded offer without making the piece a feature tour]
+
+NON-NEGOTIABLE BUYER-FIRST FILTER:
+- Imagine a distracted stranger scrolling Facebook who has NEVER HEARD OF THE OFFER. Would they care enough to click? If not, rewrite the idea.
+- No software or prompt trivia posing as hooks: NO discussions of numbered lines, word limits, dashboard fields, prompts, setup steps, upload processes, CTA instructions, output counts, image dimensions, product features, software menus, or how AI processes a sales page. Those can be supporting details only when absolutely necessary to explain a buyer-facing payoff, never the central intrigue.
+- If the offer IS software, training, a prompt set or an AI tool, promote the REAL-WORLD JOB it helps buyers accomplish. A reader wants the result, NOT a tour of the machinery.
+- No generic platitudes, surface-level synonyms, interchangeable curiosity teasers or the same promised payoff repeated five times.
+- Click Payoff must REVEAL the promised insight and be valuable in the content itself. Do not keep withholding the answer or describe an outline like 'walk through the platform'.
+- Offer Connection must name the exact offer only when supported, say what it credibly helps buyers do, and must not claim new features or results.
+- Never invent studies, results, time savings, financial outcomes, prices, reviews, scarcity, endorsements, screenshots, product appearance or guarantees. No fake 'secret' or made-up controversy. Qualify uncertain general advice.
+- Be punchy, conversational, and relevant. Use natural capitalization, not ALL-CAPS headlines.
+- Do not explain the marketing technique to the end reader. Do not include instruction notes, quality checks or analysis in the final output.
+
+SILENT FINAL CHECK: For EVERY idea ask 'Does this make a potential customer curious about their own life, problem or desired outcome, or merely curious about the product's interface?' Reject product-interface ideas. Five ideas should feel like five publishable editorial directions, not five feature explanations.
+
+Finish with this one sentence: Choose ONE complete idea and paste it into the Selected Idea box to create your promotions.</textarea></details><div class="prompt-actions"><button class="prompt-copy-btn" type="button">Copy Prompt</button></div></article><article class="prompt-card" data-group="3"><div class="prompt-top"><div class="tech-index">13</div><div><div class="prompt-number">TECHNIQUE / 13</div><h3>The What-If Twist</h3></div></div><p>Present a credible what-if scenario that changes one variable and creates a natural question the offer can help answer.</p><details class="prompt-details"><summary>View full prompt</summary><textarea class="prompt-textarea" readonly="">Use the offer details previously loaded in THIS AI conversation. You are creating PUBLIC-FACING promotional IDEAS for people who might buy the offer, not commentary ABOUT its design. The marketer may own the offer or promote it as an affiliate. Do not mention any prompt-dashboard brand or technique name in your output.
+
+TECHNIQUE 13: The What-If Twist
+UNIQUE IDEA ENGINE: Introduce a realistic what-if change in the buyer's circumstances, then reveal the concrete insight it surfaces. Avoid hypotheticals built around product screens or prompts.
+HOOK PATTERN: Counterfactual scenario.
+
+BEFORE WRITING, SILENTLY:
+1. Identify the buyer's actual everyday frustrations, decisions, desires, aspirations, common experiences and specific outcomes this offer could credibly help with.
+2. Identify confirmed facts about the offer and keep them separate from plausible buyer motivations. Mark missing proof as unknown; do not make up evidence.
+3. Find five genuinely distinct BUYER-FACING premises that apply this technique. Start with what readers care about, NOT product features, tool settings or internal implementation.
+
+GENERATE EXACTLY FIVE FINISHED CLICK-WORTHY PROMOTIONAL IDEAS. Each must focus on a DIFFERENT buyer problem, desire, situation, decision, useful revelation or outcome. These are concepts for ads, articles, videos and social posts that could attract an audience unfamiliar with the offer. Favor specific relatable situations and strong, surprising, emotional but truthful insights. The hook should generally be 6-16 words and sound like something a real person would say.
+
+FOR EACH IDEA, OUTPUT EXACTLY:
+Idea [1-5]: [Short natural-language title of the PUBLIC-FACING content concept]
+Click Hook: [One compelling, publishable buyer-facing opening or headline using this technique]
+Click Payoff: [The concrete answer, useful shift, demonstration, explanation or insight that content will ACTUALLY deliver to the reader, understandable without seeing the product]
+Offer Connection: [One accurate, natural sentence connecting that payoff to the specific loaded offer without making the piece a feature tour]
+
+NON-NEGOTIABLE BUYER-FIRST FILTER:
+- Imagine a distracted stranger scrolling Facebook who has NEVER HEARD OF THE OFFER. Would they care enough to click? If not, rewrite the idea.
+- No software or prompt trivia posing as hooks: NO discussions of numbered lines, word limits, dashboard fields, prompts, setup steps, upload processes, CTA instructions, output counts, image dimensions, product features, software menus, or how AI processes a sales page. Those can be supporting details only when absolutely necessary to explain a buyer-facing payoff, never the central intrigue.
+- If the offer IS software, training, a prompt set or an AI tool, promote the REAL-WORLD JOB it helps buyers accomplish. A reader wants the result, NOT a tour of the machinery.
+- No generic platitudes, surface-level synonyms, interchangeable curiosity teasers or the same promised payoff repeated five times.
+- Click Payoff must REVEAL the promised insight and be valuable in the content itself. Do not keep withholding the answer or describe an outline like 'walk through the platform'.
+- Offer Connection must name the exact offer only when supported, say what it credibly helps buyers do, and must not claim new features or results.
+- Never invent studies, results, time savings, financial outcomes, prices, reviews, scarcity, endorsements, screenshots, product appearance or guarantees. No fake 'secret' or made-up controversy. Qualify uncertain general advice.
+- Be punchy, conversational, and relevant. Use natural capitalization, not ALL-CAPS headlines.
+- Do not explain the marketing technique to the end reader. Do not include instruction notes, quality checks or analysis in the final output.
+
+SILENT FINAL CHECK: For EVERY idea ask 'Does this make a potential customer curious about their own life, problem or desired outcome, or merely curious about the product's interface?' Reject product-interface ideas. Five ideas should feel like five publishable editorial directions, not five feature explanations.
+
+Finish with this one sentence: Choose ONE complete idea and paste it into the Selected Idea box to create your promotions.</textarea></details><div class="prompt-actions"><button class="prompt-copy-btn" type="button">Copy Prompt</button></div></article><article class="prompt-card" data-group="3"><div class="prompt-top"><div class="tech-index">14</div><div><div class="prompt-number">TECHNIQUE / 14</div><h3>The Small Change</h3></div></div><p>Tease one small, concrete adjustment to the relevant task and clarify the plausible benefit without guarantees.</p><details class="prompt-details"><summary>View full prompt</summary><textarea class="prompt-textarea" readonly="">Use the offer details previously loaded in THIS AI conversation. You are creating PUBLIC-FACING promotional IDEAS for people who might buy the offer, not commentary ABOUT its design. The marketer may own the offer or promote it as an affiliate. Do not mention any prompt-dashboard brand or technique name in your output.
+
+TECHNIQUE 14: The Small Change
+UNIQUE IDEA ENGINE: Find a small actionable change buyers can make that addresses a real struggle and leads to a supportable benefit. Name what changes, not merely that the product has a step.
+HOOK PATTERN: One-adjustment reveal.
+
+BEFORE WRITING, SILENTLY:
+1. Identify the buyer's actual everyday frustrations, decisions, desires, aspirations, common experiences and specific outcomes this offer could credibly help with.
+2. Identify confirmed facts about the offer and keep them separate from plausible buyer motivations. Mark missing proof as unknown; do not make up evidence.
+3. Find five genuinely distinct BUYER-FACING premises that apply this technique. Start with what readers care about, NOT product features, tool settings or internal implementation.
+
+GENERATE EXACTLY FIVE FINISHED CLICK-WORTHY PROMOTIONAL IDEAS. Each must focus on a DIFFERENT buyer problem, desire, situation, decision, useful revelation or outcome. These are concepts for ads, articles, videos and social posts that could attract an audience unfamiliar with the offer. Favor specific relatable situations and strong, surprising, emotional but truthful insights. The hook should generally be 6-16 words and sound like something a real person would say.
+
+FOR EACH IDEA, OUTPUT EXACTLY:
+Idea [1-5]: [Short natural-language title of the PUBLIC-FACING content concept]
+Click Hook: [One compelling, publishable buyer-facing opening or headline using this technique]
+Click Payoff: [The concrete answer, useful shift, demonstration, explanation or insight that content will ACTUALLY deliver to the reader, understandable without seeing the product]
+Offer Connection: [One accurate, natural sentence connecting that payoff to the specific loaded offer without making the piece a feature tour]
+
+NON-NEGOTIABLE BUYER-FIRST FILTER:
+- Imagine a distracted stranger scrolling Facebook who has NEVER HEARD OF THE OFFER. Would they care enough to click? If not, rewrite the idea.
+- No software or prompt trivia posing as hooks: NO discussions of numbered lines, word limits, dashboard fields, prompts, setup steps, upload processes, CTA instructions, output counts, image dimensions, product features, software menus, or how AI processes a sales page. Those can be supporting details only when absolutely necessary to explain a buyer-facing payoff, never the central intrigue.
+- If the offer IS software, training, a prompt set or an AI tool, promote the REAL-WORLD JOB it helps buyers accomplish. A reader wants the result, NOT a tour of the machinery.
+- No generic platitudes, surface-level synonyms, interchangeable curiosity teasers or the same promised payoff repeated five times.
+- Click Payoff must REVEAL the promised insight and be valuable in the content itself. Do not keep withholding the answer or describe an outline like 'walk through the platform'.
+- Offer Connection must name the exact offer only when supported, say what it credibly helps buyers do, and must not claim new features or results.
+- Never invent studies, results, time savings, financial outcomes, prices, reviews, scarcity, endorsements, screenshots, product appearance or guarantees. No fake 'secret' or made-up controversy. Qualify uncertain general advice.
+- Be punchy, conversational, and relevant. Use natural capitalization, not ALL-CAPS headlines.
+- Do not explain the marketing technique to the end reader. Do not include instruction notes, quality checks or analysis in the final output.
+
+SILENT FINAL CHECK: For EVERY idea ask 'Does this make a potential customer curious about their own life, problem or desired outcome, or merely curious about the product's interface?' Reject product-interface ideas. Five ideas should feel like five publishable editorial directions, not five feature explanations.
+
+Finish with this one sentence: Choose ONE complete idea and paste it into the Selected Idea box to create your promotions.</textarea></details><div class="prompt-actions"><button class="prompt-copy-btn" type="button">Copy Prompt</button></div></article><article class="prompt-card" data-group="3"><div class="prompt-top"><div class="tech-index">15</div><div><div class="prompt-number">TECHNIQUE / 15</div><h3>The Inside Look</h3></div></div><p>Take readers inside a documented mechanism, component, or step of the offer. Tease exactly what they would see.</p><details class="prompt-details"><summary>View full prompt</summary><textarea class="prompt-textarea" readonly="">Use the offer details previously loaded in THIS AI conversation. You are creating PUBLIC-FACING promotional IDEAS for people who might buy the offer, not commentary ABOUT its design. The marketer may own the offer or promote it as an affiliate. Do not mention any prompt-dashboard brand or technique name in your output.
+
+TECHNIQUE 15: The Inside Look
+UNIQUE IDEA ENGINE: Show the buyer what is happening inside an important REAL-LIFE process or situation they care about. Explain the underlying why, what to notice, or what changes the outcome. Do NOT turn this into a behind-the-scenes tour of the product, app interface, prompt system, setup steps, or content formats.
+HOOK PATTERN: Inside-the-process preview.
+
+BEFORE WRITING, SILENTLY:
+1. Identify the buyer's actual everyday frustrations, decisions, desires, aspirations, common experiences and specific outcomes this offer could credibly help with.
+2. Identify confirmed facts about the offer and keep them separate from plausible buyer motivations. Mark missing proof as unknown; do not make up evidence.
+3. Find five genuinely distinct BUYER-FACING premises that apply this technique. Start with what readers care about, NOT product features, tool settings or internal implementation.
+
+GENERATE EXACTLY FIVE FINISHED CLICK-WORTHY PROMOTIONAL IDEAS. Each must focus on a DIFFERENT buyer problem, desire, situation, decision, useful revelation or outcome. These are concepts for ads, articles, videos and social posts that could attract an audience unfamiliar with the offer. Favor specific relatable situations and strong, surprising, emotional but truthful insights. The hook should generally be 6-16 words and sound like something a real person would say.
+
+FOR EACH IDEA, OUTPUT EXACTLY:
+Idea [1-5]: [Short natural-language title of the PUBLIC-FACING content concept]
+Click Hook: [One compelling, publishable buyer-facing opening or headline using this technique]
+Click Payoff: [The concrete answer, useful shift, demonstration, explanation or insight that content will ACTUALLY deliver to the reader, understandable without seeing the product]
+Offer Connection: [One accurate, natural sentence connecting that payoff to the specific loaded offer without making the piece a feature tour]
+
+NON-NEGOTIABLE BUYER-FIRST FILTER:
+- Imagine a distracted stranger scrolling Facebook who has NEVER HEARD OF THE OFFER. Would they care enough to click? If not, rewrite the idea.
+- No software or prompt trivia posing as hooks: NO discussions of numbered lines, word limits, dashboard fields, prompts, setup steps, upload processes, CTA instructions, output counts, image dimensions, product features, software menus, or how AI processes a sales page. Those can be supporting details only when absolutely necessary to explain a buyer-facing payoff, never the central intrigue.
+- If the offer IS software, training, a prompt set or an AI tool, promote the REAL-WORLD JOB it helps buyers accomplish. A reader wants the result, NOT a tour of the machinery.
+- No generic platitudes, surface-level synonyms, interchangeable curiosity teasers or the same promised payoff repeated five times.
+- Click Payoff must REVEAL the promised insight and be valuable in the content itself. Do not keep withholding the answer or describe an outline like 'walk through the platform'.
+- Offer Connection must name the exact offer only when supported, say what it credibly helps buyers do, and must not claim new features or results.
+- Never invent studies, results, time savings, financial outcomes, prices, reviews, scarcity, endorsements, screenshots, product appearance or guarantees. No fake 'secret' or made-up controversy. Qualify uncertain general advice.
+- Be punchy, conversational, and relevant. Use natural capitalization, not ALL-CAPS headlines.
+- Do not explain the marketing technique to the end reader. Do not include instruction notes, quality checks or analysis in the final output.
+
+SILENT FINAL CHECK: For EVERY idea ask 'Does this make a potential customer curious about their own life, problem or desired outcome, or merely curious about the product's interface?' Reject product-interface ideas. Five ideas should feel like five publishable editorial directions, not five feature explanations.
+
+Finish with this one sentence: Choose ONE complete idea and paste it into the Selected Idea box to create your promotions.</textarea></details><div class="prompt-actions"><button class="prompt-copy-btn" type="button">Copy Prompt</button></div></article><article class="prompt-card" data-group="3"><div class="prompt-top"><div class="tech-index">16</div><div><div class="prompt-number">TECHNIQUE / 16</div><h3>The First Move</h3></div></div><p>Introduce one high-leverage first action and make readers curious why it should come before the usual next step.</p><details class="prompt-details"><summary>View full prompt</summary><textarea class="prompt-textarea" readonly="">Use the offer details previously loaded in THIS AI conversation. You are creating PUBLIC-FACING promotional IDEAS for people who might buy the offer, not commentary ABOUT its design. The marketer may own the offer or promote it as an affiliate. Do not mention any prompt-dashboard brand or technique name in your output.
+
+TECHNIQUE 16: The First Move
+UNIQUE IDEA ENGINE: Reveal one smart first move the buyer can make toward the result they want, and why that step comes before conventional advice.
+HOOK PATTERN: First-step priority.
+
+BEFORE WRITING, SILENTLY:
+1. Identify the buyer's actual everyday frustrations, decisions, desires, aspirations, common experiences and specific outcomes this offer could credibly help with.
+2. Identify confirmed facts about the offer and keep them separate from plausible buyer motivations. Mark missing proof as unknown; do not make up evidence.
+3. Find five genuinely distinct BUYER-FACING premises that apply this technique. Start with what readers care about, NOT product features, tool settings or internal implementation.
+
+GENERATE EXACTLY FIVE FINISHED CLICK-WORTHY PROMOTIONAL IDEAS. Each must focus on a DIFFERENT buyer problem, desire, situation, decision, useful revelation or outcome. These are concepts for ads, articles, videos and social posts that could attract an audience unfamiliar with the offer. Favor specific relatable situations and strong, surprising, emotional but truthful insights. The hook should generally be 6-16 words and sound like something a real person would say.
+
+FOR EACH IDEA, OUTPUT EXACTLY:
+Idea [1-5]: [Short natural-language title of the PUBLIC-FACING content concept]
+Click Hook: [One compelling, publishable buyer-facing opening or headline using this technique]
+Click Payoff: [The concrete answer, useful shift, demonstration, explanation or insight that content will ACTUALLY deliver to the reader, understandable without seeing the product]
+Offer Connection: [One accurate, natural sentence connecting that payoff to the specific loaded offer without making the piece a feature tour]
+
+NON-NEGOTIABLE BUYER-FIRST FILTER:
+- Imagine a distracted stranger scrolling Facebook who has NEVER HEARD OF THE OFFER. Would they care enough to click? If not, rewrite the idea.
+- No software or prompt trivia posing as hooks: NO discussions of numbered lines, word limits, dashboard fields, prompts, setup steps, upload processes, CTA instructions, output counts, image dimensions, product features, software menus, or how AI processes a sales page. Those can be supporting details only when absolutely necessary to explain a buyer-facing payoff, never the central intrigue.
+- If the offer IS software, training, a prompt set or an AI tool, promote the REAL-WORLD JOB it helps buyers accomplish. A reader wants the result, NOT a tour of the machinery.
+- No generic platitudes, surface-level synonyms, interchangeable curiosity teasers or the same promised payoff repeated five times.
+- Click Payoff must REVEAL the promised insight and be valuable in the content itself. Do not keep withholding the answer or describe an outline like 'walk through the platform'.
+- Offer Connection must name the exact offer only when supported, say what it credibly helps buyers do, and must not claim new features or results.
+- Never invent studies, results, time savings, financial outcomes, prices, reviews, scarcity, endorsements, screenshots, product appearance or guarantees. No fake 'secret' or made-up controversy. Qualify uncertain general advice.
+- Be punchy, conversational, and relevant. Use natural capitalization, not ALL-CAPS headlines.
+- Do not explain the marketing technique to the end reader. Do not include instruction notes, quality checks or analysis in the final output.
+
+SILENT FINAL CHECK: For EVERY idea ask 'Does this make a potential customer curious about their own life, problem or desired outcome, or merely curious about the product's interface?' Reject product-interface ideas. Five ideas should feel like five publishable editorial directions, not five feature explanations.
+
+Finish with this one sentence: Choose ONE complete idea and paste it into the Selected Idea box to create your promotions.</textarea></details><div class="prompt-actions"><button class="prompt-copy-btn" type="button">Copy Prompt</button></div></article><article class="prompt-card" data-group="3"><div class="prompt-top"><div class="tech-index">17</div><div><div class="prompt-number">TECHNIQUE / 17</div><h3>The Against-the-Grain Take</h3></div></div><p>Offer a counterintuitive but defensible point of view that runs against typical expectations in the niche.</p><details class="prompt-details"><summary>View full prompt</summary><textarea class="prompt-textarea" readonly="">Use the offer details previously loaded in THIS AI conversation. You are creating PUBLIC-FACING promotional IDEAS for people who might buy the offer, not commentary ABOUT its design. The marketer may own the offer or promote it as an affiliate. Do not mention any prompt-dashboard brand or technique name in your output.
+
+TECHNIQUE 17: The Against-the-Grain Take
+UNIQUE IDEA ENGINE: Challenge a familiar niche convention from the buyer's perspective with a defensible alternative. Avoid dismissing everyone else and avoid feature comparisons without evidence.
+HOOK PATTERN: Counterintuitive position.
+
+BEFORE WRITING, SILENTLY:
+1. Identify the buyer's actual everyday frustrations, decisions, desires, aspirations, common experiences and specific outcomes this offer could credibly help with.
+2. Identify confirmed facts about the offer and keep them separate from plausible buyer motivations. Mark missing proof as unknown; do not make up evidence.
+3. Find five genuinely distinct BUYER-FACING premises that apply this technique. Start with what readers care about, NOT product features, tool settings or internal implementation.
+
+GENERATE EXACTLY FIVE FINISHED CLICK-WORTHY PROMOTIONAL IDEAS. Each must focus on a DIFFERENT buyer problem, desire, situation, decision, useful revelation or outcome. These are concepts for ads, articles, videos and social posts that could attract an audience unfamiliar with the offer. Favor specific relatable situations and strong, surprising, emotional but truthful insights. The hook should generally be 6-16 words and sound like something a real person would say.
+
+FOR EACH IDEA, OUTPUT EXACTLY:
+Idea [1-5]: [Short natural-language title of the PUBLIC-FACING content concept]
+Click Hook: [One compelling, publishable buyer-facing opening or headline using this technique]
+Click Payoff: [The concrete answer, useful shift, demonstration, explanation or insight that content will ACTUALLY deliver to the reader, understandable without seeing the product]
+Offer Connection: [One accurate, natural sentence connecting that payoff to the specific loaded offer without making the piece a feature tour]
+
+NON-NEGOTIABLE BUYER-FIRST FILTER:
+- Imagine a distracted stranger scrolling Facebook who has NEVER HEARD OF THE OFFER. Would they care enough to click? If not, rewrite the idea.
+- No software or prompt trivia posing as hooks: NO discussions of numbered lines, word limits, dashboard fields, prompts, setup steps, upload processes, CTA instructions, output counts, image dimensions, product features, software menus, or how AI processes a sales page. Those can be supporting details only when absolutely necessary to explain a buyer-facing payoff, never the central intrigue.
+- If the offer IS software, training, a prompt set or an AI tool, promote the REAL-WORLD JOB it helps buyers accomplish. A reader wants the result, NOT a tour of the machinery.
+- No generic platitudes, surface-level synonyms, interchangeable curiosity teasers or the same promised payoff repeated five times.
+- Click Payoff must REVEAL the promised insight and be valuable in the content itself. Do not keep withholding the answer or describe an outline like 'walk through the platform'.
+- Offer Connection must name the exact offer only when supported, say what it credibly helps buyers do, and must not claim new features or results.
+- Never invent studies, results, time savings, financial outcomes, prices, reviews, scarcity, endorsements, screenshots, product appearance or guarantees. No fake 'secret' or made-up controversy. Qualify uncertain general advice.
+- Be punchy, conversational, and relevant. Use natural capitalization, not ALL-CAPS headlines.
+- Do not explain the marketing technique to the end reader. Do not include instruction notes, quality checks or analysis in the final output.
+
+SILENT FINAL CHECK: For EVERY idea ask 'Does this make a potential customer curious about their own life, problem or desired outcome, or merely curious about the product's interface?' Reject product-interface ideas. Five ideas should feel like five publishable editorial directions, not five feature explanations.
+
+Finish with this one sentence: Choose ONE complete idea and paste it into the Selected Idea box to create your promotions.</textarea></details><div class="prompt-actions"><button class="prompt-copy-btn" type="button">Copy Prompt</button></div></article><article class="prompt-card" data-group="3"><div class="prompt-top"><div class="tech-index">18</div><div><div class="prompt-number">TECHNIQUE / 18</div><h3>The Fork in the Road</h3></div></div><p>Stage a recognizable decision with two credible paths and a compelling question about which fits the reader.</p><details class="prompt-details"><summary>View full prompt</summary><textarea class="prompt-textarea" readonly="">Use the offer details previously loaded in THIS AI conversation. You are creating PUBLIC-FACING promotional IDEAS for people who might buy the offer, not commentary ABOUT its design. The marketer may own the offer or promote it as an affiliate. Do not mention any prompt-dashboard brand or technique name in your output.
+
+TECHNIQUE 18: The Fork in the Road
+UNIQUE IDEA ENGINE: Dramatize a genuine choice facing the end user and explain the consequence and decision rule for each path. Do not compare product purchase choices exclusively.
+HOOK PATTERN: Two-path decision.
+
+BEFORE WRITING, SILENTLY:
+1. Identify the buyer's actual everyday frustrations, decisions, desires, aspirations, common experiences and specific outcomes this offer could credibly help with.
+2. Identify confirmed facts about the offer and keep them separate from plausible buyer motivations. Mark missing proof as unknown; do not make up evidence.
+3. Find five genuinely distinct BUYER-FACING premises that apply this technique. Start with what readers care about, NOT product features, tool settings or internal implementation.
+
+GENERATE EXACTLY FIVE FINISHED CLICK-WORTHY PROMOTIONAL IDEAS. Each must focus on a DIFFERENT buyer problem, desire, situation, decision, useful revelation or outcome. These are concepts for ads, articles, videos and social posts that could attract an audience unfamiliar with the offer. Favor specific relatable situations and strong, surprising, emotional but truthful insights. The hook should generally be 6-16 words and sound like something a real person would say.
+
+FOR EACH IDEA, OUTPUT EXACTLY:
+Idea [1-5]: [Short natural-language title of the PUBLIC-FACING content concept]
+Click Hook: [One compelling, publishable buyer-facing opening or headline using this technique]
+Click Payoff: [The concrete answer, useful shift, demonstration, explanation or insight that content will ACTUALLY deliver to the reader, understandable without seeing the product]
+Offer Connection: [One accurate, natural sentence connecting that payoff to the specific loaded offer without making the piece a feature tour]
+
+NON-NEGOTIABLE BUYER-FIRST FILTER:
+- Imagine a distracted stranger scrolling Facebook who has NEVER HEARD OF THE OFFER. Would they care enough to click? If not, rewrite the idea.
+- No software or prompt trivia posing as hooks: NO discussions of numbered lines, word limits, dashboard fields, prompts, setup steps, upload processes, CTA instructions, output counts, image dimensions, product features, software menus, or how AI processes a sales page. Those can be supporting details only when absolutely necessary to explain a buyer-facing payoff, never the central intrigue.
+- If the offer IS software, training, a prompt set or an AI tool, promote the REAL-WORLD JOB it helps buyers accomplish. A reader wants the result, NOT a tour of the machinery.
+- No generic platitudes, surface-level synonyms, interchangeable curiosity teasers or the same promised payoff repeated five times.
+- Click Payoff must REVEAL the promised insight and be valuable in the content itself. Do not keep withholding the answer or describe an outline like 'walk through the platform'.
+- Offer Connection must name the exact offer only when supported, say what it credibly helps buyers do, and must not claim new features or results.
+- Never invent studies, results, time savings, financial outcomes, prices, reviews, scarcity, endorsements, screenshots, product appearance or guarantees. No fake 'secret' or made-up controversy. Qualify uncertain general advice.
+- Be punchy, conversational, and relevant. Use natural capitalization, not ALL-CAPS headlines.
+- Do not explain the marketing technique to the end reader. Do not include instruction notes, quality checks or analysis in the final output.
+
+SILENT FINAL CHECK: For EVERY idea ask 'Does this make a potential customer curious about their own life, problem or desired outcome, or merely curious about the product's interface?' Reject product-interface ideas. Five ideas should feel like five publishable editorial directions, not five feature explanations.
+
+Finish with this one sentence: Choose ONE complete idea and paste it into the Selected Idea box to create your promotions.</textarea></details><div class="prompt-actions"><button class="prompt-copy-btn" type="button">Copy Prompt</button></div></article><article class="prompt-card" data-group="4"><div class="prompt-top"><div class="tech-index">19</div><div><div class="prompt-number">TECHNIQUE / 19</div><h3>The Why-Behind-It</h3></div></div><p>Explore a genuine cause, not an invented secret, behind a common difficulty or outcome in this offer’s category.</p><details class="prompt-details"><summary>View full prompt</summary><textarea class="prompt-textarea" readonly="">Use the offer details previously loaded in THIS AI conversation. You are creating PUBLIC-FACING promotional IDEAS for people who might buy the offer, not commentary ABOUT its design. The marketer may own the offer or promote it as an affiliate. Do not mention any prompt-dashboard brand or technique name in your output.
+
+TECHNIQUE 19: The Why-Behind-It
+UNIQUE IDEA ENGINE: Uncover a practical reason why buyers experience a familiar frustration, and provide a useful explanation without pretending to have secret science.
+HOOK PATTERN: Causal explanation teaser.
+
+BEFORE WRITING, SILENTLY:
+1. Identify the buyer's actual everyday frustrations, decisions, desires, aspirations, common experiences and specific outcomes this offer could credibly help with.
+2. Identify confirmed facts about the offer and keep them separate from plausible buyer motivations. Mark missing proof as unknown; do not make up evidence.
+3. Find five genuinely distinct BUYER-FACING premises that apply this technique. Start with what readers care about, NOT product features, tool settings or internal implementation.
+
+GENERATE EXACTLY FIVE FINISHED CLICK-WORTHY PROMOTIONAL IDEAS. Each must focus on a DIFFERENT buyer problem, desire, situation, decision, useful revelation or outcome. These are concepts for ads, articles, videos and social posts that could attract an audience unfamiliar with the offer. Favor specific relatable situations and strong, surprising, emotional but truthful insights. The hook should generally be 6-16 words and sound like something a real person would say.
+
+FOR EACH IDEA, OUTPUT EXACTLY:
+Idea [1-5]: [Short natural-language title of the PUBLIC-FACING content concept]
+Click Hook: [One compelling, publishable buyer-facing opening or headline using this technique]
+Click Payoff: [The concrete answer, useful shift, demonstration, explanation or insight that content will ACTUALLY deliver to the reader, understandable without seeing the product]
+Offer Connection: [One accurate, natural sentence connecting that payoff to the specific loaded offer without making the piece a feature tour]
+
+NON-NEGOTIABLE BUYER-FIRST FILTER:
+- Imagine a distracted stranger scrolling Facebook who has NEVER HEARD OF THE OFFER. Would they care enough to click? If not, rewrite the idea.
+- No software or prompt trivia posing as hooks: NO discussions of numbered lines, word limits, dashboard fields, prompts, setup steps, upload processes, CTA instructions, output counts, image dimensions, product features, software menus, or how AI processes a sales page. Those can be supporting details only when absolutely necessary to explain a buyer-facing payoff, never the central intrigue.
+- If the offer IS software, training, a prompt set or an AI tool, promote the REAL-WORLD JOB it helps buyers accomplish. A reader wants the result, NOT a tour of the machinery.
+- No generic platitudes, surface-level synonyms, interchangeable curiosity teasers or the same promised payoff repeated five times.
+- Click Payoff must REVEAL the promised insight and be valuable in the content itself. Do not keep withholding the answer or describe an outline like 'walk through the platform'.
+- Offer Connection must name the exact offer only when supported, say what it credibly helps buyers do, and must not claim new features or results.
+- Never invent studies, results, time savings, financial outcomes, prices, reviews, scarcity, endorsements, screenshots, product appearance or guarantees. No fake 'secret' or made-up controversy. Qualify uncertain general advice.
+- Be punchy, conversational, and relevant. Use natural capitalization, not ALL-CAPS headlines.
+- Do not explain the marketing technique to the end reader. Do not include instruction notes, quality checks or analysis in the final output.
+
+SILENT FINAL CHECK: For EVERY idea ask 'Does this make a potential customer curious about their own life, problem or desired outcome, or merely curious about the product's interface?' Reject product-interface ideas. Five ideas should feel like five publishable editorial directions, not five feature explanations.
+
+Finish with this one sentence: Choose ONE complete idea and paste it into the Selected Idea box to create your promotions.</textarea></details><div class="prompt-actions"><button class="prompt-copy-btn" type="button">Copy Prompt</button></div></article><article class="prompt-card" data-group="4"><div class="prompt-top"><div class="tech-index">20</div><div><div class="prompt-number">TECHNIQUE / 20</div><h3>The One-Detail Reveal</h3></div></div><p>Choose one specific checkable feature, variable, or condition and hint at why it changes the decision.</p><details class="prompt-details"><summary>View full prompt</summary><textarea class="prompt-textarea" readonly="">Use the offer details previously loaded in THIS AI conversation. You are creating PUBLIC-FACING promotional IDEAS for people who might buy the offer, not commentary ABOUT its design. The marketer may own the offer or promote it as an affiliate. Do not mention any prompt-dashboard brand or technique name in your output.
+
+TECHNIQUE 20: The One-Detail Reveal
+UNIQUE IDEA ENGINE: Tease one specific buyer-relevant condition that changes what they should do next. Avoid internal formatting rules or technical implementation trivia.
+HOOK PATTERN: Critical-detail reveal.
+
+BEFORE WRITING, SILENTLY:
+1. Identify the buyer's actual everyday frustrations, decisions, desires, aspirations, common experiences and specific outcomes this offer could credibly help with.
+2. Identify confirmed facts about the offer and keep them separate from plausible buyer motivations. Mark missing proof as unknown; do not make up evidence.
+3. Find five genuinely distinct BUYER-FACING premises that apply this technique. Start with what readers care about, NOT product features, tool settings or internal implementation.
+
+GENERATE EXACTLY FIVE FINISHED CLICK-WORTHY PROMOTIONAL IDEAS. Each must focus on a DIFFERENT buyer problem, desire, situation, decision, useful revelation or outcome. These are concepts for ads, articles, videos and social posts that could attract an audience unfamiliar with the offer. Favor specific relatable situations and strong, surprising, emotional but truthful insights. The hook should generally be 6-16 words and sound like something a real person would say.
+
+FOR EACH IDEA, OUTPUT EXACTLY:
+Idea [1-5]: [Short natural-language title of the PUBLIC-FACING content concept]
+Click Hook: [One compelling, publishable buyer-facing opening or headline using this technique]
+Click Payoff: [The concrete answer, useful shift, demonstration, explanation or insight that content will ACTUALLY deliver to the reader, understandable without seeing the product]
+Offer Connection: [One accurate, natural sentence connecting that payoff to the specific loaded offer without making the piece a feature tour]
+
+NON-NEGOTIABLE BUYER-FIRST FILTER:
+- Imagine a distracted stranger scrolling Facebook who has NEVER HEARD OF THE OFFER. Would they care enough to click? If not, rewrite the idea.
+- No software or prompt trivia posing as hooks: NO discussions of numbered lines, word limits, dashboard fields, prompts, setup steps, upload processes, CTA instructions, output counts, image dimensions, product features, software menus, or how AI processes a sales page. Those can be supporting details only when absolutely necessary to explain a buyer-facing payoff, never the central intrigue.
+- If the offer IS software, training, a prompt set or an AI tool, promote the REAL-WORLD JOB it helps buyers accomplish. A reader wants the result, NOT a tour of the machinery.
+- No generic platitudes, surface-level synonyms, interchangeable curiosity teasers or the same promised payoff repeated five times.
+- Click Payoff must REVEAL the promised insight and be valuable in the content itself. Do not keep withholding the answer or describe an outline like 'walk through the platform'.
+- Offer Connection must name the exact offer only when supported, say what it credibly helps buyers do, and must not claim new features or results.
+- Never invent studies, results, time savings, financial outcomes, prices, reviews, scarcity, endorsements, screenshots, product appearance or guarantees. No fake 'secret' or made-up controversy. Qualify uncertain general advice.
+- Be punchy, conversational, and relevant. Use natural capitalization, not ALL-CAPS headlines.
+- Do not explain the marketing technique to the end reader. Do not include instruction notes, quality checks or analysis in the final output.
+
+SILENT FINAL CHECK: For EVERY idea ask 'Does this make a potential customer curious about their own life, problem or desired outcome, or merely curious about the product's interface?' Reject product-interface ideas. Five ideas should feel like five publishable editorial directions, not five feature explanations.
+
+Finish with this one sentence: Choose ONE complete idea and paste it into the Selected Idea box to create your promotions.</textarea></details><div class="prompt-actions"><button class="prompt-copy-btn" type="button">Copy Prompt</button></div></article><article class="prompt-card" data-group="4"><div class="prompt-top"><div class="tech-index">21</div><div><div class="prompt-number">TECHNIQUE / 21</div><h3>The Myth Check</h3></div></div><p>Challenge a specific common misconception only when it can be fairly stated and corrected from supplied evidence.</p><details class="prompt-details"><summary>View full prompt</summary><textarea class="prompt-textarea" readonly="">Use the offer details previously loaded in THIS AI conversation. You are creating PUBLIC-FACING promotional IDEAS for people who might buy the offer, not commentary ABOUT its design. The marketer may own the offer or promote it as an affiliate. Do not mention any prompt-dashboard brand or technique name in your output.
+
+TECHNIQUE 21: The Myth Check
+UNIQUE IDEA ENGINE: Select a widespread but genuinely falsifiable assumption about the buyer's task, and correct it fairly with appropriate qualifications.
+HOOK PATTERN: Myth-versus-reality.
+
+BEFORE WRITING, SILENTLY:
+1. Identify the buyer's actual everyday frustrations, decisions, desires, aspirations, common experiences and specific outcomes this offer could credibly help with.
+2. Identify confirmed facts about the offer and keep them separate from plausible buyer motivations. Mark missing proof as unknown; do not make up evidence.
+3. Find five genuinely distinct BUYER-FACING premises that apply this technique. Start with what readers care about, NOT product features, tool settings or internal implementation.
+
+GENERATE EXACTLY FIVE FINISHED CLICK-WORTHY PROMOTIONAL IDEAS. Each must focus on a DIFFERENT buyer problem, desire, situation, decision, useful revelation or outcome. These are concepts for ads, articles, videos and social posts that could attract an audience unfamiliar with the offer. Favor specific relatable situations and strong, surprising, emotional but truthful insights. The hook should generally be 6-16 words and sound like something a real person would say.
+
+FOR EACH IDEA, OUTPUT EXACTLY:
+Idea [1-5]: [Short natural-language title of the PUBLIC-FACING content concept]
+Click Hook: [One compelling, publishable buyer-facing opening or headline using this technique]
+Click Payoff: [The concrete answer, useful shift, demonstration, explanation or insight that content will ACTUALLY deliver to the reader, understandable without seeing the product]
+Offer Connection: [One accurate, natural sentence connecting that payoff to the specific loaded offer without making the piece a feature tour]
+
+NON-NEGOTIABLE BUYER-FIRST FILTER:
+- Imagine a distracted stranger scrolling Facebook who has NEVER HEARD OF THE OFFER. Would they care enough to click? If not, rewrite the idea.
+- No software or prompt trivia posing as hooks: NO discussions of numbered lines, word limits, dashboard fields, prompts, setup steps, upload processes, CTA instructions, output counts, image dimensions, product features, software menus, or how AI processes a sales page. Those can be supporting details only when absolutely necessary to explain a buyer-facing payoff, never the central intrigue.
+- If the offer IS software, training, a prompt set or an AI tool, promote the REAL-WORLD JOB it helps buyers accomplish. A reader wants the result, NOT a tour of the machinery.
+- No generic platitudes, surface-level synonyms, interchangeable curiosity teasers or the same promised payoff repeated five times.
+- Click Payoff must REVEAL the promised insight and be valuable in the content itself. Do not keep withholding the answer or describe an outline like 'walk through the platform'.
+- Offer Connection must name the exact offer only when supported, say what it credibly helps buyers do, and must not claim new features or results.
+- Never invent studies, results, time savings, financial outcomes, prices, reviews, scarcity, endorsements, screenshots, product appearance or guarantees. No fake 'secret' or made-up controversy. Qualify uncertain general advice.
+- Be punchy, conversational, and relevant. Use natural capitalization, not ALL-CAPS headlines.
+- Do not explain the marketing technique to the end reader. Do not include instruction notes, quality checks or analysis in the final output.
+
+SILENT FINAL CHECK: For EVERY idea ask 'Does this make a potential customer curious about their own life, problem or desired outcome, or merely curious about the product's interface?' Reject product-interface ideas. Five ideas should feel like five publishable editorial directions, not five feature explanations.
+
+Finish with this one sentence: Choose ONE complete idea and paste it into the Selected Idea box to create your promotions.</textarea></details><div class="prompt-actions"><button class="prompt-copy-btn" type="button">Copy Prompt</button></div></article><article class="prompt-card" data-group="4"><div class="prompt-top"><div class="tech-index">22</div><div><div class="prompt-number">TECHNIQUE / 22</div><h3>The Outsider Lens</h3></div></div><p>Reframe the same offer through a sharply different, relevant user situation or job-to-be-done.</p><details class="prompt-details"><summary>View full prompt</summary><textarea class="prompt-textarea" readonly="">Use the offer details previously loaded in THIS AI conversation. You are creating PUBLIC-FACING promotional IDEAS for people who might buy the offer, not commentary ABOUT its design. The marketer may own the offer or promote it as an affiliate. Do not mention any prompt-dashboard brand or technique name in your output.
+
+TECHNIQUE 22: The Outsider Lens
+UNIQUE IDEA ENGINE: Use an unexpected but relevant buyer persona or life circumstance to reveal a personally meaningful use case. Do not just rename the product's ideal customer.
+HOOK PATTERN: Perspective-switch hook.
+
+BEFORE WRITING, SILENTLY:
+1. Identify the buyer's actual everyday frustrations, decisions, desires, aspirations, common experiences and specific outcomes this offer could credibly help with.
+2. Identify confirmed facts about the offer and keep them separate from plausible buyer motivations. Mark missing proof as unknown; do not make up evidence.
+3. Find five genuinely distinct BUYER-FACING premises that apply this technique. Start with what readers care about, NOT product features, tool settings or internal implementation.
+
+GENERATE EXACTLY FIVE FINISHED CLICK-WORTHY PROMOTIONAL IDEAS. Each must focus on a DIFFERENT buyer problem, desire, situation, decision, useful revelation or outcome. These are concepts for ads, articles, videos and social posts that could attract an audience unfamiliar with the offer. Favor specific relatable situations and strong, surprising, emotional but truthful insights. The hook should generally be 6-16 words and sound like something a real person would say.
+
+FOR EACH IDEA, OUTPUT EXACTLY:
+Idea [1-5]: [Short natural-language title of the PUBLIC-FACING content concept]
+Click Hook: [One compelling, publishable buyer-facing opening or headline using this technique]
+Click Payoff: [The concrete answer, useful shift, demonstration, explanation or insight that content will ACTUALLY deliver to the reader, understandable without seeing the product]
+Offer Connection: [One accurate, natural sentence connecting that payoff to the specific loaded offer without making the piece a feature tour]
+
+NON-NEGOTIABLE BUYER-FIRST FILTER:
+- Imagine a distracted stranger scrolling Facebook who has NEVER HEARD OF THE OFFER. Would they care enough to click? If not, rewrite the idea.
+- No software or prompt trivia posing as hooks: NO discussions of numbered lines, word limits, dashboard fields, prompts, setup steps, upload processes, CTA instructions, output counts, image dimensions, product features, software menus, or how AI processes a sales page. Those can be supporting details only when absolutely necessary to explain a buyer-facing payoff, never the central intrigue.
+- If the offer IS software, training, a prompt set or an AI tool, promote the REAL-WORLD JOB it helps buyers accomplish. A reader wants the result, NOT a tour of the machinery.
+- No generic platitudes, surface-level synonyms, interchangeable curiosity teasers or the same promised payoff repeated five times.
+- Click Payoff must REVEAL the promised insight and be valuable in the content itself. Do not keep withholding the answer or describe an outline like 'walk through the platform'.
+- Offer Connection must name the exact offer only when supported, say what it credibly helps buyers do, and must not claim new features or results.
+- Never invent studies, results, time savings, financial outcomes, prices, reviews, scarcity, endorsements, screenshots, product appearance or guarantees. No fake 'secret' or made-up controversy. Qualify uncertain general advice.
+- Be punchy, conversational, and relevant. Use natural capitalization, not ALL-CAPS headlines.
+- Do not explain the marketing technique to the end reader. Do not include instruction notes, quality checks or analysis in the final output.
+
+SILENT FINAL CHECK: For EVERY idea ask 'Does this make a potential customer curious about their own life, problem or desired outcome, or merely curious about the product's interface?' Reject product-interface ideas. Five ideas should feel like five publishable editorial directions, not five feature explanations.
+
+Finish with this one sentence: Choose ONE complete idea and paste it into the Selected Idea box to create your promotions.</textarea></details><div class="prompt-actions"><button class="prompt-copy-btn" type="button">Copy Prompt</button></div></article><article class="prompt-card" data-group="4"><div class="prompt-top"><div class="tech-index">23</div><div><div class="prompt-number">TECHNIQUE / 23</div><h3>The Surprise Application</h3></div></div><p>Tease an unexpected yet legitimate use of the product, technique, or material supported by the loaded offer.</p><details class="prompt-details"><summary>View full prompt</summary><textarea class="prompt-textarea" readonly="">Use the offer details previously loaded in THIS AI conversation. You are creating PUBLIC-FACING promotional IDEAS for people who might buy the offer, not commentary ABOUT its design. The marketer may own the offer or promote it as an affiliate. Do not mention any prompt-dashboard brand or technique name in your output.
+
+TECHNIQUE 23: The Surprise Application
+UNIQUE IDEA ENGINE: Expose an unexpected practical application that provides a distinct end-user benefit. Do not count differently sized files, media formats, or product features as separate revelations.
+HOOK PATTERN: Unusual-use reveal.
+
+BEFORE WRITING, SILENTLY:
+1. Identify the buyer's actual everyday frustrations, decisions, desires, aspirations, common experiences and specific outcomes this offer could credibly help with.
+2. Identify confirmed facts about the offer and keep them separate from plausible buyer motivations. Mark missing proof as unknown; do not make up evidence.
+3. Find five genuinely distinct BUYER-FACING premises that apply this technique. Start with what readers care about, NOT product features, tool settings or internal implementation.
+
+GENERATE EXACTLY FIVE FINISHED CLICK-WORTHY PROMOTIONAL IDEAS. Each must focus on a DIFFERENT buyer problem, desire, situation, decision, useful revelation or outcome. These are concepts for ads, articles, videos and social posts that could attract an audience unfamiliar with the offer. Favor specific relatable situations and strong, surprising, emotional but truthful insights. The hook should generally be 6-16 words and sound like something a real person would say.
+
+FOR EACH IDEA, OUTPUT EXACTLY:
+Idea [1-5]: [Short natural-language title of the PUBLIC-FACING content concept]
+Click Hook: [One compelling, publishable buyer-facing opening or headline using this technique]
+Click Payoff: [The concrete answer, useful shift, demonstration, explanation or insight that content will ACTUALLY deliver to the reader, understandable without seeing the product]
+Offer Connection: [One accurate, natural sentence connecting that payoff to the specific loaded offer without making the piece a feature tour]
+
+NON-NEGOTIABLE BUYER-FIRST FILTER:
+- Imagine a distracted stranger scrolling Facebook who has NEVER HEARD OF THE OFFER. Would they care enough to click? If not, rewrite the idea.
+- No software or prompt trivia posing as hooks: NO discussions of numbered lines, word limits, dashboard fields, prompts, setup steps, upload processes, CTA instructions, output counts, image dimensions, product features, software menus, or how AI processes a sales page. Those can be supporting details only when absolutely necessary to explain a buyer-facing payoff, never the central intrigue.
+- If the offer IS software, training, a prompt set or an AI tool, promote the REAL-WORLD JOB it helps buyers accomplish. A reader wants the result, NOT a tour of the machinery.
+- No generic platitudes, surface-level synonyms, interchangeable curiosity teasers or the same promised payoff repeated five times.
+- Click Payoff must REVEAL the promised insight and be valuable in the content itself. Do not keep withholding the answer or describe an outline like 'walk through the platform'.
+- Offer Connection must name the exact offer only when supported, say what it credibly helps buyers do, and must not claim new features or results.
+- Never invent studies, results, time savings, financial outcomes, prices, reviews, scarcity, endorsements, screenshots, product appearance or guarantees. No fake 'secret' or made-up controversy. Qualify uncertain general advice.
+- Be punchy, conversational, and relevant. Use natural capitalization, not ALL-CAPS headlines.
+- Do not explain the marketing technique to the end reader. Do not include instruction notes, quality checks or analysis in the final output.
+
+SILENT FINAL CHECK: For EVERY idea ask 'Does this make a potential customer curious about their own life, problem or desired outcome, or merely curious about the product's interface?' Reject product-interface ideas. Five ideas should feel like five publishable editorial directions, not five feature explanations.
+
+Finish with this one sentence: Choose ONE complete idea and paste it into the Selected Idea box to create your promotions.</textarea></details><div class="prompt-actions"><button class="prompt-copy-btn" type="button">Copy Prompt</button></div></article><article class="prompt-card" data-group="4"><div class="prompt-top"><div class="tech-index">24</div><div><div class="prompt-number">TECHNIQUE / 24</div><h3>The Easier Route</h3></div></div><p>Show a legitimate simplification, fewer-step process, or saved effort supported by the offer, without invented time claims.</p><details class="prompt-details"><summary>View full prompt</summary><textarea class="prompt-textarea" readonly="">Use the offer details previously loaded in THIS AI conversation. You are creating PUBLIC-FACING promotional IDEAS for people who might buy the offer, not commentary ABOUT its design. The marketer may own the offer or promote it as an affiliate. Do not mention any prompt-dashboard brand or technique name in your output.
+
+TECHNIQUE 24: The Easier Route
+UNIQUE IDEA ENGINE: Show a simpler buyer-facing way to do something genuinely frustrating, with a concrete before/after activity. Never promise unsupported speed or guaranteed results.
+HOOK PATTERN: Effort-saving shortcut.
+
+BEFORE WRITING, SILENTLY:
+1. Identify the buyer's actual everyday frustrations, decisions, desires, aspirations, common experiences and specific outcomes this offer could credibly help with.
+2. Identify confirmed facts about the offer and keep them separate from plausible buyer motivations. Mark missing proof as unknown; do not make up evidence.
+3. Find five genuinely distinct BUYER-FACING premises that apply this technique. Start with what readers care about, NOT product features, tool settings or internal implementation.
+
+GENERATE EXACTLY FIVE FINISHED CLICK-WORTHY PROMOTIONAL IDEAS. Each must focus on a DIFFERENT buyer problem, desire, situation, decision, useful revelation or outcome. These are concepts for ads, articles, videos and social posts that could attract an audience unfamiliar with the offer. Favor specific relatable situations and strong, surprising, emotional but truthful insights. The hook should generally be 6-16 words and sound like something a real person would say.
+
+FOR EACH IDEA, OUTPUT EXACTLY:
+Idea [1-5]: [Short natural-language title of the PUBLIC-FACING content concept]
+Click Hook: [One compelling, publishable buyer-facing opening or headline using this technique]
+Click Payoff: [The concrete answer, useful shift, demonstration, explanation or insight that content will ACTUALLY deliver to the reader, understandable without seeing the product]
+Offer Connection: [One accurate, natural sentence connecting that payoff to the specific loaded offer without making the piece a feature tour]
+
+NON-NEGOTIABLE BUYER-FIRST FILTER:
+- Imagine a distracted stranger scrolling Facebook who has NEVER HEARD OF THE OFFER. Would they care enough to click? If not, rewrite the idea.
+- No software or prompt trivia posing as hooks: NO discussions of numbered lines, word limits, dashboard fields, prompts, setup steps, upload processes, CTA instructions, output counts, image dimensions, product features, software menus, or how AI processes a sales page. Those can be supporting details only when absolutely necessary to explain a buyer-facing payoff, never the central intrigue.
+- If the offer IS software, training, a prompt set or an AI tool, promote the REAL-WORLD JOB it helps buyers accomplish. A reader wants the result, NOT a tour of the machinery.
+- No generic platitudes, surface-level synonyms, interchangeable curiosity teasers or the same promised payoff repeated five times.
+- Click Payoff must REVEAL the promised insight and be valuable in the content itself. Do not keep withholding the answer or describe an outline like 'walk through the platform'.
+- Offer Connection must name the exact offer only when supported, say what it credibly helps buyers do, and must not claim new features or results.
+- Never invent studies, results, time savings, financial outcomes, prices, reviews, scarcity, endorsements, screenshots, product appearance or guarantees. No fake 'secret' or made-up controversy. Qualify uncertain general advice.
+- Be punchy, conversational, and relevant. Use natural capitalization, not ALL-CAPS headlines.
+- Do not explain the marketing technique to the end reader. Do not include instruction notes, quality checks or analysis in the final output.
+
+SILENT FINAL CHECK: For EVERY idea ask 'Does this make a potential customer curious about their own life, problem or desired outcome, or merely curious about the product's interface?' Reject product-interface ideas. Five ideas should feel like five publishable editorial directions, not five feature explanations.
+
+Finish with this one sentence: Choose ONE complete idea and paste it into the Selected Idea box to create your promotions.</textarea></details><div class="prompt-actions"><button class="prompt-copy-btn" type="button">Copy Prompt</button></div></article><article class="prompt-card" data-group="5"><div class="prompt-top"><div class="tech-index">25</div><div><div class="prompt-number">TECHNIQUE / 25</div><h3>The Aha Moment</h3></div></div><p>Stage a believable realization that reorganizes how the reader understands a familiar task, with a specific explanatory payoff.</p><details class="prompt-details"><summary>View full prompt</summary><textarea class="prompt-textarea" readonly="">Use the offer details previously loaded in THIS AI conversation. You are creating PUBLIC-FACING promotional IDEAS for people who might buy the offer, not commentary ABOUT its design. The marketer may own the offer or promote it as an affiliate. Do not mention any prompt-dashboard brand or technique name in your output.
+
+TECHNIQUE 25: The Aha Moment
+UNIQUE IDEA ENGINE: Lead readers to an authentic aha moment about their own actions, problem or goal. Make the realization clear and useful before connecting to the offer.
+HOOK PATTERN: Insight/revelation.
+
+BEFORE WRITING, SILENTLY:
+1. Identify the buyer's actual everyday frustrations, decisions, desires, aspirations, common experiences and specific outcomes this offer could credibly help with.
+2. Identify confirmed facts about the offer and keep them separate from plausible buyer motivations. Mark missing proof as unknown; do not make up evidence.
+3. Find five genuinely distinct BUYER-FACING premises that apply this technique. Start with what readers care about, NOT product features, tool settings or internal implementation.
+
+GENERATE EXACTLY FIVE FINISHED CLICK-WORTHY PROMOTIONAL IDEAS. Each must focus on a DIFFERENT buyer problem, desire, situation, decision, useful revelation or outcome. These are concepts for ads, articles, videos and social posts that could attract an audience unfamiliar with the offer. Favor specific relatable situations and strong, surprising, emotional but truthful insights. The hook should generally be 6-16 words and sound like something a real person would say.
+
+FOR EACH IDEA, OUTPUT EXACTLY:
+Idea [1-5]: [Short natural-language title of the PUBLIC-FACING content concept]
+Click Hook: [One compelling, publishable buyer-facing opening or headline using this technique]
+Click Payoff: [The concrete answer, useful shift, demonstration, explanation or insight that content will ACTUALLY deliver to the reader, understandable without seeing the product]
+Offer Connection: [One accurate, natural sentence connecting that payoff to the specific loaded offer without making the piece a feature tour]
+
+NON-NEGOTIABLE BUYER-FIRST FILTER:
+- Imagine a distracted stranger scrolling Facebook who has NEVER HEARD OF THE OFFER. Would they care enough to click? If not, rewrite the idea.
+- No software or prompt trivia posing as hooks: NO discussions of numbered lines, word limits, dashboard fields, prompts, setup steps, upload processes, CTA instructions, output counts, image dimensions, product features, software menus, or how AI processes a sales page. Those can be supporting details only when absolutely necessary to explain a buyer-facing payoff, never the central intrigue.
+- If the offer IS software, training, a prompt set or an AI tool, promote the REAL-WORLD JOB it helps buyers accomplish. A reader wants the result, NOT a tour of the machinery.
+- No generic platitudes, surface-level synonyms, interchangeable curiosity teasers or the same promised payoff repeated five times.
+- Click Payoff must REVEAL the promised insight and be valuable in the content itself. Do not keep withholding the answer or describe an outline like 'walk through the platform'.
+- Offer Connection must name the exact offer only when supported, say what it credibly helps buyers do, and must not claim new features or results.
+- Never invent studies, results, time savings, financial outcomes, prices, reviews, scarcity, endorsements, screenshots, product appearance or guarantees. No fake 'secret' or made-up controversy. Qualify uncertain general advice.
+- Be punchy, conversational, and relevant. Use natural capitalization, not ALL-CAPS headlines.
+- Do not explain the marketing technique to the end reader. Do not include instruction notes, quality checks or analysis in the final output.
+
+SILENT FINAL CHECK: For EVERY idea ask 'Does this make a potential customer curious about their own life, problem or desired outcome, or merely curious about the product's interface?' Reject product-interface ideas. Five ideas should feel like five publishable editorial directions, not five feature explanations.
+
+Finish with this one sentence: Choose ONE complete idea and paste it into the Selected Idea box to create your promotions.</textarea></details><div class="prompt-actions"><button class="prompt-copy-btn" type="button">Copy Prompt</button></div></article><article class="prompt-card" data-group="5"><div class="prompt-top"><div class="tech-index">26</div><div><div class="prompt-number">TECHNIQUE / 26</div><h3>The You-Are-Here Moment</h3></div></div><p>Write a vivid, precise moment the intended buyer recognizes, then open a question about what to do next.</p><details class="prompt-details"><summary>View full prompt</summary><textarea class="prompt-textarea" readonly="">Use the offer details previously loaded in THIS AI conversation. You are creating PUBLIC-FACING promotional IDEAS for people who might buy the offer, not commentary ABOUT its design. The marketer may own the offer or promote it as an affiliate. Do not mention any prompt-dashboard brand or technique name in your output.
+
+TECHNIQUE 26: The You-Are-Here Moment
+UNIQUE IDEA ENGINE: Open on an unusually specific relatable moment where the buyer recognizes themselves, and tease a helpful shift or next move.
+HOOK PATTERN: Hyper-specific situation.
+
+BEFORE WRITING, SILENTLY:
+1. Identify the buyer's actual everyday frustrations, decisions, desires, aspirations, common experiences and specific outcomes this offer could credibly help with.
+2. Identify confirmed facts about the offer and keep them separate from plausible buyer motivations. Mark missing proof as unknown; do not make up evidence.
+3. Find five genuinely distinct BUYER-FACING premises that apply this technique. Start with what readers care about, NOT product features, tool settings or internal implementation.
+
+GENERATE EXACTLY FIVE FINISHED CLICK-WORTHY PROMOTIONAL IDEAS. Each must focus on a DIFFERENT buyer problem, desire, situation, decision, useful revelation or outcome. These are concepts for ads, articles, videos and social posts that could attract an audience unfamiliar with the offer. Favor specific relatable situations and strong, surprising, emotional but truthful insights. The hook should generally be 6-16 words and sound like something a real person would say.
+
+FOR EACH IDEA, OUTPUT EXACTLY:
+Idea [1-5]: [Short natural-language title of the PUBLIC-FACING content concept]
+Click Hook: [One compelling, publishable buyer-facing opening or headline using this technique]
+Click Payoff: [The concrete answer, useful shift, demonstration, explanation or insight that content will ACTUALLY deliver to the reader, understandable without seeing the product]
+Offer Connection: [One accurate, natural sentence connecting that payoff to the specific loaded offer without making the piece a feature tour]
+
+NON-NEGOTIABLE BUYER-FIRST FILTER:
+- Imagine a distracted stranger scrolling Facebook who has NEVER HEARD OF THE OFFER. Would they care enough to click? If not, rewrite the idea.
+- No software or prompt trivia posing as hooks: NO discussions of numbered lines, word limits, dashboard fields, prompts, setup steps, upload processes, CTA instructions, output counts, image dimensions, product features, software menus, or how AI processes a sales page. Those can be supporting details only when absolutely necessary to explain a buyer-facing payoff, never the central intrigue.
+- If the offer IS software, training, a prompt set or an AI tool, promote the REAL-WORLD JOB it helps buyers accomplish. A reader wants the result, NOT a tour of the machinery.
+- No generic platitudes, surface-level synonyms, interchangeable curiosity teasers or the same promised payoff repeated five times.
+- Click Payoff must REVEAL the promised insight and be valuable in the content itself. Do not keep withholding the answer or describe an outline like 'walk through the platform'.
+- Offer Connection must name the exact offer only when supported, say what it credibly helps buyers do, and must not claim new features or results.
+- Never invent studies, results, time savings, financial outcomes, prices, reviews, scarcity, endorsements, screenshots, product appearance or guarantees. No fake 'secret' or made-up controversy. Qualify uncertain general advice.
+- Be punchy, conversational, and relevant. Use natural capitalization, not ALL-CAPS headlines.
+- Do not explain the marketing technique to the end reader. Do not include instruction notes, quality checks or analysis in the final output.
+
+SILENT FINAL CHECK: For EVERY idea ask 'Does this make a potential customer curious about their own life, problem or desired outcome, or merely curious about the product's interface?' Reject product-interface ideas. Five ideas should feel like five publishable editorial directions, not five feature explanations.
+
+Finish with this one sentence: Choose ONE complete idea and paste it into the Selected Idea box to create your promotions.</textarea></details><div class="prompt-actions"><button class="prompt-copy-btn" type="button">Copy Prompt</button></div></article><article class="prompt-card" data-group="5"><div class="prompt-top"><div class="tech-index">27</div><div><div class="prompt-number">TECHNIQUE / 27</div><h3>The Wild Comparison</h3></div></div><p>Make an unexpected but fair comparison using two grounded features, methods, or buyer options. Avoid numerical claims without proof.</p><details class="prompt-details"><summary>View full prompt</summary><textarea class="prompt-textarea" readonly="">Use the offer details previously loaded in THIS AI conversation. You are creating PUBLIC-FACING promotional IDEAS for people who might buy the offer, not commentary ABOUT its design. The marketer may own the offer or promote it as an affiliate. Do not mention any prompt-dashboard brand or technique name in your output.
+
+TECHNIQUE 27: The Wild Comparison
+UNIQUE IDEA ENGINE: Make a vivid but fair comparison between familiar everyday choices, actions or outcomes. Never invent quantities or imply objectively proven superiority.
+HOOK PATTERN: Surprising juxtaposition.
+
+BEFORE WRITING, SILENTLY:
+1. Identify the buyer's actual everyday frustrations, decisions, desires, aspirations, common experiences and specific outcomes this offer could credibly help with.
+2. Identify confirmed facts about the offer and keep them separate from plausible buyer motivations. Mark missing proof as unknown; do not make up evidence.
+3. Find five genuinely distinct BUYER-FACING premises that apply this technique. Start with what readers care about, NOT product features, tool settings or internal implementation.
+
+GENERATE EXACTLY FIVE FINISHED CLICK-WORTHY PROMOTIONAL IDEAS. Each must focus on a DIFFERENT buyer problem, desire, situation, decision, useful revelation or outcome. These are concepts for ads, articles, videos and social posts that could attract an audience unfamiliar with the offer. Favor specific relatable situations and strong, surprising, emotional but truthful insights. The hook should generally be 6-16 words and sound like something a real person would say.
+
+FOR EACH IDEA, OUTPUT EXACTLY:
+Idea [1-5]: [Short natural-language title of the PUBLIC-FACING content concept]
+Click Hook: [One compelling, publishable buyer-facing opening or headline using this technique]
+Click Payoff: [The concrete answer, useful shift, demonstration, explanation or insight that content will ACTUALLY deliver to the reader, understandable without seeing the product]
+Offer Connection: [One accurate, natural sentence connecting that payoff to the specific loaded offer without making the piece a feature tour]
+
+NON-NEGOTIABLE BUYER-FIRST FILTER:
+- Imagine a distracted stranger scrolling Facebook who has NEVER HEARD OF THE OFFER. Would they care enough to click? If not, rewrite the idea.
+- No software or prompt trivia posing as hooks: NO discussions of numbered lines, word limits, dashboard fields, prompts, setup steps, upload processes, CTA instructions, output counts, image dimensions, product features, software menus, or how AI processes a sales page. Those can be supporting details only when absolutely necessary to explain a buyer-facing payoff, never the central intrigue.
+- If the offer IS software, training, a prompt set or an AI tool, promote the REAL-WORLD JOB it helps buyers accomplish. A reader wants the result, NOT a tour of the machinery.
+- No generic platitudes, surface-level synonyms, interchangeable curiosity teasers or the same promised payoff repeated five times.
+- Click Payoff must REVEAL the promised insight and be valuable in the content itself. Do not keep withholding the answer or describe an outline like 'walk through the platform'.
+- Offer Connection must name the exact offer only when supported, say what it credibly helps buyers do, and must not claim new features or results.
+- Never invent studies, results, time savings, financial outcomes, prices, reviews, scarcity, endorsements, screenshots, product appearance or guarantees. No fake 'secret' or made-up controversy. Qualify uncertain general advice.
+- Be punchy, conversational, and relevant. Use natural capitalization, not ALL-CAPS headlines.
+- Do not explain the marketing technique to the end reader. Do not include instruction notes, quality checks or analysis in the final output.
+
+SILENT FINAL CHECK: For EVERY idea ask 'Does this make a potential customer curious about their own life, problem or desired outcome, or merely curious about the product's interface?' Reject product-interface ideas. Five ideas should feel like five publishable editorial directions, not five feature explanations.
+
+Finish with this one sentence: Choose ONE complete idea and paste it into the Selected Idea box to create your promotions.</textarea></details><div class="prompt-actions"><button class="prompt-copy-btn" type="button">Copy Prompt</button></div></article><article class="prompt-card" data-group="5"><div class="prompt-top"><div class="tech-index">28</div><div><div class="prompt-number">TECHNIQUE / 28</div><h3>The Unasked Question</h3></div></div><p>Surface a less-obvious question a careful buyer or user should ask, and create suspense around its answer.</p><details class="prompt-details"><summary>View full prompt</summary><textarea class="prompt-textarea" readonly="">Use the offer details previously loaded in THIS AI conversation. You are creating PUBLIC-FACING promotional IDEAS for people who might buy the offer, not commentary ABOUT its design. The marketer may own the offer or promote it as an affiliate. Do not mention any prompt-dashboard brand or technique name in your output.
+
+TECHNIQUE 28: The Unasked Question
+UNIQUE IDEA ENGINE: Ask an overlooked question a buyer should consider BEFORE they invest time or effort in a related activity. Provide a precise satisfying answer.
+HOOK PATTERN: Unasked-question hook.
+
+BEFORE WRITING, SILENTLY:
+1. Identify the buyer's actual everyday frustrations, decisions, desires, aspirations, common experiences and specific outcomes this offer could credibly help with.
+2. Identify confirmed facts about the offer and keep them separate from plausible buyer motivations. Mark missing proof as unknown; do not make up evidence.
+3. Find five genuinely distinct BUYER-FACING premises that apply this technique. Start with what readers care about, NOT product features, tool settings or internal implementation.
+
+GENERATE EXACTLY FIVE FINISHED CLICK-WORTHY PROMOTIONAL IDEAS. Each must focus on a DIFFERENT buyer problem, desire, situation, decision, useful revelation or outcome. These are concepts for ads, articles, videos and social posts that could attract an audience unfamiliar with the offer. Favor specific relatable situations and strong, surprising, emotional but truthful insights. The hook should generally be 6-16 words and sound like something a real person would say.
+
+FOR EACH IDEA, OUTPUT EXACTLY:
+Idea [1-5]: [Short natural-language title of the PUBLIC-FACING content concept]
+Click Hook: [One compelling, publishable buyer-facing opening or headline using this technique]
+Click Payoff: [The concrete answer, useful shift, demonstration, explanation or insight that content will ACTUALLY deliver to the reader, understandable without seeing the product]
+Offer Connection: [One accurate, natural sentence connecting that payoff to the specific loaded offer without making the piece a feature tour]
+
+NON-NEGOTIABLE BUYER-FIRST FILTER:
+- Imagine a distracted stranger scrolling Facebook who has NEVER HEARD OF THE OFFER. Would they care enough to click? If not, rewrite the idea.
+- No software or prompt trivia posing as hooks: NO discussions of numbered lines, word limits, dashboard fields, prompts, setup steps, upload processes, CTA instructions, output counts, image dimensions, product features, software menus, or how AI processes a sales page. Those can be supporting details only when absolutely necessary to explain a buyer-facing payoff, never the central intrigue.
+- If the offer IS software, training, a prompt set or an AI tool, promote the REAL-WORLD JOB it helps buyers accomplish. A reader wants the result, NOT a tour of the machinery.
+- No generic platitudes, surface-level synonyms, interchangeable curiosity teasers or the same promised payoff repeated five times.
+- Click Payoff must REVEAL the promised insight and be valuable in the content itself. Do not keep withholding the answer or describe an outline like 'walk through the platform'.
+- Offer Connection must name the exact offer only when supported, say what it credibly helps buyers do, and must not claim new features or results.
+- Never invent studies, results, time savings, financial outcomes, prices, reviews, scarcity, endorsements, screenshots, product appearance or guarantees. No fake 'secret' or made-up controversy. Qualify uncertain general advice.
+- Be punchy, conversational, and relevant. Use natural capitalization, not ALL-CAPS headlines.
+- Do not explain the marketing technique to the end reader. Do not include instruction notes, quality checks or analysis in the final output.
+
+SILENT FINAL CHECK: For EVERY idea ask 'Does this make a potential customer curious about their own life, problem or desired outcome, or merely curious about the product's interface?' Reject product-interface ideas. Five ideas should feel like five publishable editorial directions, not five feature explanations.
+
+Finish with this one sentence: Choose ONE complete idea and paste it into the Selected Idea box to create your promotions.</textarea></details><div class="prompt-actions"><button class="prompt-copy-btn" type="button">Copy Prompt</button></div></article><article class="prompt-card" data-group="5"><div class="prompt-top"><div class="tech-index">29</div><div><div class="prompt-number">TECHNIQUE / 29</div><h3>The Contrarian Challenge</h3></div></div><p>Issue a constructive challenge to a widespread practice, inviting readers to test a more useful alternative rather than just agree.</p><details class="prompt-details"><summary>View full prompt</summary><textarea class="prompt-textarea" readonly="">Use the offer details previously loaded in THIS AI conversation. You are creating PUBLIC-FACING promotional IDEAS for people who might buy the offer, not commentary ABOUT its design. The marketer may own the offer or promote it as an affiliate. Do not mention any prompt-dashboard brand or technique name in your output.
+
+TECHNIQUE 29: The Contrarian Challenge
+UNIQUE IDEA ENGINE: Challenge the buyer to question a conventional default and test a supportable alternative, with a meaningful test they can actually perform.
+HOOK PATTERN: Challenge-the-default.
+
+BEFORE WRITING, SILENTLY:
+1. Identify the buyer's actual everyday frustrations, decisions, desires, aspirations, common experiences and specific outcomes this offer could credibly help with.
+2. Identify confirmed facts about the offer and keep them separate from plausible buyer motivations. Mark missing proof as unknown; do not make up evidence.
+3. Find five genuinely distinct BUYER-FACING premises that apply this technique. Start with what readers care about, NOT product features, tool settings or internal implementation.
+
+GENERATE EXACTLY FIVE FINISHED CLICK-WORTHY PROMOTIONAL IDEAS. Each must focus on a DIFFERENT buyer problem, desire, situation, decision, useful revelation or outcome. These are concepts for ads, articles, videos and social posts that could attract an audience unfamiliar with the offer. Favor specific relatable situations and strong, surprising, emotional but truthful insights. The hook should generally be 6-16 words and sound like something a real person would say.
+
+FOR EACH IDEA, OUTPUT EXACTLY:
+Idea [1-5]: [Short natural-language title of the PUBLIC-FACING content concept]
+Click Hook: [One compelling, publishable buyer-facing opening or headline using this technique]
+Click Payoff: [The concrete answer, useful shift, demonstration, explanation or insight that content will ACTUALLY deliver to the reader, understandable without seeing the product]
+Offer Connection: [One accurate, natural sentence connecting that payoff to the specific loaded offer without making the piece a feature tour]
+
+NON-NEGOTIABLE BUYER-FIRST FILTER:
+- Imagine a distracted stranger scrolling Facebook who has NEVER HEARD OF THE OFFER. Would they care enough to click? If not, rewrite the idea.
+- No software or prompt trivia posing as hooks: NO discussions of numbered lines, word limits, dashboard fields, prompts, setup steps, upload processes, CTA instructions, output counts, image dimensions, product features, software menus, or how AI processes a sales page. Those can be supporting details only when absolutely necessary to explain a buyer-facing payoff, never the central intrigue.
+- If the offer IS software, training, a prompt set or an AI tool, promote the REAL-WORLD JOB it helps buyers accomplish. A reader wants the result, NOT a tour of the machinery.
+- No generic platitudes, surface-level synonyms, interchangeable curiosity teasers or the same promised payoff repeated five times.
+- Click Payoff must REVEAL the promised insight and be valuable in the content itself. Do not keep withholding the answer or describe an outline like 'walk through the platform'.
+- Offer Connection must name the exact offer only when supported, say what it credibly helps buyers do, and must not claim new features or results.
+- Never invent studies, results, time savings, financial outcomes, prices, reviews, scarcity, endorsements, screenshots, product appearance or guarantees. No fake 'secret' or made-up controversy. Qualify uncertain general advice.
+- Be punchy, conversational, and relevant. Use natural capitalization, not ALL-CAPS headlines.
+- Do not explain the marketing technique to the end reader. Do not include instruction notes, quality checks or analysis in the final output.
+
+SILENT FINAL CHECK: For EVERY idea ask 'Does this make a potential customer curious about their own life, problem or desired outcome, or merely curious about the product's interface?' Reject product-interface ideas. Five ideas should feel like five publishable editorial directions, not five feature explanations.
+
+Finish with this one sentence: Choose ONE complete idea and paste it into the Selected Idea box to create your promotions.</textarea></details><div class="prompt-actions"><button class="prompt-copy-btn" type="button">Copy Prompt</button></div></article><article class="prompt-card" data-group="5"><div class="prompt-top"><div class="tech-index">30</div><div><div class="prompt-number">TECHNIQUE / 30</div><h3>The Rage Bait Debate</h3></div></div><p>Create a sharp, opinionated, polarizing but good-faith take about a relevant behavior, convention, or industry practice. Invite disagreement without targeting protected groups, insulting individuals, fabricating scandals, or inventing outrage. Back the position with real offer context and make the post useful beyond provocation.</p><details class="prompt-details"><summary>View full prompt</summary><textarea class="prompt-textarea" readonly="">Use the offer details previously loaded in THIS AI conversation. You are creating PUBLIC-FACING promotional IDEAS for people who might buy the offer, not commentary ABOUT its design. The marketer may own the offer or promote it as an affiliate. Do not mention any prompt-dashboard brand or technique name in your output.
+
+TECHNIQUE 30: The Rage Bait Debate
+UNIQUE IDEA ENGINE: Take a provocative, opinionated stance on a familiar frustrating practice or belief in the buyer's world, and argue it persuasively with real reasoning. Spark fair discussion without personal abuse, made-up scandals, or outrage for its own sake.
+HOOK PATTERN: Debate-provoking hot take.
+
+BEFORE WRITING, SILENTLY:
+1. Identify the buyer's actual everyday frustrations, decisions, desires, aspirations, common experiences and specific outcomes this offer could credibly help with.
+2. Identify confirmed facts about the offer and keep them separate from plausible buyer motivations. Mark missing proof as unknown; do not make up evidence.
+3. Find five genuinely distinct BUYER-FACING premises that apply this technique. Start with what readers care about, NOT product features, tool settings or internal implementation.
+
+GENERATE EXACTLY FIVE FINISHED CLICK-WORTHY PROMOTIONAL IDEAS. Each must focus on a DIFFERENT buyer problem, desire, situation, decision, useful revelation or outcome. These are concepts for ads, articles, videos and social posts that could attract an audience unfamiliar with the offer. Favor specific relatable situations and strong, surprising, emotional but truthful insights. The hook should generally be 6-16 words and sound like something a real person would say.
+
+FOR EACH IDEA, OUTPUT EXACTLY:
+Idea [1-5]: [Short natural-language title of the PUBLIC-FACING content concept]
+Click Hook: [One compelling, publishable buyer-facing opening or headline using this technique]
+Click Payoff: [The concrete answer, useful shift, demonstration, explanation or insight that content will ACTUALLY deliver to the reader, understandable without seeing the product]
+Offer Connection: [One accurate, natural sentence connecting that payoff to the specific loaded offer without making the piece a feature tour]
+
+NON-NEGOTIABLE BUYER-FIRST FILTER:
+- Imagine a distracted stranger scrolling Facebook who has NEVER HEARD OF THE OFFER. Would they care enough to click? If not, rewrite the idea.
+- No software or prompt trivia posing as hooks: NO discussions of numbered lines, word limits, dashboard fields, prompts, setup steps, upload processes, CTA instructions, output counts, image dimensions, product features, software menus, or how AI processes a sales page. Those can be supporting details only when absolutely necessary to explain a buyer-facing payoff, never the central intrigue.
+- If the offer IS software, training, a prompt set or an AI tool, promote the REAL-WORLD JOB it helps buyers accomplish. A reader wants the result, NOT a tour of the machinery.
+- No generic platitudes, surface-level synonyms, interchangeable curiosity teasers or the same promised payoff repeated five times.
+- Click Payoff must REVEAL the promised insight and be valuable in the content itself. Do not keep withholding the answer or describe an outline like 'walk through the platform'.
+- Offer Connection must name the exact offer only when supported, say what it credibly helps buyers do, and must not claim new features or results.
+- Never invent studies, results, time savings, financial outcomes, prices, reviews, scarcity, endorsements, screenshots, product appearance or guarantees. No fake 'secret' or made-up controversy. Qualify uncertain general advice.
+- Be punchy, conversational, and relevant. Use natural capitalization, not ALL-CAPS headlines.
+- Do not explain the marketing technique to the end reader. Do not include instruction notes, quality checks or analysis in the final output.
+
+SILENT FINAL CHECK: For EVERY idea ask 'Does this make a potential customer curious about their own life, problem or desired outcome, or merely curious about the product's interface?' Reject product-interface ideas. Five ideas should feel like five publishable editorial directions, not five feature explanations.
+
+Finish with this one sentence: Choose ONE complete idea and paste it into the Selected Idea box to create your promotions.</textarea></details><div class="prompt-actions"><button class="prompt-copy-btn" type="button">Copy Prompt</button></div></article></div></section>
+<section class="creator-section" id="create-content"><div class="technique-intro"><div class="section-eyebrow">STEP 3 + 4 / BUILD CONTENT</div><h2>The Content Creation Console</h2><p>Paste one complete generated idea, choose a format, and create an independent, ready-to-run prompt that includes the idea itself.</p></div><div class="creator-layout"><div class="selection-panel"><div class="section-eyebrow">STEP 3 · SELECT ONE IDEA</div><h2>Your Selected Idea</h2><p>Paste ONE entire generated idea, including Idea title, Click Hook, Click Payoff and Offer Connection. Each content prompt embeds your complete selected idea so it can run in a NEW AI chat. Include all four fields so the AI has the hook, payoff and offer connection.</p><textarea id="selectedIdea" placeholder="Paste your selected idea here..."></textarea><div class="selection-actions"><button id="clearIdea" type="button">Clear All</button></div></div><div class="traffic-panel creator-panel" id="contentCreatorPanel">
+<div class="section-eyebrow">STEP 4 · CREATE PROMOTIONAL CONTENT</div>
+<h2>Turn Your Idea Into Content</h2>
+<p>Select a format. Your complete selected idea is automatically inserted into the generated prompt. You can copy it into the same AI chat or a NEW chat. Clear All removes the local idea, so paste an idea again before building another prompt.</p>
+<div class="content-button-grid">
+<button class="traffic-btn creator-build" data-creator="3 Five-Line Ads" type="button">Create 3 Five-Line Ads</button>
+<button class="traffic-btn creator-build" data-creator="Promotional Email" type="button">Create Promotional Email</button>
+<button class="traffic-btn creator-build" data-creator="Promotional Blog Post" type="button">Create Blog Post</button>
+<button class="traffic-btn creator-build" data-creator="Social Post" type="button">Create Social Post</button>
+<button class="traffic-btn creator-build" data-creator="Email Newsletter" type="button">Create Email Newsletter</button>
+<button class="traffic-btn creator-build" data-creator="3 Calls To Action" type="button">Create 3 Calls To Action</button>
+<button class="traffic-btn creator-build" data-creator="Product Review" type="button">Create Product Review</button>
+<button class="traffic-btn creator-build" data-creator="Video Script" type="button">Create Video Script</button>
+<button class="traffic-btn creator-build" data-creator="Infographic Image" type="button">Create Infographic Image</button>
+<button class="traffic-btn creator-build" data-creator="Social Image" type="button">Create Social Image</button>
+</div>
+<div class="inline-output" hidden="" id="creatorOutputPanel">
+<h3 id="creatorOutputTitle">Your Promotional Content Prompt</h3>
+<p>Your generated prompt includes the entire selected idea. You can edit and copy it into any AI chat.</p>
+<textarea aria-label="Generated promotional prompt" class="inline-output-textarea" id="creatorPromptOutput"></textarea>
+<div class="inline-output-actions">
+<button class="prompt-copy-btn" id="copyCreatorPrompt" type="button">Copy Content Prompt</button>
+<a class="ai-open-btn" href="https://chatgpt.com/" rel="noopener noreferrer" target="_blank">ChatGPT</a>
+<a class="ai-open-btn" href="https://claude.ai/new" rel="noopener noreferrer" target="_blank">Claude</a>
+<a class="ai-open-btn" href="https://gemini.google.com/app" rel="noopener noreferrer" target="_blank">Gemini</a>
+<a class="ai-open-btn" href="https://grok.com/" rel="noopener noreferrer" target="_blank">Grok</a>
+</div>
+</div>
+</div></div></section><div class="footer-note">Copyright &copy; <script>document.write(new Date().getFullYear())</script> Siva Prasad Mukherjee. All Rights Reserved.</div>
+<script>
+const creatorInstructions={"3 Five-Line Ads": "Create exactly THREE distinct 5-line promotional ads. Each ad must have precisely five nonempty lines: line 1 an attention-grabbing hook, line 2 the specific reader problem or desire, line 3 an intriguing relevant detail, line 4 a truthful bridge to the offer, and line 5 one clear call to action. Make each ad meaningfully different. No extra lines inside any ad.", "Promotional Email": "Write ONE complete promotional email with 3 subject line options, one preview line, a natural conversational email body (200-350 words), and one clearly marked CTA. Deliver the promised curiosity answer before or during the transition to the offer.", "Promotional Blog Post": "Write ONE finished promotional blog post of approximately 900-1200 words with a strong headline, engaging introduction, practical informational sections, and a natural offer recommendation plus CTA. Fully pay off the headline in the article.", "Social Post": "Write ONE finished standalone social media post (120-220 words) with a striking first line, readable short paragraphs, substantive payoff and a natural CTA. No fabricated engagement bait.", "Email Newsletter": "Write ONE complete value-first email newsletter (450-650 words) with 3 subject options, preview text, a useful editorial-style opening, concrete insights or tips and a natural mention of the offer with one CTA.", "3 Calls To Action": "Write exactly THREE different finished calls to action for the offer: one short/direct, one benefit-driven, and one curiosity-led. Each should include a brief lead-in and the CTA text. Avoid unsupported urgency.", "Product Review": "Write ONE honest, balanced promotional product review with headline, what it is, who it may suit, verified included features, practical benefits, potential limitations, who it may not suit, and a transparent CTA. If this is an affiliate recommendation, make the relationship clear. Do not imply firsthand testing or personal results.", "Video Script": "Write ONE finished 2-3 minute video script with opening hook, spoken narration, helpful explanation, on-screen cues, clear reveal of the hook answer, natural offer introduction and final CTA. Avoid invented demonstrations or results.", "Infographic Image": "GENERATE AND DISPLAY EXACTLY ONE finished, best-and-final, publication-ready INFOGRAPHIC IMAGE NOW. Output the actual rendered visual, never a concept, outline, text draft, mockup, prompt, or multiple versions. FORMAT: portrait 4:5 for social feeds (1080 x 1350 target if supported). The SELECTED IDEA is the sole creative driver. Turn its Click Hook into a highly specific, arresting headline, VISUALLY DELIVER its Click Payoff using 3 to 5 ultra-concise factually grounded insights, and bring in its Offer Connection only as a restrained, truthful closing when it makes sense. ART DIRECTION: compete against the most striking visual content in a fast-scrolling feed. Aim for a jaw-dropping first impression: unexpected yet relevant imagery, dramatic scale, bold editorial composition, extraordinary visual hierarchy, expressive visual storytelling, cinematic depth or creative illustrated dimensionality where appropriate, and dynamic, intentionally chosen high-contrast colors. Use one dominant visual concept and a coherent icon/visual system; make the information effortless to scan on a phone. Do not make a generic office infographic with repetitive boxes, tiny text, crowded icons or lifeless templates. EDITING: display only the essential words; use exceptionally legible bold typography, generous spacing and mobile-safe margins. Fact-check every text snippet against the selected idea; do not invent data, charts, statistics, endorsements, logos, screens, customer results or product visuals. If actual imagery is not supplied, use a clearly conceptual scene instead of counterfeit product photography. Silently choose the strongest creative direction, refine spelling, cropping, visual accuracy and readability, then render the ONE FINAL IMAGE. No extra text after the image. If image rendering is unavailable, state that briefly and provide one complete production-ready prompt instead.", "Social Image": "GENERATE AND DISPLAY EXACTLY ONE finished, best-and-final, PUBLICATION-READY SOCIAL IMAGE NOW. Produce the final rendered IMAGE, never a concept, textual design brief, prompt, storyboard, mockup, collage of options, or explanation. FORMAT: 1:1 square social-feed graphic (1080 x 1080 target if supported) suitable for Facebook and Instagram. The SELECTED IDEA controls everything. Identify the ONE most scroll-stopping human-relevant tension, curiosity, desire, or surprising truth in its Click Hook and Click Payoff. Translate this into ONE extraordinary visual concept that communicates in under ONE SECOND even as a small thumbnail. ART DIRECTION: jaw-dropping, bold, premium and impossible to confuse with generic stock ads. Choose whichever treatment best suits this specific idea: cinematic photorealistic concept, hyperreal 3D, vibrant editorial illustration, striking surreal metaphor, dramatic graphic typography, or unexpectedly clever visual contrast. Use a single unforgettable focal point; surprise, dramatic scale, expressive lighting, rich depth, sharp high-contrast color, purposeful negative space and clean composition. Avoid repeating the same style for unrelated ideas. TEXT: ONE short punchy on-image hook, ideally 2 to 7 words, with at most one brief supporting phrase if needed. Do not plaster the four idea fields or a full ad on the image. Make every word instantly legible on mobile and check spelling carefully. Only add a concise truthful CTA if the selected idea supports it; otherwise omit. Do not fabricate screenshots, product photos, logos, people endorsing a product, statistics, ratings, money imagery, results, urgency or proof. Without authentic supplied visuals, use an appropriate conceptual metaphor. Avoid crowded panels, fake notification counters, click arrows, generic AI robots, corporate clip-art, cheap stickers and random visual gimmicks. Keep essential content within safe margins. Silently art-direct and quality-check, then render ONE final best image and nothing else. If image rendering is unavailable, state that briefly and provide one complete production-ready prompt instead."};
+const toast=document.getElementById('toast');let toastTimer;
+function showToast(message='Copied to clipboard'){toast.textContent=message;toast.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>toast.classList.remove('show'),1500)}
+async function copyText(value){try{if(navigator.clipboard && window.isSecureContext){await navigator.clipboard.writeText(value)}else{const t=document.createElement('textarea');t.value=value;t.style.position='fixed';t.style.opacity='0';document.body.appendChild(t);t.select();const ok=document.execCommand('copy');t.remove();if(!ok)throw new Error('Copy failed')}showToast()}catch(e){showToast('Copy failed. Select and copy the text manually.')}}
+document.getElementById('copySetup').addEventListener('click',()=>copyText(document.getElementById('setupPrompt').value));
+document.querySelectorAll('.prompt-copy-btn').forEach(btn=>btn.addEventListener('click',()=>copyText(btn.closest('.prompt-card').querySelector('.prompt-textarea').value)));
+document.querySelectorAll('.creator-build').forEach(btn=>btn.addEventListener('click',()=>{
+ const field=document.getElementById('selectedIdea');
+ const idea=field.value.trim();
+ if(!idea){alert('Paste one complete selected idea first.');field.focus();return;}
+ const instruction=creatorInstructions[btn.dataset.creator];
+ const imageFormat = btn.dataset.creator === 'Infographic Image' || btn.dataset.creator === 'Social Image';
+ const prompt=`PRIMARY CREATIVE BRIEF: THE SELECTED IDEA BELOW.
+Use this specific idea as the basis of the ENTIRE ${imageFormat ? 'image' : 'piece of promotional content'}. The Click Hook dictates the opening or main headline. The Click Payoff dictates what you must actually reveal or teach. The Offer Connection dictates how to introduce what is being promoted, if appropriate. Do NOT ignore this idea, generate a different idea, or revert to a generic overview of the offer. Make the content meaningful to a potential customer who has never heard of this offer; promote the buyer-facing benefit, not a tour of the product interface or internal instructions.
+
+SELF-CONTAINED CONTEXT: Everything you need to start is embedded in the SELECTED IDEA at the bottom of this prompt. Treat its Idea Title, Click Hook, Click Payoff and Offer Connection as the working creative brief. This prompt MUST work even in a brand-new AI conversation with no earlier setup or offer loaded. Do NOT ask for or require a previous MASTER OFFER CONTEXT. If this same chat happens to contain additional original sales material, you may consult it ONLY to fact-check explicit offer details, never to replace the selected idea or change its central premise. In a new chat, work solely from the included selected idea. Don't assume unprovided product names, features, prices, links, bonuses, claims or outcomes. If the idea hints at a claim that cannot be verified using the text provided, make the wording conditional, remove the unsupported detail, or focus on the useful insight instead. Do not invent facts or claim independent verification.
+
+OUTPUT TYPE: ${btn.dataset.creator}
+SPECIFIC CREATION REQUIREMENTS: ${instruction}
+
+${imageFormat ? 'IMPORTANT: The requested final output is an actual newly rendered IMAGE (not an image description). Use your image-generation capability to render the final asset. If you do not have image generation in this chat, explain that briefly and provide exactly one highly detailed production-ready image generation prompt instead.' : 'IMPORTANT: Produce the FINISHED copy only, not a plan, explanation, or generic list of suggestions.'}
+
+STYLE / INTEGRITY: Make the hook compelling and immediately understandable. Fulfill its promise in the actual output. Keep a natural connection to the selected idea all the way through. Do not invent statistics, pricing, proof, first-hand testing, testimonials, promises, scarcity, guarantees, bonuses or other details. Do not use unsupported urgency. Keep wording concrete and clear. For missing destination URLs in written content only, use [YOUR LINK] instead of fabricating a link. Do not mention the name of any prompt dashboard or internal technique.
+
+SELECTED IDEA — FULL TEXT INJECTED AUTOMATICALLY (PRIMARY CREATIVE BRIEF):
+${idea}`;
+ document.getElementById('creatorOutputTitle').textContent=btn.dataset.creator+' Prompt';
+ document.getElementById('creatorPromptOutput').value=prompt;
+ const output=document.getElementById('creatorOutputPanel');output.hidden=false;
+ output.scrollIntoView({behavior:'smooth',block:'nearest'});
+}));
+document.getElementById('selectedIdea').addEventListener('input',()=>{
+ const output=document.getElementById('creatorOutputPanel');
+ if(!output.hidden){document.getElementById('creatorPromptOutput').value='';output.hidden=true;}
+});
+document.getElementById('copyCreatorPrompt').addEventListener('click',()=>{
+ const value=document.getElementById('creatorPromptOutput').value.trim();
+ if(!value){showToast('Create a content prompt first');return;}
+ copyText(value);
+});
+function clearIdeaAndPrompt(){
+ document.getElementById('selectedIdea').value='';
+ document.getElementById('creatorPromptOutput').value='';
+ document.getElementById('creatorOutputTitle').textContent='Your Promotional Content Prompt';
+ document.getElementById('creatorOutputPanel').hidden=true;
+ showToast('Idea and generated prompt cleared');
+}
+document.getElementById('clearIdea').addEventListener('click',clearIdeaAndPrompt);
+document.getElementById('clearAll').addEventListener('click',clearIdeaAndPrompt);
+
+// Filter technique cards without changing the prompts.
+document.querySelectorAll('.filter-btn').forEach(button=>{button.addEventListener('click',()=>{document.querySelectorAll('.filter-btn').forEach(b=>b.classList.toggle('active',b===button));const group=button.dataset.group;document.querySelectorAll('.prompt-card').forEach(card=>{card.hidden=group!=='0'&&card.dataset.group!==group;});});});
+</script></body></html>
