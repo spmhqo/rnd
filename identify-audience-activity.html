@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Identify Relevant Professions and Professional Activities - (for keyword building)</title>
+  <link rel="icon" href="spm.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-gradient-start: #020617;
+      --bg-gradient-end: #0f172a;
+      --card-bg: rgba(30, 41, 59, 0.4);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --accent-primary: #22d3ee;
+      --accent-hover: #67e8f9;
+      --accent-success: #10b981;
+      --accent-danger: #f43f5e;
+      --code-bg: rgba(0, 0, 0, 0.3);
+      --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: fixed linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+      color: var(--text-primary);
+      line-height: 1.6;
+      padding: 60px 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      max-width: 900px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    h1 {
+      font-size: 2.3rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #fff;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      line-height: 1.25;
+    }
+
+    .sub-header {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--accent-primary);
+      letter-spacing: 0.02em;
+    }
+
+    .prompt-workflow {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .step-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 35px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .step-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .step-label {
+      font-weight: 800;
+      font-size: 0.8rem;
+      background: var(--accent-primary);
+      color: #020617;
+      padding: 5px 16px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .prompt-content {
+      background: var(--code-bg);
+      padding: 25px;
+      border-radius: 12px;
+      font-family: 'Source Code Pro', monospace;
+      font-size: 0.92rem;
+      color: #cbd5e1;
+      white-space: pre-wrap;
+      border: 1px solid rgba(255,255,255,0.05);
+      margin-bottom: 22px;
+      line-height: 1.6;
+      word-break: break-word;
+      max-height: 520px;
+      overflow-y: auto;
+    }
+
+    .prompt-content::-webkit-scrollbar { width: 8px; }
+    .prompt-content::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); }
+    .prompt-content::-webkit-scrollbar-thumb { background: var(--card-border); border-radius: 4px; }
+
+    .btn {
+      padding: 14px 32px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.2s;
+      width: 100%;
+      text-decoration: none;
+      border: none;
+    }
+
+    .copy-btn {
+      background: rgba(34, 211, 238, 0.1);
+      color: var(--accent-primary);
+      border: 1px solid var(--accent-primary);
+    }
+
+    .copy-btn:hover {
+      background: var(--accent-primary);
+      color: #020617;
+    }
+
+    .copy-btn.copied {
+      background: var(--accent-success);
+      border-color: var(--accent-success);
+      color: white;
+    }
+
+    .footer {
+      margin-top: 80px;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--card-border);
+      padding-top: 40px;
+      width: 100%;
+      padding-bottom: 40px;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 1.7rem; }
+      .sub-header { font-size: 1rem; }
+      .step-card { padding: 22px; }
+      .prompt-content { font-size: 0.85rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>Identify Relevant Professions and Professional Activities</h1>
+      <p class="sub-header">(for keyword building)</p>
+    </header>
+
+    <div class="prompt-workflow">
+
+      <!-- Prompt #1 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Prompt #1</span>
+        </div>
+        <div class="prompt-content" id="p1">AI PROMPT: Identify Relevant Professions and Professional Activities for a Given Audience
+
+ROLE AND OBJECTIVE
+
+Act as an Audience Researcher, Occupational Researcher, and Professional Content Strategist.
+
+Your task is to identify the relevant professions and professional activities associated with a specified target audience.
+
+The objective is to understand what the members of the target audience do professionally, which activities they perform as part of their work, and which professional areas offer relevant opportunities for educational, informational, and practical content creation.
+
+Do not assume that every member of the target audience has the same profession, responsibilities, or level of experience.
+
+RESEARCH INPUTS
+
+Target Audience: [Insert Target Audience]
+
+Audience Context: [Insert relevant demographic, geographic, industry, experience-level, or other contextual information. Leave blank if not applicable.]
+
+Research Focus: [Insert the intended purpose, such as educational content creation, skill development, professional training, problem-solving, or digital product development. Leave blank if not applicable.]
+
+Preferred Language: [Insert Preferred Language]
+
+TASK 1: IDENTIFY RELEVANT PROFESSIONS
+
+Identify exactly 25 distinct professions, occupations, or professionally meaningful role categories relevant to the specified target audience.
+
+For each profession, provide:
+
+- Profession Name: A clear and recognisable name for the profession or occupational role.
+- Professional Context: A brief description of the work this professional typically performs.
+- Relevance to the Target Audience: A concise explanation of why this profession is relevant to the specified audience.
+
+Selection Criteria
+
+- Prioritise professions that members of the target audience currently pursue, are likely to pursue, or may reasonably aspire to pursue.
+- Consider different employment arrangements where relevant, including salaried employment, self-employment, freelancing, entrepreneurship, and independent professional practice.
+- Include specialised roles when they represent meaningfully distinct professional responsibilities.
+- Avoid listing multiple titles for essentially the same profession.
+- Do not assume that every profession is relevant to every member of the audience.
+- Distinguish established occupations from emerging or speculative career possibilities.
+- Do not invent occupational categories merely to reach the required number. If 25 genuinely relevant categories cannot be identified, explain the limitation and provide the defensible number instead.
+
+TASK 2: IDENTIFY PROFESSIONAL ACTIVITIES
+
+For each profession identified in Task 1, identify 5 distinct and relevant professional activities.
+
+A professional activity is a specific task, responsibility, process, or category of work that a person performs as part of a profession.
+
+For each activity, provide:
+
+- Professional Activity Name: A concise and specific name for the activity.
+- Activity Description: A brief explanation of what the activity involves.
+- Professional Relevance: A concise explanation of why the activity matters within that profession.
+
+Selection Criteria
+
+- Focus on actual work activities rather than abstract skills, personality traits, or general career goals.
+- Include activities that are central to the profession, as well as important supporting activities where appropriate.
+- Prefer clearly distinguishable activities that can be performed, observed, explained, or improved.
+- Avoid repeating the same activity under different names.
+- Distinguish activities shared across professions from activities specific to a particular profession.
+- Include planning, execution, communication, analysis, decision-making, administration, or client-facing work only when relevant to the profession.
+- Ensure that each activity is appropriate to the audience's professional context and experience level.
+
+TASK 3: IDENTIFY CROSS-PROFESSIONAL ACTIVITIES
+
+Identify up to 25 professional activities that are relevant across multiple professions within the specified target audience.
+
+For each activity, provide:
+
+- Professional Activity Name
+- Typical Professions Involved: Identify the relevant professions from Task 1.
+- Why It Matters: Briefly explain the activity's practical importance across those professions.
+
+Prioritise activities that are genuinely shared across multiple professions and have meaningful practical relevance.
+
+Do not include activities merely because they can theoretically occur in almost any occupation.
+
+TASK 4: IDENTIFY HIGH-POTENTIAL AREAS FOR CONTENT CREATION
+
+Using the professions and professional activities identified above, identify the 10 most promising areas for creating educational, informational, or practical content for the specified target audience.
+
+For each area, provide:
+
+- Profession or Professions: The relevant professions.
+- Professional Activity: The specific activity involved.
+- Potential Content Area: The subject that could be explored through content.
+- Audience Problem or Need: The practical challenge, knowledge gap, or improvement opportunity the content could address.
+- Reason for Selection: Explain the relevance based on the supplied context and available evidence.
+
+Prioritise practical relevance, clear audience needs, and opportunities to provide useful guidance.
+
+Do not claim that an area has high demand, strong commercial potential, or proven popularity unless supporting evidence is available. Distinguish evidence-based findings from reasoned hypotheses.
+
+RESEARCH AND REASONING PRINCIPLES
+
+1. Audience-first identification: Begin with the specified audience and identify relevant professions and activities from that context.
+2. Evidence and accuracy: Use reliable, current sources when external research is necessary or available. Do not fabricate facts, statistics, or references.
+3. Clear distinctions: Keep professions, professional activities, skills, techniques, and content topics conceptually separate.
+4. Practical specificity: Identify activities that represent recognisable work rather than vague descriptions of professional life.
+5. Coverage and diversity: Include relevant professional paths without forcing unrelated professions into the results.
+6. Contextual assumptions: Where the input is broad, state any material assumptions briefly and proceed with a reasonable interpretation.
+7. Uncertainty management: Clearly distinguish established facts, reasonable inferences, and uncertain possibilities.
+8. No unsupported guarantees: Do not imply that identifying a profession or activity guarantees career success, audience engagement, or commercial results.
+
+FINAL QUALITY CHECK
+
+Before presenting the answer, verify that:
+
+- The identified professions are relevant to the specified audience.
+- The professional activities accurately reflect the work associated with each profession.
+- Profession names and activity names are distinct and unambiguous.
+- The activities are not merely restatements of skills or techniques.
+- Cross-professional activities are genuinely shared where indicated.
+- Content opportunities are connected to identifiable audience needs.
+- Unsupported claims are not presented as established facts.
+- The response follows the required task structure.
+
+OUTPUT FORMAT
+
+Present the results under four separate headings:
+
+1. Relevant Professions
+2. Professional Activities by Profession
+3. Cross-Professional Activities
+4. High-Potential Content Areas
+
+Use numbered lists or tables where they improve readability.
+
+Write in the specified preferred language using clear, natural, audience-appropriate language.
+
+EXECUTION INSTRUCTION
+
+Analyse the supplied target audience and generate the results according to all the requirements above. Identify the relevant professions and professional activities before recommending content areas. Do not assume a profession or activity without a reasonable basis for including it.</div>
+        <button class="btn copy-btn" onclick="copyText('p1', this)">
+          <span>Copy Prompt #1</span>
+        </button>
+      </div>
+
+      <!-- Prompt #2 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Prompt #2</span>
+        </div>
+        <div class="prompt-content" id="p2">AI PROMPT: Relevant Skills and Techniques for Any Profession or Professional Activity
+
+ROLE AND OBJECTIVE
+
+Act as a Professional Skills Researcher and Content Strategist.
+
+Your task is to identify the most relevant skills and their corresponding practical techniques for a specified target audience, profession, or professional activity.
+
+The goal is to create two structured lists that can serve as a foundation for developing educational, informational, and practical content related to the specified profession or activity.
+
+RESEARCH INPUTS
+
+Target Audience: [Insert Target Audience]
+
+Profession or Professional Activity: [Insert Profession or Professional Activity]
+
+Optional Context: [Insert any relevant industry, experience level, work environment, professional goals, or specific challenges. Leave blank if not applicable.]
+
+OUTPUT REQUIREMENTS
+
+Provide exactly TWO separate bullet lists.
+
+List 1: 25 Relevant Skills
+
+Provide a bullet list containing exactly 25 distinct skills relevant to the specified target audience, profession, or professional activity.
+
+Selection criteria:
+
+- Prioritise skills that are directly relevant to performing the specified professional activity effectively.
+- Include a balanced range of technical, cognitive, interpersonal, communication, organisational, decision-making, and problem-solving skills, as relevant to the context.
+- Consider both foundational skills and specialised skills where appropriate.
+- Select skills that can be learned, developed, practised, or improved.
+- Avoid generic, redundant, overlapping, or unnecessarily broad skill names.
+- Ensure that the selected skills are appropriate to the audience's professional context and experience level.
+
+For each bullet, provide only the skill name.
+
+List 2: 25 Relevant Techniques and Their Corresponding Skills
+
+Provide a bullet list containing exactly 25 distinct techniques, each explicitly linked to a relevant skill from List 1.
+
+Use the following format for every bullet:
+
+Technique Name — Relevant Skill: [Exact Skill Name from List 1]
+
+Selection criteria:
+
+- Each technique must be a specific, actionable method, procedure, framework, practice, or approach for developing or applying its corresponding skill.
+- Ensure that each technique has a clear and logical relationship with the skill to which it is linked.
+- Use established techniques where appropriate. Do not invent names or present ordinary activities as established methods without justification.
+- Prefer techniques that can be applied in realistic professional situations.
+- Select techniques that offer practical value for learning, practising, improving, or applying the relevant skill.
+- Avoid vague recommendations that do not explain a recognisable method or approach.
+- Keep technique names concise, specific, and easy to understand.
+- Ensure that every corresponding skill name exactly matches a skill listed in List 1.
+- Avoid unnecessary duplication among techniques.
+
+SELECTION AND QUALITY PRINCIPLES
+
+1. Contextual relevance: Select skills and techniques according to the specified profession, activity, audience, and optional context.
+2. Practical usefulness: Prioritise skills and techniques that address real professional tasks, challenges, and performance requirements.
+3. Appropriate specificity: Avoid skills that are too generic to be useful or so narrowly defined that they have little practical value.
+4. Balanced coverage: Cover the most important dimensions of the profession or activity without forcing irrelevant categories into the lists.
+5. Actionability: Prefer techniques that can be demonstrated, practised, explained, or applied in real situations.
+6. Content development potential: Select skills and techniques that can each serve as a potential topic for educational or professional content.
+7. Accuracy: Do not make unsupported claims about the effectiveness of any technique or guarantee specific outcomes.
+8. Distinctiveness: Avoid unnecessary overlap between skills and between techniques.
+9. Professional appropriateness: Respect the standards, constraints, and practical requirements of the specified field.
+
+FINAL QUALITY CHECK
+
+Before presenting the answer, verify that:
+
+- List 1 contains exactly 25 skill names.
+- List 2 contains exactly 25 technique names.
+- Every technique is linked to a relevant skill from List 1.
+- All skill names in List 2 exactly match their corresponding names in List 1.
+- Each technique is sufficiently specific to be distinguishable from a general skill or goal.
+- Both lists are relevant to the supplied inputs.
+- No items are unnecessarily duplicated.
+- The output follows the required structure without additional sections, explanations, introductions, conclusions, or recommendations.
+
+If an input is broad, use reasonable professional context to select the most relevant items. Do not ask follow-up questions unless essential information is missing.
+
+OUTPUT LANGUAGE
+
+Write the entire response in [Insert Preferred Language] using clear, natural, audience-appropriate language.
+
+EXECUTION INSTRUCTION
+
+Using the supplied inputs, generate the two bullet lists according to all the requirements above.</div>
+        <button class="btn copy-btn" onclick="copyText('p2', this)">
+          <span>Copy Prompt #2</span>
+        </button>
+      </div>
+
+      <!-- Prompt #3 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Prompt #3</span>
+        </div>
+        <div class="prompt-content" id="p3">AI PROMPT: Essential Skills and Techniques for Class 10 Students
+
+ROLE AND OBJECTIVE
+
+Act as an Educational Skills Researcher and Learning Content Strategist.
+
+Your task is to identify essential, relevant, and practical skills that students studying in Class 10 need to develop for effective learning, academic performance, personal development, and preparation for future challenges.
+
+The goal is to create a structured list of skills and their corresponding techniques that I can use as a foundation for creating educational content for Class 10 students in India.
+
+TARGET AUDIENCE
+
+- Students currently studying in Class 10.
+- Students who need to improve their learning habits, academic performance, thinking abilities, and personal effectiveness.
+- Students who can benefit from practical, age-appropriate methods for dealing with everyday academic and learning challenges.
+
+OUTPUT REQUIREMENTS
+
+Provide exactly TWO separate bullet lists.
+
+List 1: 25 Relevant Skills
+
+Provide a bullet list containing exactly 25 distinct and relevant skill names.
+
+For each skill:
+- Provide only the skill name.
+- Choose skills that are useful and relevant to Class 10 students.
+- Include a balanced range of academic, cognitive, learning, communication, self-management, and problem-solving skills.
+- Avoid redundant, overlapping, or overly broad skill names.
+- Prefer skills that students can develop and apply in real-life situations.
+
+List 2: 25 Relevant Techniques and Their Corresponding Skills
+
+Provide a bullet list containing exactly 25 distinct, practical techniques, with each technique explicitly linked to its corresponding skill from List 1.
+
+Use the following format for every bullet:
+
+Technique Name — Relevant Skill: [Exact Skill Name from List 1]
+
+Requirements:
+- Each technique must be a specific, actionable method for developing or applying its corresponding skill.
+- Use established techniques where appropriate, rather than inventing impressive-sounding names for ordinary activities.
+- Ensure that each technique has a clear and logical connection to its corresponding skill.
+- Use a different technique for each bullet.
+- Prefer techniques that a Class 10 student can realistically practise independently or with minimal guidance.
+- Avoid vague recommendations such as “work harder,” “study better,” or “stay focused.”
+- Technique names should be concise and easy to understand.
+- Ensure that all corresponding skill names exactly match the names used in List 1.
+- Select techniques that can later serve as individual topics for practical educational content.
+
+SELECTION PRINCIPLES
+
+1. Age appropriateness: Every skill and technique must be suitable for Class 10 students.
+2. Practical relevance: Prioritise skills and techniques that address real challenges students face in their studies and everyday lives.
+3. Content potential: Choose skills and techniques that can be explained through practical examples, demonstrations, exercises, and actionable guidance.
+4. Variety: Cover different areas of student development instead of focusing exclusively on memorisation or examination preparation.
+5. Accuracy: Do not claim that a technique guarantees better marks or learning outcomes.
+6. Distinctiveness: Avoid unnecessary duplication between skills and techniques.
+
+FINAL REVIEW
+
+Before presenting the answer, verify that:
+
+- List 1 contains exactly 25 skill names.
+- List 2 contains exactly 25 technique names.
+- Every technique is linked to a relevant skill from List 1.
+- The two lists contain no unnecessary duplication.
+- The output follows the requested format without additional sections, explanations, introductions, conclusions, or recommendations.
+
+OUTPUT LANGUAGE
+
+Write the entire response in clear, natural English that is easy for an Indian Class 10 student to understand.
+
+Now generate the two bullet lists according to all the requirements above.</div>
+        <button class="btn copy-btn" onclick="copyText('p3', this)">
+          <span>Copy Prompt #3</span>
+        </button>
+      </div>
+
+      <!-- Prompt #4 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Prompt #4</span>
+        </div>
+        <div class="prompt-content" id="p4">Provide a list of 25 more relevant skills and 25 more Technique Name — Relevant Skill</div>
+        <button class="btn copy-btn" onclick="copyText('p4', this)">
+          <span>Copy Prompt #4</span>
+        </button>
+      </div>
+
+      <!-- Prompt #5 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Prompt #5</span>
+        </div>
+        <div class="prompt-content" id="p5">Give me a complete bullet-point list of all 50 skills and 50 Technique Name — Relevant Skill, you have provided in this discussion.</div>
+        <button class="btn copy-btn" onclick="copyText('p5', this)">
+          <span>Copy Prompt #5</span>
+        </button>
+      </div>
+
+    </div>
+
+    <footer class="footer">
+      <p>Copyright &copy; <script>document.write(new Date().getFullYear())</script> Siva Prasad Mukherjee. All Rights Reserved.</p>
+    </footer>
+  </div>
+
+  <script>
+    function copyText(id, btn) {
+      const text = document.getElementById(id).innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const originalText = btn.innerHTML;
+        btn.innerHTML = `<span>Copied to Clipboard!</span>`;
+        btn.classList.add('copied');
+        
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+          btn.classList.remove('copied');
+        }, 2000);
+      }).catch(err => {
+        console.error('Failed to copy text: ', err);
+      });
+    }
+  </script>
+</body>
+</html>
