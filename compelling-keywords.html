@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Compelling Keywords</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=IM+Fell+English:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #f5f0e8;
+    --paper2: #ede8dc;
+    --ink: #1a1611;
+    --ink2: #2e2820;
+    --muted: #6b6355;
+    --rule: #c8bfaa;
+    --rule-dark: #8a7d68;
+    --accent: #1a3a1a;
+    --accent2: #2d5c2d;
+    --accent-light: rgba(26,58,26,0.07);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: #c8c4b8;
+    color: var(--ink);
+    font-family: 'Source Serif 4', Georgia, serif;
+    min-height: 100vh;
+    padding: 20px;
+  }
+
+  .newspaper {
+    max-width: 960px;
+    margin: 0 auto;
+    background: var(--paper);
+    box-shadow: 0 4px 40px rgba(0,0,0,0.35), 2px 2px 0 rgba(0,0,0,0.1);
+    position: relative;
+  }
+
+  .newspaper::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 28px,
+      rgba(0,0,0,0.016) 28px,
+      rgba(0,0,0,0.016) 29px
+    );
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── MASTHEAD ── */
+  .masthead {
+    padding: 18px 32px 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  .masthead-title {
+    text-align: center;
+    padding: 10px 0 8px;
+    border-bottom: 3px double var(--ink);
+  }
+
+  .paper-name {
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    font-size: clamp(36px, 6vw, 68px);
+    line-height: 1;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    display: block;
+  }
+
+  .paper-tagline {
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    display: block;
+    margin-top: 4px;
+  }
+
+  /* ── PLATFORM NAV ── */
+  .platform-bar {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    border-bottom: 2px solid var(--ink);
+    position: relative;
+    z-index: 1;
+  }
+
+  .platform-bar a {
+    font-family: 'Source Serif 4', serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--paper);
+    background: var(--ink);
+    padding: 7px 18px;
+    text-decoration: none;
+    border-right: 1px solid rgba(255,255,255,0.15);
+    transition: background 0.15s;
+    white-space: nowrap;
+  }
+
+  .platform-bar a:last-child { border-right: none; }
+  .platform-bar a:hover { background: var(--accent); }
+
+  /* ── HEADLINE BANNER ── */
+  .headline-banner {
+    text-align: center;
+    padding: 16px 32px 14px;
+    border-bottom: 1px solid var(--rule-dark);
+    position: relative;
+    z-index: 1;
+  }
+
+  .headline-banner h1 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    font-size: clamp(20px, 3.5vw, 34px);
+    line-height: 1.15;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+  }
+
+  .headline-banner h1 em {
+    font-style: italic;
+    color: var(--accent2);
+  }
+
+  .byline {
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 5px;
+  }
+
+  /* ── SECTION RULE ── */
+  .section-rule {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 32px 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  .section-rule::before,
+  .section-rule::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--rule-dark);
+  }
+
+  .section-label {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+
+  /* ── NICHE INPUT ── */
+  .niche-area {
+    padding: 16px 32px 20px;
+    border-bottom: 2px solid var(--ink);
+    position: relative;
+    z-index: 1;
+    background: var(--paper2);
+  }
+
+  .niche-label {
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .niche-row {
+    display: flex;
+    gap: 10px;
+    align-items: stretch;
+  }
+
+  .niche-input {
+    flex: 1;
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--ink);
+    background: var(--paper);
+    border: 1.5px solid var(--rule-dark);
+    border-bottom: 2px solid var(--ink);
+    padding: 10px 14px;
+    outline: none;
+    transition: border-color 0.2s;
+    letter-spacing: 0.01em;
+  }
+
+  .niche-input::placeholder {
+    color: var(--rule-dark);
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  .niche-input:focus {
+    border-color: var(--ink);
+    background: #fff;
+  }
+
+  .niche-btn {
+    font-family: 'Source Serif 4', serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--paper);
+    background: var(--accent);
+    border: none;
+    padding: 10px 22px;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+
+  .niche-btn:hover { background: var(--ink); }
+
+  .niche-clear-btn {
+    font-family: 'Source Serif 4', serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink);
+    background: var(--paper);
+    border: 1.5px solid var(--rule-dark);
+    padding: 10px 18px;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+    white-space: nowrap;
+  }
+
+  .niche-clear-btn:hover {
+    background: var(--paper2);
+    border-color: var(--ink);
+    color: var(--accent);
+  }
+
+  .niche-hint {
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 6px;
+    font-style: italic;
+    letter-spacing: 0.04em;
+  }
+
+  .niche-hint span {
+    font-family: 'Source Serif 4', monospace;
+    background: var(--rule);
+    padding: 1px 5px;
+    font-style: normal;
+    font-size: 10px;
+    color: var(--ink2);
+  }
+
+  /* ── PROMPT GRID ── */
+  .prompts-section {
+    padding: 0 32px 32px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .prompts-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+
+  .prompt-card {
+    padding: 18px 20px 18px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .prompt-card:nth-child(even) {
+    padding-left: 20px;
+    padding-right: 0;
+    border-left: 1px solid var(--rule-dark);
+  }
+
+  .prompt-card:nth-last-child(-n+2) {
+    border-bottom: none;
+  }
+
+  .prompt-meta {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 6px;
+  }
+
+  .prompt-number {
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    font-size: 28px;
+    line-height: 1;
+    color: var(--rule);
+    min-width: 36px;
+  }
+
+  .prompt-label {
+    font-family: 'Source Serif 4', serif;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    border: 1px solid var(--accent2);
+    padding: 2px 6px;
+  }
+
+  .prompt-headline {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 17px;
+    line-height: 1.25;
+    color: var(--ink);
+    margin-bottom: 5px;
+    letter-spacing: -0.01em;
+  }
+
+  .prompt-deck {
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    font-size: 13px;
+    line-height: 1.4;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+
+  .prompt-text {
+    font-family: 'Source Serif 4', serif;
+    font-size: 12px;
+    line-height: 1.65;
+    color: var(--ink2);
+    background: var(--paper2);
+    border-left: 3px solid var(--rule-dark);
+    padding: 10px 12px;
+    margin-bottom: 0;
+    white-space: pre-wrap;
+    word-break: break-word;
+    cursor: text;
+    user-select: all;
+    transition: border-color 0.2s, background 0.2s;
+    max-height: calc(1.65em * 5 + 20px);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .prompt-text::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 36px;
+    background: linear-gradient(transparent, var(--paper2));
+    pointer-events: none;
+  }
+
+  .prompt-text.expanded {
+    max-height: none;
+    overflow: visible;
+    margin-bottom: 10px;
+  }
+
+  .prompt-text.expanded::after {
+    display: none;
+  }
+
+  .prompt-text:hover {
+    border-left-color: var(--accent);
+    background: #e8e4d8;
+  }
+
+  .card-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 8px;
+  }
+
+  .expand-btn {
+    font-family: 'Source Serif 4', serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--paper);
+    background: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 4px 12px;
+    cursor: pointer;
+    transition: all 0.15s;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .expand-btn:hover {
+    background: var(--ink);
+    border-color: var(--ink);
+  }
+
+  .niche-highlight {
+    font-weight: inherit;
+    color: inherit;
+    font-style: normal;
+    background: none;
+    padding: 0;
+  }
+
+  .copy-btn {
+    font-family: 'Source Serif 4', serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    background: transparent;
+    border: 1px solid var(--rule);
+    padding: 4px 12px;
+    cursor: pointer;
+    transition: all 0.15s;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .copy-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--accent-light);
+  }
+
+  .copy-btn.copied {
+    border-color: #3d6b3d;
+    color: #3d6b3d;
+    background: rgba(61,107,61,0.08);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 3px double var(--ink);
+    padding: 12px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .footer-copy {
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+    font-style: italic;
+  }
+
+  .footer-link {
+    font-size: 10px;
+    color: var(--accent2);
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    font-family: 'Source Serif 4', serif;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  .footer-link:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    body { padding: 0; }
+    .prompts-grid { grid-template-columns: 1fr; }
+    .prompt-card:nth-child(even) { border-left: none; padding-left: 0; }
+    .masthead, .niche-area, .prompts-section, footer { padding-left: 16px; padding-right: 16px; }
+    .platform-bar a { padding: 7px 10px; font-size: 10px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="newspaper">
+
+  <!-- MASTHEAD -->
+  <div class="masthead">
+    <div class="masthead-title">
+      <span class="paper-name">Compelling Keywords</span>
+      <span class="paper-tagline">&nbsp;</span>
+    </div>
+  </div>
+
+  <!-- PLATFORM NAV -->
+  <nav class="platform-bar">
+    <a href="https://chat.openai.com" target="_blank">ChatGPT</a>
+    <a href="https://claude.ai" target="_blank">Claude</a>
+    <a href="https://gemini.google.com" target="_blank">Gemini</a>
+    <a href="https://www.perplexity.ai" target="_blank">Perplexity</a>
+    <a href="https://chat.deepseek.com" target="_blank">DeepSeek</a>
+  </nav>
+
+  <!-- HEADLINE -->
+  <div class="headline-banner">
+    <h1>Real Search Keywords Built to Get Traffic &amp; Feed Compelling Content</h1>
+
+  </div>
+
+  <!-- NICHE INPUT -->
+  <div class="section-rule">
+    <span class="section-label">Enter Your Niche</span>
+  </div>
+  <div class="niche-area">
+    <span class="niche-label">Your market, audience, or topic — injected into all 10 prompts in one click:</span>
+    <div class="niche-row">
+      <input type="text" class="niche-input" id="nicheInput" placeholder="e.g. weight loss, dog training, affiliate marketing…" maxlength="80">
+      <button class="niche-btn" onclick="applyNiche()">Inject →</button>
+      <button class="niche-clear-btn" onclick="clearNiche()">✕ Clear</button>
+    </div>
+
+  </div>
+
+
+  <div class="prompts-section">
+    <div class="prompts-grid" id="promptsGrid">
+
+      <!-- CARD 1 -->
+      <div class="prompt-card">
+        <div class="prompt-meta">
+          <span class="prompt-number">01</span>
+          <span class="prompt-label">Frustration Search</span>
+        </div>
+        <h2 class="prompt-headline">The Frustration Keywords</h2>
+        <p class="prompt-deck">What people actually type when something isn't working and they're fed up</p>
+        <div class="prompt-text" id="p1">Generate 25 frustration-based search keywords for the [niche] market. These are the short, raw phrases people type when they are stuck, fed up, or have tried the standard advice and it failed them. Not polished queries — the kind of thing someone types in a moment of genuine irritation. Use these structural patterns as your guide: "[niche] not working," "why is [niche] so hard," "[niche] still not working," "tried everything for [niche]," "why am I not getting results with [niche]," "[niche] stopped working," "can't figure out [niche]," "what am I doing wrong with [niche]." For each of the 25 keywords: write the exact phrase as a real person would type it, identify in two or three words the specific frustration behind it, and write one sentence on the content angle that would completely satisfy this search and turn the frustrated reader into a loyal follower. Format as a numbered list of 25.</div>
+        <button class="copy-btn" onclick="copyPrompt('p1', this)">⎘ Copy Prompt</button>
+      </div>
+
+      <!-- CARD 2 -->
+      <div class="prompt-card">
+        <div class="prompt-meta">
+          <span class="prompt-number">02</span>
+          <span class="prompt-label">Skeptic Search</span>
+        </div>
+        <h2 class="prompt-headline">The Skeptic Keywords</h2>
+        <p class="prompt-deck">Does it actually work? Is it worth it? The searches people make before they commit</p>
+        <div class="prompt-text" id="p2">Generate 25 skeptic-search keywords for the [niche] market. These are the exact phrases typed by people who have heard about [niche], are genuinely interested, but are not yet convinced it will work for them specifically. They want proof, honest reviews, and second opinions before they commit. Use these structural patterns: "does [niche] really work," "is [niche] worth it," "honest [niche] review," "is [niche] a scam," "[niche] real results," "truth about [niche]," "[niche] pros and cons," "is [niche] legit," "[niche] before and after real people," "what nobody tells you about [niche]." For each of the 25 keywords: write the exact search phrase, identify the specific doubt or fear driving that search in one sentence, and rate its buyer intent once that doubt is resolved as medium, high, or very high. The skeptic who gets convinced becomes the most loyal buyer. Format as a numbered list of 25.</div>
+        <button class="copy-btn" onclick="copyPrompt('p2', this)">⎘ Copy Prompt</button>
+      </div>
+
+      <!-- CARD 3 -->
+      <div class="prompt-card">
+        <div class="prompt-meta">
+          <span class="prompt-number">03</span>
+          <span class="prompt-label">Comparison Search</span>
+        </div>
+        <h2 class="prompt-headline">The Versus Keywords</h2>
+        <p class="prompt-deck">X vs Y searches — high volume, high intent, and perfectly built for argument content</p>
+        <div class="prompt-text" id="p3">Generate 25 comparison search keywords for the [niche] market. These are the "X vs Y" and "which is better" phrases typed by people who have already decided to act — they just need help choosing between two specific options. This is the highest commercial-intent keyword category because the searcher is at the decision stage, not the awareness stage. Use these structural patterns: "[option A] vs [option B]," "best [niche] method for beginners," "difference between [approach A] and [approach B]," "[niche option A] or [niche option B]," "[niche approach] vs [alternative approach]," "which [niche method] is better," "[niche tool A] vs [niche tool B] comparison." For each of the 25 keywords: write the exact comparison phrase, identify who is most likely searching it as beginner, intermediate, or experienced, and write one sentence on the single deciding factor the content must address to convert this searcher. Format as a numbered list of 25.</div>
+        <button class="copy-btn" onclick="copyPrompt('p3', this)">⎘ Copy Prompt</button>
+      </div>
+
+      <!-- CARD 4 -->
+      <div class="prompt-card">
+        <div class="prompt-meta">
+          <span class="prompt-number">04</span>
+          <span class="prompt-label">Why Search</span>
+        </div>
+        <h2 class="prompt-headline">The Why Keywords</h2>
+        <p class="prompt-deck">The "why is this happening to me" searches — emotionally loaded and deeply revealing</p>
+        <div class="prompt-text" id="p4">Generate 25 "why" search keywords for the [niche] market. These are the exact phrases people type when they want to understand the reason behind something that is happening to them — confusion, frustration, or a result they cannot explain. "Why" questions are the most emotionally loaded keyword type in any niche because the person is looking for an explanation that validates their experience. Google featured snippets, People Also Ask boxes, and AI answer overviews heavily favor "why" questions with a clear direct answer. Use these structural patterns: "why is [niche] not working for me," "why does [niche problem] happen," "why is [niche] so difficult," "why am I not seeing results with [niche]," "why does [niche] work for some people and not others," "why is [niche] so expensive," "why do experts disagree about [niche]." For each of the 25 keywords: write the exact "why" phrase, name the primary emotion driving it in one word, and write the opening sentence of the answer that would win the Google featured position. Format as a numbered list of 25.</div>
+        <button class="copy-btn" onclick="copyPrompt('p4', this)">⎘ Copy Prompt</button>
+      </div>
+
+      <!-- CARD 5 -->
+      <div class="prompt-card">
+        <div class="prompt-meta">
+          <span class="prompt-number">05</span>
+          <span class="prompt-label">Mistake Search</span>
+        </div>
+        <h2 class="prompt-headline">The Mistake Keywords</h2>
+        <p class="prompt-deck">What am I doing wrong? The searches that signal someone ready to change everything</p>
+        <div class="prompt-text" id="p5">Generate 25 mistake-based search keywords for the [niche] market. These are the exact phrases typed by people who suspect they have been doing something wrong, following bad advice, or wasting time on an approach that does not work. The person searching these keywords is in a state of maximum openness — their current method has failed and they are ready to hear something completely different. This makes mistake keywords among the highest-converting in any niche. Use these structural patterns: "[niche] mistakes to avoid," "biggest [niche] mistakes," "common [niche] mistakes beginners make," "why [niche] doesn't work for most people," "am I doing [niche] wrong," "what I wish I knew before starting [niche]," "[niche] mistakes that kill results," "stop doing this with [niche]," "wrong way to do [niche]." For each of the 25 keywords: write the exact phrase, estimate search volume as low, medium, high, or very high, and write one sentence naming the single most important mistake this audience is making that the content must address head-on. Format as a numbered list of 25.</div>
+        <button class="copy-btn" onclick="copyPrompt('p5', this)">⎘ Copy Prompt</button>
+      </div>
+
+      <!-- CARD 6 -->
+      <div class="prompt-card">
+        <div class="prompt-meta">
+          <span class="prompt-number">06</span>
+          <span class="prompt-label">Conversation</span>
+        </div>
+        <h2 class="prompt-headline">The Conversation Keywords</h2>
+        <p class="prompt-deck">What people type when they want to find others who feel exactly the same way</p>
+        <div class="prompt-text" id="p6">Generate 25 conversation-based search keywords for the [niche] market. These are the exact phrases people type when they are looking for others who share their experience — not looking for expert advice, but for validation, community, and the feeling that they are not alone. These searches come from Reddit, forums, Facebook groups, and YouTube comment sections made into search queries. They are massively underserved by traditional content and produce the most loyal, most sharing audiences in any niche because finding content that mirrors your private experience creates an instant bond. Use these structural patterns: "is it normal to [niche experience]," "does anyone else struggle with [niche]," "why do I feel [emotion] about [niche]," "am I the only one who [niche experience]," "anyone else find [niche] [adjective]," "I hate [niche aspect] is that just me," "be honest about [niche]," "real talk about [niche]," "nobody talks about [niche experience]," "things people don't say about [niche]." For each of the 25 keywords: write the exact conversational phrase as someone would actually type it, identify the specific shared experience or emotion it represents, and write one sentence on why content built around this keyword produces disproportionate shares and return visits compared to informational content. Format as a numbered list of 25.</div>
+        <button class="copy-btn" onclick="copyPrompt('p6', this)">⎘ Copy Prompt</button>
+      </div>
+
+      <!-- CARD 7 -->
+      <div class="prompt-card">
+        <div class="prompt-meta">
+          <span class="prompt-number">07</span>
+          <span class="prompt-label">Alternative</span>
+        </div>
+        <h2 class="prompt-headline">The Alternative Keywords</h2>
+        <p class="prompt-deck">People who tried the obvious solution, found it lacking, and are actively looking for something better</p>
+        <div class="prompt-text" id="p7">Generate 25 alternative-search keywords for the [niche] market. These are the exact phrases typed by people who have already tried the obvious, mainstream approach to [niche] and found it lacking — too expensive, too complicated, too slow, or simply wrong for their situation. They are not beginners. They are educated, frustrated, and actively searching for a different path. This is the warmest traffic that exists outside of people who already know your name — they have already done the research, already tried the standard solution, and are already in motion looking for something better. Almost no creators target this audience because it requires acknowledging that the mainstream approach has limits. Use these structural patterns: "alternative to [mainstream niche approach]," "[niche] but without [specific downside]," "instead of [standard niche method]," "better way to [niche goal]," "[niche approach] not working try this," "why I stopped [mainstream niche method]," "[niche] without [common requirement]," "easier alternative to [niche standard]," "what to do instead of [niche approach]," "[niche] for people who hate [common aspect]." For each of the 25 keywords: write the exact phrase, identify in one sentence what failed approach the searcher is moving away from, and write one sentence on why this keyword converts faster than any beginner keyword in the same niche. Format as a numbered list of 25.</div>
+        <button class="copy-btn" onclick="copyPrompt('p7', this)">⎘ Copy Prompt</button>
+      </div>
+
+      <!-- CARD 8 -->
+      <div class="prompt-card">
+        <div class="prompt-meta">
+          <span class="prompt-number">08</span>
+          <span class="prompt-label">Warning Search</span>
+        </div>
+        <h2 class="prompt-headline">The Warning Keywords</h2>
+        <p class="prompt-deck">Before I try this — the cautious high-intent searches that convert like crazy</p>
+        <div class="prompt-text" id="p8">Generate 25 warning and caution-based search keywords for the [niche] market. These are the exact phrases typed by people who are seriously considering [niche] and want to know the risks, downsides, red flags, and things nobody warns you about before they fully commit. Warning searches signal high intent — a casual person does not bother researching cautions. Content that honestly addresses warnings converts at exceptional rates because trust is the scarcest resource in any niche and honesty about the negatives is the fastest way to earn it. Use these structural patterns: "[niche] side effects," "is [niche] safe," "[niche] dangers," "downsides of [niche]," "things to know before starting [niche]," "[niche] risks," "what they don't tell you about [niche]," "[niche] warning signs," "is [niche] bad for you," "when [niche] goes wrong." For each of the 25 keywords: write the exact phrase, identify the specific fear or concern driving that search in one sentence, and describe the honest content angle that addresses the concern fully while naturally moving the reader toward informed action. Format as a numbered list of 25.</div>
+        <button class="copy-btn" onclick="copyPrompt('p8', this)">⎘ Copy Prompt</button>
+      </div>
+
+      <!-- CARD 9 -->
+      <div class="prompt-card">
+        <div class="prompt-meta">
+          <span class="prompt-number">09</span>
+          <span class="prompt-label">Cost Search</span>
+        </div>
+        <h2 class="prompt-headline">The Price &amp; Value Keywords</h2>
+        <p class="prompt-deck">What will this cost me? The searches that sit right at the moment of financial decision</p>
+        <div class="prompt-text" id="p9">Generate 25 cost and value search keywords for the [niche] market. These are the exact phrases typed by people at the critical moment just before a financial or time commitment — they need to know what [niche] will cost them in money, time, or effort before they decide. High intent, high conversion, because the question of cost only arises when someone is genuinely considering moving forward. Use these structural patterns: "how much does [niche] cost," "is [niche] expensive," "[niche] on a budget," "cheapest way to do [niche]," "how much time does [niche] take," "free vs paid [niche]," "is [niche] worth the money," "how to do [niche] without spending a lot," "[niche] cost per month," "is [niche] affordable," "how to start [niche] with no money," "what does [niche] actually cost." For each of the 25 keywords: write the exact phrase, identify whether the primary concern is money, time, or effort, and write one sentence on the specific value argument the content must make to move this person from cost concern to committed action. Format as a numbered list of 25.</div>
+        <button class="copy-btn" onclick="copyPrompt('p9', this)">⎘ Copy Prompt</button>
+      </div>
+
+      <!-- CARD 10 -->
+      <div class="prompt-card">
+        <div class="prompt-meta">
+          <span class="prompt-number">10</span>
+          <span class="prompt-label">Specific Result Search</span>
+        </div>
+        <h2 class="prompt-headline">The Specific Outcome Keywords</h2>
+        <p class="prompt-deck">Exactly how much, exactly how fast, exactly what result — the most precise and purchase-ready searches</p>
+        <div class="prompt-text" id="p10">Generate 25 specific-outcome search keywords for the [niche] market. These are the exact phrases typed by people who want a precise, measurable, named result — not general information or vague improvement. Specific-outcome keywords are the most commercially valuable in any niche for one reason: the more specific the search, the more serious the intent. A person typing a broad term is browsing. A person typing an exact desired outcome is ready to act the moment the right content appears. Use these structural patterns: "how to [specific measurable result] with [niche]," "[niche] to achieve [specific outcome] in [timeframe]," "exact [niche] plan for [named result]," "how I [specific result] using [niche]," "[niche] that actually gets [specific result]," "step by step [niche] for [named outcome]," "proven [niche] method for [specific goal]." For each of the 25 keywords: write the exact specific-outcome phrase, name the precise result the searcher wants in three words or fewer, and write one sentence on why this keyword is both easier to rank for and easier to monetize than a broad equivalent. Format as a numbered list of 25.</div>
+        <button class="copy-btn" onclick="copyPrompt('p10', this)">⎘ Copy Prompt</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-copy"></span>
+    Copyright &copy; <script>document.write(new Date().getFullYear())</script> Siva Prasad Mukherjee. All Rights Reserved.
+  </footer>
+
+</div>
+
+<script>
+  // Add expand/collapse buttons to every card
+  document.querySelectorAll('.prompt-card').forEach(card => {
+    const promptText = card.querySelector('.prompt-text');
+    const copyBtn = card.querySelector('.copy-btn');
+
+    const actions = document.createElement('div');
+    actions.className = 'card-actions';
+
+    const expandBtn = document.createElement('button');
+    expandBtn.className = 'expand-btn';
+    expandBtn.textContent = '+ Expand';
+
+    expandBtn.addEventListener('click', () => {
+      const isExpanded = promptText.classList.contains('expanded');
+      promptText.classList.toggle('expanded', !isExpanded);
+      expandBtn.textContent = isExpanded ? '+ Expand' : '− Collapse';
+    });
+
+    card.removeChild(copyBtn);
+    actions.appendChild(expandBtn);
+    actions.appendChild(copyBtn);
+    card.appendChild(actions);
+  });
+
+  const originals = {};
+  for (let i = 1; i <= 10; i++) {
+    originals['p' + i] = document.getElementById('p' + i).textContent;
+  }
+
+  function clearNiche() {
+    document.getElementById('nicheInput').value = '';
+    for (let i = 1; i <= 10; i++) {
+      const el = document.getElementById('p' + i);
+      el.textContent = originals['p' + i];
+    }
+  }
+
+  function applyNiche() {
+    const raw = document.getElementById('nicheInput').value.trim();
+    const replacement = raw || '[niche]';
+
+    for (let i = 1; i <= 10; i++) {
+      const el = document.getElementById('p' + i);
+      const replaced = originals['p' + i].replace(/\[niche\]/g, replacement);
+      if (raw) {
+        const escaped = raw.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const highlighted = replaced.replace(
+          new RegExp(escaped, 'gi'),
+          match => `<em class="niche-highlight">${match}</em>`
+        );
+        el.innerHTML = highlighted;
+      } else {
+        el.textContent = replaced;
+      }
+    }
+  }
+
+  document.getElementById('nicheInput').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') applyNiche();
+  });
+
+  function copyPrompt(id, btn) {
+    const el = document.getElementById(id);
+    const text = el.innerText || el.textContent;
+    navigator.clipboard.writeText(text).then(() => {
+      btn.textContent = '✓ Copied!';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = '⎘ Copy Prompt';
+        btn.classList.remove('copied');
+      }, 2000);
+    }).catch(() => {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      btn.textContent = '✓ Copied!';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = '⎘ Copy Prompt';
+        btn.classList.remove('copied');
+      }, 2000);
+    });
+  }
+</script>
+</body>
+</html>
