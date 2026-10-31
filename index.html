@@ -65,7 +65,7 @@
       letter-spacing: 0.02em;
     }
 
-    /* Filter & Reset Bar */
+    /* Single-line Input & Reset Button Panel */
     .filter-wrapper {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
@@ -95,6 +95,10 @@
       border-color: var(--accent-primary);
     }
 
+    .single-input::placeholder {
+      color: #64748b;
+    }
+
     .reset-btn {
       background: rgba(244, 63, 94, 0.1);
       color: var(--accent-danger);
@@ -112,7 +116,7 @@
       color: #fff;
     }
 
-    /* Sections */
+    /* Section Headings */
     .section-block {
       margin-bottom: 40px;
     }
@@ -271,7 +275,7 @@
       <p class="sub-header">(my process)</p>
     </header>
 
-    <!-- Filter input field with Reset button -->
+    <!-- Single-line input field with Reset button -->
     <div class="filter-wrapper">
       <input 
         type="text" 
@@ -303,8 +307,8 @@
           {
             id: 1,
             name: "Prompt",
-            url: "https://spmhqo.github.io/rnd/my-impulsive.html",
-            text: `https://spmhqo.github.io/rnd/my-impulsive.html`
+            url: null,
+            text: `A Prompt or A Content`
           },
           {
             id: 2,
@@ -350,19 +354,53 @@
         ]
       },
       {
-        sectionName: "Others",
+        sectionName: "Image Set",
         prompts: [
           {
             id: 8,
+            name: "Image Set Genie",
+            url: "https://spmhqo.github.io/rnd/image-set-genie.html",
+            text: `https://spmhqo.github.io/rnd/image-set-genie.html`
+          }
+        ]
+      },
+      {
+        sectionName: "Selling",
+        prompts: [
+          {
+            id: 9,
+            name: "Click Baiter",
+            url: "https://spmhqo.github.io/rnd/click-baiter.html",
+            text: `https://spmhqo.github.io/rnd/click-baiter.html`
+          },
+          {
+            id: 10,
+            name: "Buyer Bank",
+            url: "https://spmhqo.github.io/rnd/buyer-bank-unlimited-premium.html",
+            text: `https://spmhqo.github.io/rnd/buyer-bank-unlimited-premium.html`
+          }
+        ]
+      },
+      {
+        sectionName: "Others",
+        prompts: [
+          {
+            id: 11,
             name: "Develop Something New",
             url: "https://spmhqo.github.io/rnd/develop-something-new.html",
             text: `https://spmhqo.github.io/rnd/develop-something-new.html`
           },
           {
-            id: 9,
+            id: 12,
             name: "DM Me",
             url: "https://spmhqo.github.io/rnd/dm-me.html",
             text: `https://spmhqo.github.io/rnd/dm-me.html`
+          },
+          {
+            id: 13,
+            name: "Edit",
+            url: "https://spmhqo.github.io/rnd/edit-with-lenses.html",
+            text: `https://spmhqo.github.io/rnd/edit-with-lenses.html`
           }
         ]
       }
@@ -389,8 +427,15 @@
           const card = document.createElement('div');
           card.className = 'step-card';
           card.id = `card-${p.id}`;
-          card.setAttribute('data-name', p.name.toLowerCase());
-          card.setAttribute('data-text', p.text.toLowerCase());
+
+          let openLinkHtml = '';
+          if (p.url) {
+            openLinkHtml = `
+              <a href="${p.url}" target="_blank" rel="noopener noreferrer" class="btn link-btn">
+                <span>Open Link</span>
+              </a>
+            `;
+          }
 
           card.innerHTML = `
             <div class="step-header">
@@ -401,9 +446,7 @@
               <button class="btn copy-btn" onclick="copyText('p${p.id}', this)">
                 <span>Copy Prompt</span>
               </button>
-              <a href="${p.url}" target="_blank" rel="noopener noreferrer" class="btn link-btn">
-                <span>Open Link</span>
-              </a>
+              ${openLinkHtml}
             </div>
           `;
           promptWorkflow.appendChild(card);
@@ -429,7 +472,7 @@
           btn.classList.remove('copied');
         }, 2000);
       }).catch(() => {
-        // Fallback for older browsers
+        // Fallback for older browser environments
         const textarea = document.createElement('textarea');
         textarea.value = text;
         document.body.appendChild(textarea);
@@ -472,7 +515,7 @@
       });
     }
 
-    // Reset button handler: clears input field and refreshes/restores all prompt boxes
+    // Reset button handler: clears the input field and refreshes/restores all prompt boxes without modifying prompt text
     function resetInputField(fieldId) {
       const field = document.getElementById(fieldId);
       if (field) {
