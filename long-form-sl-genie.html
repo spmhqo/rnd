@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>long form killer sales letter</title>
+  <link rel="icon" href="spm.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-gradient-start: #020617;
+      --bg-gradient-end: #0f172a;
+      --card-bg: rgba(30, 41, 59, 0.4);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --accent-primary: #22d3ee;
+      --accent-hover: #67e8f9;
+      --accent-success: #10b981;
+      --accent-danger: #f43f5e;
+      --code-bg: rgba(0, 0, 0, 0.3);
+      --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: fixed linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+      color: var(--text-primary);
+      line-height: 1.6;
+      padding: 60px 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      max-width: 900px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #fff;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .sub-header {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--accent-primary);
+      letter-spacing: 0.02em;
+    }
+
+    .prompt-workflow {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .step-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 35px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .step-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .step-label {
+      font-weight: 800;
+      font-size: 0.8rem;
+      background: var(--accent-primary);
+      color: #020617;
+      padding: 5px 16px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .prompt-content {
+      background: var(--code-bg);
+      padding: 25px;
+      border-radius: 12px;
+      font-family: 'Source Code Pro', monospace;
+      font-size: 0.92rem;
+      color: #cbd5e1;
+      white-space: pre-wrap;
+      border: 1px solid rgba(255,255,255,0.05);
+      margin-bottom: 22px;
+      line-height: 1.6;
+      word-break: break-word;
+      max-height: 520px;
+      overflow-y: auto;
+    }
+
+    .prompt-content::-webkit-scrollbar { width: 8px; }
+    .prompt-content::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); }
+    .prompt-content::-webkit-scrollbar-thumb { background: var(--card-border); border-radius: 4px; }
+
+    .btn {
+      padding: 14px 32px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.2s;
+      width: 100%;
+      text-decoration: none;
+      border: none;
+    }
+
+    .copy-btn {
+      background: rgba(34, 211, 238, 0.1);
+      color: var(--accent-primary);
+      border: 1px solid var(--accent-primary);
+    }
+
+    .copy-btn:hover {
+      background: var(--accent-primary);
+      color: #020617;
+    }
+
+    .copy-btn.copied {
+      background: var(--accent-success);
+      border-color: var(--accent-success);
+      color: white;
+    }
+
+    .footer {
+      margin-top: 80px;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--card-border);
+      padding-top: 40px;
+      width: 100%;
+      padding-bottom: 40px;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 2rem; }
+      .sub-header { font-size: 1rem; }
+      .step-card { padding: 22px; }
+      .prompt-content { font-size: 0.85rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>long form killer sales letter</h1>
+      <p class="sub-header">(from approach)</p>
+    </header>
+
+    <div class="prompt-workflow">
+      
+      <!-- Prompt #1 Card -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Prompt to Generate Sales letter</span>
+        </div>
+        <div class="prompt-content" id="p1">এই অ্যাপ্রোচটাকে বেস করে একটা long form killer sales letter লিখে দাও</div>
+        <button class="btn copy-btn" onclick="copyText('p1', this)">
+          <span>Copy Prompt to Generate Sales letter</span>
+        </button>
+      </div>
+
+      <!-- Prompt #2 Card -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Sales letter for Graphics PGP</span>
+        </div>
+        <div class="prompt-content" id="p2"># Turn Your Ordinary Product Photos Into Professional Marketing Images — Using Just Your Smartphone!
+
+### No Photography Skills. No Design Skills. No Complicated AI Prompts. No Computer Required!
+
+আপনি কি নিজের পণ্য সোশ্যাল মিডিয়ায় আরও সুন্দর ও আকর্ষণীয়ভাবে তুলে ধরতে চান?
+
+আপনার কাছে কি ভালো ভালো পণ্য রয়েছে, কিন্তু সেগুলির জন্য প্রফেশনাল মানের ছবি তৈরি করা সহজ হচ্ছে না?
+
+আপনি হয়তো জানেন, সোশ্যাল মিডিয়ায় পণ্যের ছবি কতটা গুরুত্বপূর্ণ।
+
+একটি আকর্ষণীয় ছবি সম্ভাব্য ক্রেতার দৃষ্টি আকর্ষণ করতে পারে, পণ্য সম্পর্কে আগ্রহ তৈরি করতে পারে এবং আপনার ব্যবসাকে আরও সুন্দরভাবে উপস্থাপন করতে সাহায্য করতে পারে।
+
+কিন্তু সমস্যা হলো, প্রফেশনাল মানের Product Photos তৈরি করা সবসময় সহজ নয়।
+
+এর জন্য প্রয়োজন হতে পারে—
+
+- ভালো ক্যামেরা ও Photography Setup।
+- Photography সম্পর্কে অভিজ্ঞতা।
+- Photo Editing ও Graphic Design-এর দক্ষতা।
+- একজন Professional Designer বা Photographer-এর সাহায্য।
+- বিভিন্ন সফটওয়্যার ও টুল ব্যবহারের অভিজ্ঞতা।
+
+আর এসবের জন্য সময় ও অর্থ—দুটিই খরচ হতে পারে।
+
+কিন্তু আপনার যদি এসবের কোনও কিছুই না থাকে?
+
+তাহলে কি আপনার পণ্যকে আকর্ষণীয়ভাবে উপস্থাপন করার সুযোগ থাকবে না?
+
+অবশ্যই থাকবে!
+
+## এবার আপনার পণ্যের ছবি তৈরি করুন AI-এর সাহায্যে!
+
+আমি আপনার জন্য তৈরি করে দিতে পারি একটি বিশেষ **AI Product Photo Creator App**।
+
+এটি এমন একটি সহজ App, যা আপনার পণ্যের সাধারণ ছবি থেকে প্রফেশনাল মানের Marketing Images তৈরি করার জন্য প্রয়োজনীয় AI Prompt স্বয়ংক্রিয়ভাবে তৈরি করে দেবে।
+
+আপনাকে নিজে থেকে কোনও জটিল Prompt লিখতে হবে না।
+
+AI-কে কীভাবে নির্দেশ দিতে হয়, সেটাও শেখার প্রয়োজন নেই।
+
+অ্যাপটি আপনার হয়ে সেই কাজটি করে দেবে।
+
+## কীভাবে কাজ করবে এই App?
+
+পুরো প্রক্রিয়াটি অত্যন্ত সহজ।
+
+**STEP 1: আপনার পণ্য সম্পর্কে কয়েকটি তথ্য দিন।**
+
+অ্যাপটিতে আপনার পণ্য সম্পর্কে কয়েকটি সাধারণ তথ্য পূরণ করুন।
+
+**STEP 2: AI Prompt তৈরি করুন।**
+
+আপনার দেওয়া তথ্যের ভিত্তিতে অ্যাপটি স্বয়ংক্রিয়ভাবে একটি বিস্তারিত ও ব্যবহারযোগ্য AI Image Generation Prompt তৈরি করে দেবে।
+
+**STEP 3: এক ক্লিকেই Prompt Copy করুন।**
+
+একটি বাটনে ক্লিক করেই তৈরি হওয়া Prompt কপি করে নিন।
+
+**STEP 4: AI Image Generator-এ ব্যবহার করুন।**
+
+কপি করা Prompt ChatGPT বা অন্য কোনও উপযুক্ত AI Image Generator-এ Paste করুন।
+
+ব্যস!
+
+AI আপনার নির্দেশ অনুযায়ী পণ্যের জন্য আকর্ষণীয় Marketing Image তৈরি করবে।
+
+সেই ছবি আপনি Facebook, Instagram এবং অন্যান্য Social Media Platform-এ প্রকাশ করতে পারবেন।
+
+## আপনার জন্য সবচেয়ে ভালো খবর!
+
+এই App ব্যবহার করার জন্য আপনাকে কোনও Technical Expert হতে হবে না।
+
+আপনার আগে থেকে AI ব্যবহারের অভিজ্ঞতা থাকারও প্রয়োজন নেই।
+
+কারণ, অ্যাপটি এমনভাবে তৈরি করা হবে যাতে সাধারণ Smartphone ব্যবহারকারীও সহজে এটি ব্যবহার করতে পারেন।
+
+আপনার যা যা প্রয়োজন হবে:
+
+✓ একটি Smartphone।
+
+✓ আপনার পণ্যের একটি সাধারণ ছবি।
+
+✓ অ্যাপটিতে কয়েকটি সাধারণ তথ্য পূরণ করার সামান্য সময়।
+
+এটুকুই যথেষ্ট!
+
+### আর যে বিষয়গুলি নিয়ে আপনাকে চিন্তা করতে হবে না:
+
+**NO TECHNICAL SKILLS REQUIRED**
+
+কোনও বিশেষ প্রযুক্তিগত দক্ষতা ছাড়াই অ্যাপটি ব্যবহার করতে পারবেন।
+
+**NO COMPUTER OR LAPTOP REQUIRED**
+
+কম্পিউটার বা ল্যাপটপ ছাড়াই নিজের স্মার্টফোন থেকে কাজ করতে পারবেন।
+
+**NO PREVIOUS AI EXPERIENCE REQUIRED**
+
+আগে কখনও AI ব্যবহার না করলেও সমস্যা নেই।
+
+**NO COMPLICATED PROMPT WRITING**
+
+নিজে থেকে কোনও জটিল AI Prompt লেখার প্রয়োজন নেই।
+
+**NO PAID PROMPT GENERATION SERVICE**
+
+অ্যাপটি ব্যবহার করে Prompt তৈরি করার জন্য কোনও অতিরিক্ত খরচ নেই।
+
+**NO PAID AI SUBSCRIPTION REQUIRED**
+
+উপযুক্ত Free AI Image Generation সুবিধা ব্যবহার করে কোনও Paid AI Subscription ছাড়াই ছবি তৈরি করতে পারবেন।
+
+## ভাবুন তো, আপনার ব্যবসার জন্য এর অর্থ কী?
+
+এবার নিজের পণ্যের ছবি সোশ্যাল মিডিয়ায় প্রকাশ করার আগে প্রতিবার একজন Designer বা Photographer-এর সাহায্য নেওয়ার প্রয়োজন নাও হতে পারে।
+
+আপনি নিজেই নিজের পণ্যের জন্য Marketing Images তৈরি করতে পারবেন।
+
+আপনার যখন প্রয়োজন হবে, তখনই স্মার্টফোন থেকে অ্যাপটি ব্যবহার করতে পারবেন।
+
+নতুন কোনও পণ্য ব্যবসায় যুক্ত হলে সেটির জন্যও একইভাবে Prompt তৈরি করতে পারবেন।
+
+অর্থাৎ, আপনার ব্যবসার Product Marketing-এর জন্য একটি সহজ AI-powered Image Creation Solution আপনার হাতেই থাকবে।
+
+## এই App কাদের জন্য?
+
+এই সমাধানটি বিশেষভাবে উপযোগী—
+
+- Boutique ও Clothing Store Owner-দের জন্য।
+- Saree ও Fashion Product Seller-দের জন্য।
+- Jewellery Shop Owner-দের জন্য।
+- Cosmetics ও Beauty Product Seller-দের জন্য।
+- Gift ও Accessories Seller-দের জন্য।
+- Online Product Seller-দের জন্য।
+- যাঁরা Facebook ও Instagram-এর মাধ্যমে নিজেদের পণ্যের প্রচার করেন।
+
+আপনি যে ধরনের পণ্যই বিক্রি করুন না কেন, আপনার পণ্যের জন্য উপযুক্ত AI Prompt তৈরির সুবিধা এই App-এ রাখা যেতে পারে।
+
+## আপনার ব্যবসার জন্য Custom App তৈরি করিয়ে নিন
+
+আমি আপনার ব্যবসার প্রয়োজন অনুযায়ী একটি Custom AI Product Photo Creator App তৈরি করে দেব।
+
+আপনাকে কোনও সফটওয়্যার তৈরি করতে হবে না।
+
+কোনও প্রযুক্তিগত বিষয় শেখারও প্রয়োজন নেই।
+
+আপনি শুধু অ্যাপটি ব্যবহার করে নিজের পণ্যের জন্য AI Prompt তৈরি করবেন এবং AI Image Generator-এর সাহায্যে ছবি তৈরি করবেন।
+
+## এবার আপনার পালা!
+
+আপনি কি নিজের পণ্যের জন্য আকর্ষণীয় ও প্রফেশনাল Marketing Images তৈরি করার একটি সহজ ব্যবস্থা চান?
+
+আপনি কি চান, এই কাজটি করার জন্য আপনার কাছে শুধু একটি Smartphone থাকলেই যথেষ্ট হোক?
+
+তাহলে আপনার ব্যবসার জন্য Custom AI Product Photo Creator App তৈরি করিয়ে নিতে পারেন।
+
+**Interested?**
+
+এই ইমেইলের উত্তর দিয়ে শুধু লিখুন:
+
+**"I'M INTERESTED"**
+
+আমি আপনাকে অ্যাপটি সম্পর্কে বিস্তারিত জানাব এবং আপনার ব্যবসার জন্য কীভাবে এটি তৈরি করা যায়, তা বুঝিয়ে দেব।
+
+আপনার পণ্যকে আরও আকর্ষণীয়ভাবে উপস্থাপন করার কাজটি এবার আরও সহজ হোক!
+
+Best regards,
+
+**Siva**</div>
+        <button class="btn copy-btn" onclick="copyText('p2', this)">
+          <span>Copy Sales letter for Graphics PGP</span>
+        </button>
+      </div>
+
+    </div>
+
+    <footer class="footer">
+      <p>Copyright &copy; <script>document.write(new Date().getFullYear())</script> Siva Prasad Mukherjee. All Rights Reserved.</p>
+    </footer>
+  </div>
+
+  <script>
+    function copyText(id, btn) {
+      const text = document.getElementById(id).innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const originalText = btn.innerHTML;
+        btn.innerHTML = `<span>Copied to Clipboard!</span>`;
+        btn.classList.add('copied');
+        
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>
