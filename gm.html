@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Leads Finder - (Google Map)</title>
+  <link rel="icon" href="spm.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-gradient-start: #020617;
+      --bg-gradient-end: #0f172a;
+      --card-bg: rgba(30, 41, 59, 0.4);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --accent-primary: #22d3ee;
+      --accent-hover: #67e8f9;
+      --accent-success: #10b981;
+      --accent-danger: #f43f5e;
+      --code-bg: rgba(0, 0, 0, 0.3);
+      --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: fixed linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+      color: var(--text-primary);
+      line-height: 1.6;
+      padding: 60px 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      max-width: 900px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #fff;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .sub-header {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--accent-primary);
+      letter-spacing: 0.02em;
+    }
+
+    .prompt-workflow {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .step-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 35px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .step-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .step-label {
+      font-weight: 800;
+      font-size: 0.8rem;
+      background: var(--accent-primary);
+      color: #020617;
+      padding: 5px 16px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .clear-btn {
+      background: transparent;
+      border: 1px solid var(--accent-danger);
+      color: var(--accent-danger);
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-transform: uppercase;
+      transition: all 0.2s;
+    }
+
+    .clear-btn:hover {
+      background: var(--accent-danger);
+      color: white;
+    }
+
+    label {
+      display: block;
+      color: var(--accent-primary);
+      font-weight: 700;
+      font-size: 0.9rem;
+      margin-bottom: 12px;
+      letter-spacing: 0.03em;
+    }
+
+    .dynamic-input {
+      width: 100%;
+      background: var(--code-bg);
+      border: 1px solid var(--card-border);
+      padding: 16px;
+      border-radius: 12px;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      line-height: 1.5;
+      outline: none;
+      resize: vertical;
+      min-height: 110px;
+      transition: border-color 0.3s;
+    }
+
+    .dynamic-input:focus {
+      border-color: var(--accent-primary);
+    }
+
+    .prompt-content {
+      background: var(--code-bg);
+      padding: 25px;
+      border-radius: 12px;
+      font-family: 'Source Code Pro', monospace;
+      font-size: 0.92rem;
+      color: #cbd5e1;
+      white-space: pre-wrap;
+      border: 1px solid rgba(255,255,255,0.05);
+      margin-bottom: 22px;
+      line-height: 1.6;
+      word-break: break-word;
+      max-height: 520px;
+      overflow-y: auto;
+    }
+
+    .prompt-content::-webkit-scrollbar { width: 8px; }
+    .prompt-content::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); }
+    .prompt-content::-webkit-scrollbar-thumb { background: var(--card-border); border-radius: 4px; }
+
+    .btn {
+      padding: 14px 32px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.2s;
+      width: 100%;
+      text-decoration: none;
+      border: none;
+    }
+
+    .copy-btn {
+      background: rgba(34, 211, 238, 0.1);
+      color: var(--accent-primary);
+      border: 1px solid var(--accent-primary);
+    }
+
+    .copy-btn:hover {
+      background: var(--accent-primary);
+      color: #020617;
+    }
+
+    .copy-btn.copied {
+      background: var(--accent-success);
+      border-color: var(--accent-success);
+      color: white;
+    }
+
+    .footer {
+      margin-top: 80px;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--card-border);
+      padding-top: 40px;
+      width: 100%;
+      padding-bottom: 40px;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 2rem; }
+      .sub-header { font-size: 1rem; }
+      .step-card { padding: 22px; }
+      .prompt-content { font-size: 0.85rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>Leads Finder</h1>
+      <p class="sub-header">(Google Map)</p>
+    </header>
+
+    <div class="prompt-workflow">
+      
+      <!-- Multiline Input Card 1 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Input Data 1</span>
+          <button class="clear-btn" onclick="resetInput('inputCity')">Reset</button>
+        </div>
+        <label for="inputCity">Target City: [Enter city and country]</label>
+        <textarea id="inputCity" class="dynamic-input" placeholder="Enter city and country..." oninput="updatePrompts()"></textarea>
+      </div>
+
+      <!-- Multiline Input Card 2 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Input Data 2</span>
+          <button class="clear-btn" onclick="resetInput('inputCategory')">Reset</button>
+        </div>
+        <label for="inputCategory">Target Business Category: [Enter business type or niche]</label>
+        <textarea id="inputCategory" class="dynamic-input" placeholder="Enter business type or niche..." oninput="updatePrompts()"></textarea>
+      </div>
+
+      <!-- Multiline Input Card 3 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Input Data 3</span>
+          <button class="clear-btn" onclick="resetInput('inputCriteria')">Reset</button>
+        </div>
+        <label for="inputCriteria">Additional Qualification Criteria (Optional): [Optional, e.g., independent businesses, businesses with outdated websites, businesses with incomplete online presence]</label>
+        <textarea id="inputCriteria" class="dynamic-input" placeholder="Optional, e.g., independent businesses, businesses with outdated websites, businesses with incomplete online presence..." oninput="updatePrompts()"></textarea>
+      </div>
+
+      <!-- Prompt Result Cards -->
+      <div id="promptsContainer">
+        <!-- Prompt injected by JavaScript -->
+      </div>
+
+    </div>
+
+    <footer class="footer">
+      <p>Copyright &copy; <script>document.write(new Date().getFullYear())</script> Siva Prasad Mukherjee. All Rights Reserved.</p>
+    </footer>
+  </div>
+
+  <script>
+    const templates = [
+      {
+        id: 1,
+        text: `ROLE AND OBJECTIVE
+
+Act as a Local Business Researcher and B2B Lead Generation Specialist.
+
+Your task is to identify 10–25 relevant local businesses in my target city and compile an accurate, research-backed list of their publicly available business contact details and, where verifiable, their owners' or decision-makers' professional contact details.
+
+The purpose is legitimate B2B networking and professional outreach.
+
+RESEARCH INPUTS
+
+Target City: [Enter city and country]
+
+Target Business Category: [Enter business type or niche]
+
+Number of Leads Required: 10–25
+
+Additional Qualification Criteria (Optional): [Optional, e.g., independent businesses, businesses with outdated websites, businesses with incomplete online presence]
+
+RESEARCH INSTRUCTIONS
+
+1. Find businesses using Google Maps and Google Business Profiles where accessible, official business websites, business directories, professional profiles, and other reliable public sources.
+
+2. Focus on businesses that are physically located in the target city and match the specified business category. Do not include unrelated businesses merely to reach the requested number.
+
+3. For each business, research and collect the following information wherever publicly available:
+
+   - Business Name
+   - Business Category
+   - Full Business Address
+   - City
+   - Official Website
+   - Google Maps Listing URL
+   - Public Business Phone Number, including country code when available
+   - Public Business Email Address
+   - Business Owner's Full Name, only when publicly verifiable
+   - Owner's Professional Email Address, only when publicly available and verifiable
+   - Owner's Public Professional Profile URL, such as LinkedIn, when available
+   - Official Contact Page or Business Enquiry Page
+   - Google Rating and Number of Reviews, if available
+   - Source URL for each important contact detail
+   - Research Date
+
+4. OWNER IDENTIFICATION
+
+   Make a reasonable effort to identify the actual owner, founder, proprietor, or relevant decision-maker.
+
+   Prioritize official business websites, public professional profiles, company profiles, and reliable business records.
+
+   Do not assume that a person is the owner merely because they are associated with the business. Clearly distinguish verified ownership from an unverified association.
+
+5. CONTACT VERIFICATION
+
+   Verify each contact detail against its source wherever possible.
+
+   - Prefer official business websites and official business profiles.
+   - Cross-check important details using a second reliable source when feasible.
+   - Never invent names, phone numbers, email addresses, websites, or profile URLs.
+   - Do not guess email addresses based on domain patterns.
+   - Do not label a contact detail as verified unless the available evidence supports that status.
+   - If an owner's direct contact details are unavailable, provide the business's publicly listed contact details instead.
+   - If an email address cannot be verified, mark it as "Not found" or "Unverified", as appropriate.
+   - Distinguish between a published phone number and a number whose current availability has been independently confirmed.
+
+6. LEAD QUALITY
+
+   Prefer relevant, independently operated local businesses when they match my criteria.
+
+   Where relevant to my target audience, identify potential business needs based on observable public evidence, such as an outdated website, missing website, incomplete business information, or weak online presentation.
+
+   Treat these as preliminary observations, not confirmed problems. Do not fabricate business needs or make unsupported judgments about a business's performance.
+
+7. PRIVACY AND DATA QUALITY
+
+   Use publicly available professional and business contact information only.
+
+   Do not seek private personal phone numbers, residential addresses, confidential information, or data obtained through unauthorized sources.
+
+   Do not bypass access restrictions, sign-in requirements, or technical safeguards.
+
+   Exclude duplicate businesses, closed businesses where closure is reliably established, and listings with insufficient evidence of relevance.
+
+8. RESEARCH LIMITATIONS
+
+   Use live web research if browsing is available. Access Google Maps directly only if the available tools permit it.
+
+   If Google Maps data cannot be accessed directly, use accessible public sources and disclose that limitation. Do not claim to have searched Google Maps unless you actually did so.
+
+   If fewer than the requested number of qualified businesses can be verified, return the verified leads found and explain the shortfall rather than padding the list with fabricated or irrelevant entries.
+
+OUTPUT FORMAT
+
+First, provide a brief summary containing:
+
+- Target city
+- Target business category
+- Number of qualified businesses found
+- Number of businesses with publicly listed phone numbers
+- Number with publicly listed email addresses
+- Number with identified owners
+- Number with verified owner-specific professional contact details
+
+Then present the results in a structured table with these columns:
+
+1. Serial Number
+2. Business Name
+3. Business Category
+4. Owner / Decision-Maker Name
+5. Business Address
+6. Business Phone
+7. Business Email
+8. Owner's Professional Email, if available
+9. Official Website
+10. Google Maps Listing
+11. Owner's Professional Profile
+12. Relevant Business Observation
+13. Contact Verification Status
+14. Source URLs
+
+Use clickable links for source URLs wherever possible.
+
+After the table, provide:
+
+A. The 5 strongest leads, based on fit with my specified criteria and the available public evidence.
+
+B. A separate list of businesses for which the owner's name or direct professional contact details could not be established.
+
+C. A concise explanation of missing information, verification limitations, and any sources that could not be accessed.
+
+D. A short, personalized first-contact message suitable for legitimate B2B outreach, based only on verified information about the recipient's business.
+
+FINAL QUALITY CHECK
+
+Before submitting the results:
+
+- Remove duplicates.
+- Check that every listed business belongs to the target city and category.
+- Ensure that source URLs correspond to the stated contact details.
+- Separate owner-specific contact details from general business contacts.
+- Clearly label missing, unverified, and verified fields.
+- Do not invent information to complete the table.
+
+Begin by using my research inputs. If an essential input is missing, ask me for it before starting the research.`
+      }
+    ];
+
+    function createCards() {
+      const container = document.getElementById('promptsContainer');
+      container.innerHTML = '';
+      templates.forEach(t => {
+        const card = document.createElement('div');
+        card.className = 'step-card';
+        card.innerHTML = `
+          <div class="step-header">
+            <span class="step-label">Prompt #${t.id}</span>
+          </div>
+          <div class="prompt-content" id="p${t.id}"></div>
+          <button class="btn copy-btn" onclick="copyText('p${t.id}', this)">
+            <span>Copy Prompt #${t.id}</span>
+          </button>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function updatePrompts() {
+      const cityVal = document.getElementById('inputCity').value.trim() || "[Enter city and country]";
+      const categoryVal = document.getElementById('inputCategory').value.trim() || "[Enter business type or niche]";
+      const criteriaVal = document.getElementById('inputCriteria').value.trim() || "[Optional, e.g., independent businesses, businesses with outdated websites, businesses with incomplete online presence]";
+
+      templates.forEach(t => {
+        let updatedText = t.text;
+        if (t.id === 1) {
+          updatedText = updatedText.split('[Enter city and country]').join(cityVal);
+          updatedText = updatedText.split('[Enter business type or niche]').join(categoryVal);
+          updatedText = updatedText.split('[Optional, e.g., independent businesses, businesses with outdated websites, businesses with incomplete online presence]').join(criteriaVal);
+        }
+        document.getElementById(`p${t.id}`).innerText = updatedText;
+      });
+    }
+
+    function resetInput(fieldId) {
+      document.getElementById(fieldId).value = "";
+      updatePrompts();
+    }
+
+    function copyText(id, btn) {
+      const text = document.getElementById(id).innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const originalText = btn.innerHTML;
+        btn.innerHTML = `<span>Copied to Clipboard!</span>`;
+        btn.classList.add('copied');
+        
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+
+    // Initialize on page load
+    window.onload = () => {
+      createCards();
+      updatePrompts();
+    };
+  </script>
+</body>
+</html>
