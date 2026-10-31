@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Approach Graphics PGP</title>
+  <link rel="icon" href="spm.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-gradient-start: #020617;
+      --bg-gradient-end: #0f172a;
+      --card-bg: rgba(30, 41, 59, 0.4);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --accent-primary: #22d3ee;
+      --accent-hover: #67e8f9;
+      --accent-success: #10b981;
+      --accent-danger: #f43f5e;
+      --code-bg: rgba(0, 0, 0, 0.3);
+      --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: fixed linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+      color: var(--text-primary);
+      line-height: 1.6;
+      padding: 60px 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      max-width: 900px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #fff;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .prompt-workflow {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .step-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 35px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .step-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .step-label {
+      font-weight: 800;
+      font-size: 0.85rem;
+      background: var(--accent-primary);
+      color: #020617;
+      padding: 5px 16px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .prompt-content {
+      background: var(--code-bg);
+      padding: 25px;
+      border-radius: 12px;
+      font-family: 'Source Code Pro', monospace;
+      font-size: 0.92rem;
+      color: #cbd5e1;
+      white-space: pre-wrap;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      margin-bottom: 22px;
+      line-height: 1.6;
+      word-break: break-word;
+      max-height: 520px;
+      overflow-y: auto;
+    }
+
+    .prompt-content::-webkit-scrollbar { width: 8px; }
+    .prompt-content::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); }
+    .prompt-content::-webkit-scrollbar-thumb { background: var(--card-border); border-radius: 4px; }
+
+    .btn {
+      padding: 14px 32px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.2s;
+      width: 100%;
+      text-decoration: none;
+      border: none;
+    }
+
+    .copy-btn {
+      background: rgba(34, 211, 238, 0.1);
+      color: var(--accent-primary);
+      border: 1px solid var(--accent-primary);
+    }
+
+    .copy-btn:hover {
+      background: var(--accent-primary);
+      color: #020617;
+    }
+
+    .copy-btn.copied {
+      background: var(--accent-success);
+      border-color: var(--accent-success);
+      color: white;
+    }
+
+    .footer {
+      margin-top: 80px;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--card-border);
+      padding-top: 40px;
+      width: 100%;
+      padding-bottom: 40px;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 2rem; }
+      .step-card { padding: 22px; }
+      .prompt-content { font-size: 0.85rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>Approach Graphics PGP</h1>
+    </header>
+
+    <div class="prompt-workflow">
+      
+      <!-- Prompt 1 Card -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">বাংলা</span>
+        </div>
+        <div class="prompt-content" id="promptBengali">প্রফেশনাল প্রোডাক্ট ফটো, সম্পূর্ণ বিনামূল্যে! শুধু আপনার স্মার্টফোন ব্যবহার করেই।
+
+কোনও টেকনিক্যাল দক্ষতা নেই। কম্পিউটার নেই। Paid AI Subscription নেই।
+
+নমস্কার,
+
+আপনার পণ্যের ছবি সাধারণ মানের বলে কি সোশ্যাল মিডিয়ায় সম্ভাব্য ক্রেতাদের আকর্ষণ করতে পারছেন না?
+
+ফটোগ্রাফি বা ডিজাইনের জন্য টাকা খরচ না করেই আপনার পণ্যের সুন্দর ও প্রফেশনাল ছবি সোশ্যাল মিডিয়ায় প্রকাশ করতে চান কি?
+
+এবার নিজের পণ্যের সাধারণ ছবি থেকেই তৈরি করুন আকর্ষণীয়, প্রফেশনাল মানের Product Marketing Images!
+
+আমি আপনার ব্যবসার জন্য তৈরি করে দিতে পারি একটি বিশেষ **AI Product Photo Creator App**, যার সাহায্যে আপনি নিজেই AI ব্যবহার করে আপনার পণ্যের প্রফেশনাল মানের মার্কেটিং ইমেজ তৈরি করতে পারবেন।
+
+**যেভাবে কাজ করবে:**
+
+১. অ্যাপটিতে আপনার পণ্য সম্পর্কে কয়েকটি সাধারণ তথ্য দিন।
+
+২. অ্যাপটি স্বয়ংক্রিয়ভাবে আপনার জন্য একটি বিস্তারিত AI Image Generation Prompt তৈরি করে দেবে।
+
+৩. একটি বাটনে ক্লিক করে Prompt-টি কপি করুন।
+
+৪. ChatGPT বা অন্য কোনও উপযুক্ত Free AI Image Generator-এ Prompt-টি পেস্ট করুন।
+
+ব্যস! আপনার পণ্যের জন্য তৈরি হয়ে যাবে আকর্ষণীয়, প্রফেশনাল মানের ছবি, যা Facebook, Instagram এবং অন্যান্য সোশ্যাল মিডিয়ায় প্রকাশ করতে পারবেন।
+
+**সবচেয়ে আকর্ষণীয় বিষয় হলো—এই পুরো প্রক্রিয়াটি আপনি বিনামূল্যেই করতে পারবেন!**
+
+- অ্যাপটি ব্যবহার করে Prompt তৈরি করতে কোনও খরচ নেই।
+- উপযুক্ত Free AI Image Generator ব্যবহার করে ছবি তৈরি করতেও কোনও খরচ নেই।
+- কোনও Paid Subscription প্রয়োজন নেই।
+- কোনও Technical Skill বা AI ব্যবহারের পূর্ব অভিজ্ঞতা প্রয়োজন নেই।
+- কোনও Computer বা Laptop প্রয়োজন নেই।
+- শুধু একটি Smartphone থাকলেই যথেষ্ট।
+- নিজে থেকে জটিল AI Prompt লেখার প্রয়োজন নেই।
+
+অর্থাৎ, দামি Photography Setup, Professional Designer কিংবা Paid AI Software-এর পিছনে টাকা খরচ না করেই আপনি নিজের পণ্যের জন্য প্রফেশনাল মানের Marketing Images তৈরি করতে পারবেন।
+
+**আমি আপনার ব্যবসার প্রয়োজন অনুযায়ী এই Custom AI Product Photo Creator App তৈরি করে দিতে পারি।**
+
+আপনার ব্যবসার জন্য এমন একটি সুবিধাজনক ও বিনামূল্যে ব্যবহারযোগ্য সমাধান পেতে আগ্রহী হলে এই ইমেইলের উত্তর দিয়ে জানাতে পারেন।
+
+ধন্যবাদান্তে,
+
+[আপনার নাম]</div>
+        <button class="btn copy-btn" onclick="copyText('promptBengali', this)">
+          <span>Copy Prompt (বাংলা)</span>
+        </button>
+      </div>
+
+      <!-- Prompt 2 Card -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">ENGLISH</span>
+        </div>
+        <div class="prompt-content" id="promptEnglish">Professional Product Photos. Zero Cost. Just Your Smartphone.
+No Technical Skills. No Computer. No Paid AI Subscription.
+
+Hello,
+
+Would you like to make your products look more attractive and professional on social media without spending money on photography or design services?
+
+What if you could turn your existing product photos into attractive, professional-looking marketing images without spending money on photography or design services?
+
+I can build a custom **AI Product Photo Creator App** specifically for your business, allowing you to create professional-looking product marketing images using AI.
+
+**Here's how it works:**
+
+1. Enter a few basic details about your product into the app.
+
+2. The app automatically generates a detailed AI image-generation prompt for your product.
+
+3. Copy the prompt with just one click.
+
+4. Paste it into ChatGPT or another suitable free AI image generator.
+
+That's it! Your professional-looking product image is ready to publish on Facebook, Instagram, and other social media platforms.
+
+**And the best part? You can do all of this completely FREE!**
+
+- No cost for generating prompts through the app.
+- No cost for creating images using a suitable free AI image generator.
+- No paid subscription required.
+- No technical skills or previous AI experience needed.
+- No computer or laptop required.
+- Just your smartphone is enough.
+- No need to write complicated AI prompts yourself.
+
+In other words, you can create professional-looking marketing images for your products without spending money on expensive photography setups, professional designers, or paid AI software.
+
+**I can build this custom AI Product Photo Creator App specifically for your business needs.**
+
+Would you be interested in having this solution for your business?
+
+Simply reply to this email, and I'll be happy to share more details.
+
+Best regards,
+
+[Your Name]</div>
+        <button class="btn copy-btn" onclick="copyText('promptEnglish', this)">
+          <span>Copy Prompt (ENGLISH)</span>
+        </button>
+      </div>
+
+    </div>
+
+    <footer class="footer">
+      <p>Copyright &copy; <script>document.write(new Date().getFullYear())</script> Siva Prasad Mukherjee. All Rights Reserved.</p>
+    </footer>
+  </div>
+
+  <script>
+    function copyText(id, btn) {
+      const text = document.getElementById(id).innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const originalText = btn.innerHTML;
+        btn.innerHTML = `<span>Copied to Clipboard!</span>`;
+        btn.classList.add('copied');
+        
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+          btn.classList.remove('copied');
+        }, 2000);
+      }).catch(err => {
+        console.error('Failed to copy: ', err);
+      });
+    }
+  </script>
+</body>
+</html>
