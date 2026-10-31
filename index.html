@@ -303,7 +303,7 @@
           {
             id: 1,
             name: "Prompt",
-            url: null,
+            url: "",
             text: `A Prompt or A Content`
           },
           {
@@ -462,6 +462,12 @@
             name: "Approach Graphics PGP",
             url: "https://spmhqo.github.io/rnd/approach-graphics-pgp.html",
             text: `https://spmhqo.github.io/rnd/approach-graphics-pgp.html`
+          },
+          {
+            id: 24,
+            name: "Long Form Sales letter Genie",
+            url: "https://spmhqo.github.io/rnd/long-form-sl-genie.html",
+            text: `https://spmhqo.github.io/rnd/long-form-sl-genie.html`
           }
         ]
       }
@@ -491,19 +497,12 @@
           card.setAttribute('data-name', p.name.toLowerCase());
           card.setAttribute('data-text', p.text.toLowerCase());
 
-          let buttonsHtml = `
-            <button class="btn copy-btn" onclick="copyText('p${p.id}', this)">
-              <span>Copy Prompt</span>
-            </button>
-          `;
-
-          if (p.url) {
-            buttonsHtml += `
-              <a href="${p.url}" target="_blank" rel="noopener noreferrer" class="btn link-btn">
-                <span>Open Link</span>
-              </a>
-            `;
-          }
+          const hasUrl = p.url && p.url.trim() !== '';
+          const linkButtonHtml = hasUrl 
+            ? `<a href="${p.url}" target="_blank" rel="noopener noreferrer" class="btn link-btn">
+                 <span>Open Link</span>
+               </a>` 
+            : '';
 
           card.innerHTML = `
             <div class="step-header">
@@ -511,7 +510,10 @@
             </div>
             <div class="prompt-content" id="p${p.id}">${p.text}</div>
             <div class="btn-group">
-              ${buttonsHtml}
+              <button type="button" class="btn copy-btn" onclick="copyText('p${p.id}', this)">
+                <span>Copy Prompt</span>
+              </button>
+              ${linkButtonHtml}
             </div>
           `;
           promptWorkflow.appendChild(card);
@@ -579,7 +581,6 @@
       });
     }
 
-    // Clears the input field and refreshes/restores all prompt boxes without altering text
     function resetInputField(fieldId) {
       const field = document.getElementById(fieldId);
       if (field) {
