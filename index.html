@@ -303,31 +303,37 @@
           {
             id: 1,
             name: "Prompt",
+            url: null,
             text: `A Prompt or A Content`
           },
           {
             id: 2,
             name: "Skill Keywords",
+            url: "https://spmhqo.github.io/rnd/find-skills.html",
             text: `https://spmhqo.github.io/rnd/find-skills.html`
           },
           {
             id: 3,
             name: "Combined Skill keywords",
+            url: "https://spmhqo.github.io/rnd/combined-skill-keywords.html",
             text: `https://spmhqo.github.io/rnd/combined-skill-keywords.html`
           },
           {
             id: 4,
             name: "Compelling Keywords",
+            url: "https://spmhqo.github.io/rnd/compelling-keywords.html",
             text: `https://spmhqo.github.io/rnd/compelling-keywords.html`
           },
           {
             id: 5,
             name: "Compulsive Content Idea",
+            url: "https://spmhqo.github.io/rnd/c-c.html",
             text: `https://spmhqo.github.io/rnd/c-c.html`
           },
           {
             id: 6,
             name: "Compulsive Content Prompt and Image",
+            url: "https://spmhqo.github.io/rnd/c-c.html",
             text: `https://spmhqo.github.io/rnd/c-c.html`
           }
         ]
@@ -338,6 +344,7 @@
           {
             id: 7,
             name: "Bangla",
+            url: "https://spmhqo.github.io/rnd/gaib.html",
             text: `https://spmhqo.github.io/rnd/gaib.html`
           }
         ]
@@ -348,6 +355,7 @@
           {
             id: 8,
             name: "Image Set Genie",
+            url: "https://spmhqo.github.io/rnd/image-set-genie.html",
             text: `https://spmhqo.github.io/rnd/image-set-genie.html`
           }
         ]
@@ -358,11 +366,13 @@
           {
             id: 9,
             name: "Click Baiter",
+            url: "https://spmhqo.github.io/rnd/click-baiter.html",
             text: `https://spmhqo.github.io/rnd/click-baiter.html`
           },
           {
             id: 10,
             name: "Buyer Bank",
+            url: "https://spmhqo.github.io/rnd/buyer-bank-unlimited-premium.html",
             text: `https://spmhqo.github.io/rnd/buyer-bank-unlimited-premium.html`
           }
         ]
@@ -373,11 +383,13 @@
           {
             id: 11,
             name: "Universal",
+            url: "https://spmhqo.github.io/rnd/universal-complementary-products.html",
             text: `https://spmhqo.github.io/rnd/universal-complementary-products.html`
           },
           {
             id: 12,
             name: "Personal",
+            url: "https://spmhqo.github.io/rnd/personal-care-complementary-products.html",
             text: `https://spmhqo.github.io/rnd/personal-care-complementary-products.html`
           }
         ]
@@ -388,52 +400,68 @@
           {
             id: 13,
             name: "Develop Something New",
+            url: "https://spmhqo.github.io/rnd/develop-something-new.html",
             text: `https://spmhqo.github.io/rnd/develop-something-new.html`
           },
           {
             id: 14,
             name: "DM Me",
+            url: "https://spmhqo.github.io/rnd/dm-me.html",
             text: `https://spmhqo.github.io/rnd/dm-me.html`
           },
           {
             id: 15,
             name: "Edit",
+            url: "https://spmhqo.github.io/rnd/edit-with-lenses.html",
             text: `https://spmhqo.github.io/rnd/edit-with-lenses.html`
           },
           {
             id: 16,
             name: "Impulsive Selling",
+            url: "https://spmhqo.github.io/rnd/my-impulsive.html",
             text: `https://spmhqo.github.io/rnd/my-impulsive.html`
           },
           {
             id: 17,
             name: "E-commerce Photography",
+            url: "https://spmhqo.github.io/rnd/ecom-photography.html",
             text: `https://spmhqo.github.io/rnd/ecom-photography.html`
           },
           {
             id: 18,
             name: "E-commerce Product Visual Analysis",
+            url: "https://spmhqo.github.io/rnd/ecom-product-visual-analysis.html",
             text: `https://spmhqo.github.io/rnd/ecom-product-visual-analysis.html`
           },
           {
             id: 19,
             name: "Identify Viral Post",
+            url: "https://spmhqo.github.io/rnd/identify-viral-posts.html",
             text: `https://spmhqo.github.io/rnd/identify-viral-posts.html`
           },
           {
             id: 20,
             name: "Create Viral Post",
+            url: "https://spmhqo.github.io/rnd/create-viral-post.html",
             text: `https://spmhqo.github.io/rnd/create-viral-post.html`
           },
           {
             id: 21,
             name: "Direct Offer",
+            url: "https://spmhqo.github.io/rnd/offer-directly.html",
             text: `https://spmhqo.github.io/rnd/offer-directly.html`
           },
           {
             id: 22,
             name: "Find Client",
+            url: "https://spmhqo.github.io/rnd/gm.html",
             text: `https://spmhqo.github.io/rnd/gm.html`
+          },
+          {
+            id: 23,
+            name: "Approach Graphics PGP",
+            url: "https://spmhqo.github.io/rnd/approach-graphics-pgp.html",
+            text: `https://spmhqo.github.io/rnd/approach-graphics-pgp.html`
           }
         ]
       }
@@ -463,7 +491,19 @@
           card.setAttribute('data-name', p.name.toLowerCase());
           card.setAttribute('data-text', p.text.toLowerCase());
 
-          const isUrl = p.text.trim().startsWith('http://') || p.text.trim().startsWith('https://');
+          let buttonsHtml = `
+            <button class="btn copy-btn" onclick="copyText('p${p.id}', this)">
+              <span>Copy Prompt</span>
+            </button>
+          `;
+
+          if (p.url) {
+            buttonsHtml += `
+              <a href="${p.url}" target="_blank" rel="noopener noreferrer" class="btn link-btn">
+                <span>Open Link</span>
+              </a>
+            `;
+          }
 
           card.innerHTML = `
             <div class="step-header">
@@ -471,14 +511,7 @@
             </div>
             <div class="prompt-content" id="p${p.id}">${p.text}</div>
             <div class="btn-group">
-              <button class="btn copy-btn" onclick="copyText('p${p.id}', this)">
-                <span>Copy Prompt</span>
-              </button>
-              ${isUrl ? `
-                <a href="${p.text.trim()}" target="_blank" rel="noopener noreferrer" class="btn link-btn">
-                  <span>Open Link</span>
-                </a>
-              ` : ''}
+              ${buttonsHtml}
             </div>
           `;
           promptWorkflow.appendChild(card);
@@ -546,7 +579,7 @@
       });
     }
 
-    // Reset button handler: clears input field and refreshes/restores all prompt boxes
+    // Clears the input field and refreshes/restores all prompt boxes without altering text
     function resetInputField(fieldId) {
       const field = document.getElementById(fieldId);
       if (field) {
