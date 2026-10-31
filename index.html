@@ -65,7 +65,7 @@
       letter-spacing: 0.02em;
     }
 
-    /* Single-line Input & Reset Bar */
+    /* Filter & Reset Bar */
     .filter-wrapper {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
@@ -93,10 +93,6 @@
 
     .single-input:focus {
       border-color: var(--accent-primary);
-    }
-
-    .single-input::placeholder {
-      color: #64748b;
     }
 
     .reset-btn {
@@ -275,7 +271,7 @@
       <p class="sub-header">(my process)</p>
     </header>
 
-    <!-- Single-line Input field with Reset button -->
+    <!-- Search/Filter input field with Reset button -->
     <div class="filter-wrapper">
       <input 
         type="text" 
@@ -307,7 +303,7 @@
           {
             id: 1,
             name: "Prompt",
-            url: null,
+            url: "",
             text: `A Prompt or A Content`
           },
           {
@@ -382,40 +378,57 @@
         ]
       },
       {
-        sectionName: "Others",
+        sectionName: "Complementary Product Identifier",
         prompts: [
           {
             id: 11,
+            name: "Universal",
+            url: "https://spmhqo.github.io/rnd/universal-complementary-products.html",
+            text: `https://spmhqo.github.io/rnd/universal-complementary-products.html`
+          },
+          {
+            id: 12,
+            name: "Personal",
+            url: "https://spmhqo.github.io/rnd/personal-care-complementary-products.html",
+            text: `https://spmhqo.github.io/rnd/personal-care-complementary-products.html`
+          }
+        ]
+      },
+      {
+        sectionName: "Others",
+        prompts: [
+          {
+            id: 13,
             name: "Develop Something New",
             url: "https://spmhqo.github.io/rnd/develop-something-new.html",
             text: `https://spmhqo.github.io/rnd/develop-something-new.html`
           },
           {
-            id: 12,
+            id: 14,
             name: "DM Me",
             url: "https://spmhqo.github.io/rnd/dm-me.html",
             text: `https://spmhqo.github.io/rnd/dm-me.html`
           },
           {
-            id: 13,
+            id: 15,
             name: "Edit",
             url: "https://spmhqo.github.io/rnd/edit-with-lenses.html",
             text: `https://spmhqo.github.io/rnd/edit-with-lenses.html`
           },
           {
-            id: 14,
+            id: 16,
             name: "Impulsive Selling",
             url: "https://spmhqo.github.io/rnd/my-impulsive.html",
             text: `https://spmhqo.github.io/rnd/my-impulsive.html`
           },
           {
-            id: 15,
+            id: 17,
             name: "E-commerce Photography",
             url: "https://spmhqo.github.io/rnd/ecom-photography.html",
             text: `https://spmhqo.github.io/rnd/ecom-photography.html`
           },
           {
-            id: 16,
+            id: 18,
             name: "E-commerce Product Visual Analysis",
             url: "https://spmhqo.github.io/rnd/ecom-product-visual-analysis.html",
             text: `https://spmhqo.github.io/rnd/ecom-product-visual-analysis.html`
@@ -431,7 +444,7 @@
       sectionsData.forEach(section => {
         const sectionWrapper = document.createElement('div');
         sectionWrapper.className = 'section-block';
-        sectionWrapper.id = `section-${section.sectionName.toLowerCase().replace(/\\s+/g, '-')}`;
+        sectionWrapper.id = `section-${section.sectionName.toLowerCase().replace(/[^a-z0-9]/g, '-')}`;
 
         const heading = document.createElement('h2');
         heading.className = 'section-heading';
@@ -448,14 +461,11 @@
           card.setAttribute('data-name', p.name.toLowerCase());
           card.setAttribute('data-text', p.text.toLowerCase());
 
-          let openLinkHtml = '';
-          if (p.url) {
-            openLinkHtml = `
-              <a href="${p.url}" target="_blank" rel="noopener noreferrer" class="btn link-btn">
+          const linkBtnHtml = p.url 
+            ? `<a href="${p.url}" target="_blank" rel="noopener noreferrer" class="btn link-btn">
                 <span>Open Link</span>
-              </a>
-            `;
-          }
+               </a>` 
+            : '';
 
           card.innerHTML = `
             <div class="step-header">
@@ -463,10 +473,10 @@
             </div>
             <div class="prompt-content" id="p${p.id}">${p.text}</div>
             <div class="btn-group">
-              <button class="btn copy-btn" onclick="copyText('p${p.id}', this)">
+              <button type="button" class="btn copy-btn" onclick="copyText('p${p.id}', this)">
                 <span>Copy Prompt</span>
               </button>
-              ${openLinkHtml}
+              ${linkBtnHtml}
             </div>
           `;
           promptWorkflow.appendChild(card);
@@ -528,14 +538,14 @@
           }
         });
 
-        const sectionElem = document.getElementById(`section-${section.sectionName.toLowerCase().replace(/\\s+/g, '-')}`);
+        const sectionElem = document.getElementById(`section-${section.sectionName.toLowerCase().replace(/[^a-z0-9]/g, '-')}`);
         if (sectionElem) {
           sectionElem.style.display = sectionVisibleCount > 0 ? 'block' : 'none';
         }
       });
     }
 
-    // Reset button handler: clears input field and refreshes/restores all prompt boxes without modifying prompt text
+    // Reset button handler: clears input field and refreshes/restores all prompt boxes
     function resetInputField(fieldId) {
       const field = document.getElementById(fieldId);
       if (field) {
