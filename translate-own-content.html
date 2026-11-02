@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TRANSLATION - (Bengali-To-English )</title>
+  <link rel="icon" href="spm.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-gradient-start: #020617;
+      --bg-gradient-end: #0f172a;
+      --card-bg: rgba(30, 41, 59, 0.4);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --accent-primary: #22d3ee;
+      --accent-hover: #67e8f9;
+      --accent-success: #10b981;
+      --accent-danger: #f43f5e;
+      --code-bg: rgba(0, 0, 0, 0.3);
+      --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: fixed linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+      color: var(--text-primary);
+      line-height: 1.6;
+      padding: 60px 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      max-width: 900px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #fff;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .sub-header {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--accent-primary);
+      letter-spacing: 0.02em;
+    }
+
+    .prompt-workflow {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .step-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 35px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .step-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .step-label {
+      font-weight: 800;
+      font-size: 0.8rem;
+      background: var(--accent-primary);
+      color: #020617;
+      padding: 5px 16px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .clear-btn {
+      background: transparent;
+      border: 1px solid var(--accent-danger);
+      color: var(--accent-danger);
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-transform: uppercase;
+      transition: all 0.2s;
+    }
+
+    .clear-btn:hover {
+      background: var(--accent-danger);
+      color: white;
+    }
+
+    label {
+      display: block;
+      color: var(--accent-primary);
+      font-weight: 700;
+      font-size: 0.9rem;
+      margin-bottom: 12px;
+      letter-spacing: 0.03em;
+    }
+
+    .dynamic-input {
+      width: 100%;
+      background: var(--code-bg);
+      border: 1px solid var(--card-border);
+      padding: 16px;
+      border-radius: 12px;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      line-height: 1.5;
+      outline: none;
+      resize: vertical;
+      min-height: 120px;
+      transition: border-color 0.3s;
+    }
+
+    .dynamic-input:focus {
+      border-color: var(--accent-primary);
+    }
+
+    .prompt-content {
+      background: var(--code-bg);
+      padding: 25px;
+      border-radius: 12px;
+      font-family: 'Source Code Pro', monospace;
+      font-size: 0.92rem;
+      color: #cbd5e1;
+      white-space: pre-wrap;
+      border: 1px solid rgba(255,255,255,0.05);
+      margin-bottom: 22px;
+      line-height: 1.6;
+      word-break: break-word;
+      max-height: 520px;
+      overflow-y: auto;
+    }
+
+    .prompt-content::-webkit-scrollbar { width: 8px; }
+    .prompt-content::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); }
+    .prompt-content::-webkit-scrollbar-thumb { background: var(--card-border); border-radius: 4px; }
+
+    .btn {
+      padding: 14px 32px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.2s;
+      width: 100%;
+      text-decoration: none;
+      border: none;
+    }
+
+    .copy-btn {
+      background: rgba(34, 211, 238, 0.1);
+      color: var(--accent-primary);
+      border: 1px solid var(--accent-primary);
+    }
+
+    .copy-btn:hover {
+      background: var(--accent-primary);
+      color: #020617;
+    }
+
+    .copy-btn.copied {
+      background: var(--accent-success);
+      border-color: var(--accent-success);
+      color: white;
+    }
+
+    .footer {
+      margin-top: 80px;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--card-border);
+      padding-top: 40px;
+      width: 100%;
+      padding-bottom: 40px;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 2rem; }
+      .sub-header { font-size: 1rem; }
+      .step-card { padding: 22px; }
+      .prompt-content { font-size: 0.85rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>TRANSLATION</h1>
+      <p class="sub-header">(Bengali-To-English )</p>
+    </header>
+
+    <div class="prompt-workflow">
+      
+      <!-- Multiline Dynamic Input Card -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Input Data</span>
+          <button class="clear-btn" onclick="resetInput('inputBengaliContent')">Reset</button>
+        </div>
+        <label for="inputBengaliContent">[Paste the complete Bengali content here]</label>
+        <textarea id="inputBengaliContent" class="dynamic-input" placeholder="Paste the complete Bengali content here..." oninput="updatePrompts()"></textarea>
+      </div>
+
+      <!-- Prompt Result Cards -->
+      <div id="promptsContainer">
+        <!-- Prompt injected by JavaScript -->
+      </div>
+
+    </div>
+
+    <footer class="footer">
+      <p>Copyright &copy; <script>document.write(new Date().getFullYear())</script> Siva Prasad Mukherjee. All Rights Reserved.</p>
+    </footer>
+  </div>
+
+  <script>
+    const templates = [
+      {
+        id: 1,
+        text: `1. PRIMARY OBJECTIVE
+
+Translate the Bengali content provided at the end of this prompt into modern, natural, everyday conversational English as spoken in Kolkata, West Bengal, India — without local slang, regional grammar, or phrasing that could confuse a global audience.
+
+The English must be bold, direct, clear, and easily understood by a 21-year-old. It should read like natural human writing, not a literal translation, an academic essay, or generic AI-generated prose.
+
+The purpose is to express my original thoughts in English as naturally and faithfully as I expressed them in Bengali.
+
+MOST IMPORTANT PRINCIPLE:
+
+Translate what I mean in the way I naturally express it—not what you think I should have written.
+
+Treat this principle as the foundation of every translation decision. Your job is to help me express my own thoughts in another language, not to replace my way of thinking, communicating, or expressing myself with your preferred version.
+
+2. PRESERVE MY ORIGINAL MEANING AND INTENTION
+
+My Bengali content is the source of truth for what I want to communicate.
+
+- Preserve my intended meaning, ideas, observations, beliefs, experiences, questions, arguments, and conclusions.
+- Do not add new ideas, explanations, examples, arguments, claims, or conclusions.
+- Do not remove meaningful details, qualifications, contrasts, or repetition merely to make the English shorter or smoother.
+- Do not strengthen, weaken, exaggerate, reinterpret, or change my claims.
+- Preserve the distinction between what I know, believe, feel, suspect, question, or assume.
+- Do not fact-check, challenge, correct, or debate my opinions. Your task is translation, not evaluation.
+- Do not use information from previous conversations or outside sources to change or supplement the content supplied here.
+
+If an expression has more than one plausible interpretation, preserve its ambiguity where possible. If a genuinely important ambiguity prevents an accurate translation, ask me for clarification rather than inventing an interpretation.
+
+3. MANDATORY RULE — PRESERVE MY WRITING STYLE AND VOICE
+
+Strictly preserve my original Bengali writing style and voice.
+
+Retain my distinctive tone, attitude, sentence rhythm, emphasis, level of formality, degree of directness, and natural way of expressing ideas.
+
+Do not impose your own writing style, personality, tone, or preferred phrasing on my translation.
+
+Specifically:
+
+- If I use simple language, retain that simplicity.
+- If I express an idea directly, retain that directness.
+- If my writing is reflective, retain its reflective quality.
+- If I use a question, contrast, repetition, or particular sentence rhythm to express an idea, preserve its function and effect.
+- If my writing is conversational, do not turn it into academic or literary prose.
+- Do not make my writing more sophisticated, motivational, persuasive, dramatic, professional, or polished than I intended.
+- Do not flatten my distinctive voice into generic, conventional English prose.
+
+You may adjust words and sentence structures to make the English natural, but those adjustments must help express my original thoughts—not transform them into thoughts or expressions you prefer.
+
+The final English must sound like the same author expressing the same ideas in another language.
+
+4. POINT OF VIEW AND READER-FACING TONE
+
+Preserve the original point of view and my relationship with the reader.
+
+- Use the first-person point of view wherever I speak about my own thoughts, experiences, observations, beliefs, or realisations.
+- Preserve references such as "I", "me", "my", and "my experience" wherever they accurately reflect the original.
+- Maintain a direct, reader-facing tone where the Bengali addresses or engages the reader.
+- Preserve the original use of "you" and "your" wherever appropriate.
+- Do not unnecessarily change first-person statements into third-person descriptions, passive constructions, or impersonal observations.
+- Do not insert "I think", "I believe", "in my opinion", or similar expressions unless they are supported by the original meaning or context.
+- Do not introduce direct reader address where the original does not support it.
+- Preserve the original degree of intimacy, distance, politeness, and directness between me and the reader.
+
+The translation should feel like I am communicating my thoughts to the reader in my own voice—not like an outside observer is explaining my thoughts to them.
+
+5. KOLKATA CONVERSATIONAL CADENCE AND GLOBAL READABILITY
+
+Translate the content into natural, everyday English that reflects the smooth, balanced conversational cadence I prefer.
+
+Use slightly formal, polite, clear, and naturally flowing sentence structures, with balanced pacing.
+
+Subtly reflect the conversational rhythm associated with Kolkata without forcing regional expressions or Bengali sentence patterns into the English.
+
+Avoid:
+
+- Local slang and region-specific expressions.
+- Regional grammar or unnatural Indian English constructions.
+- Abrupt, excessively casual, or slang-heavy phrasing.
+- Artificially imitated accents or regional speech patterns.
+- Expressions that a global English-speaking reader might misunderstand.
+
+Prefer natural, internationally understandable English while retaining the subtle conversational quality of my original writing.
+
+Do not make the English sound conventionally Western merely for the sake of making it global. Global readability means that readers from different backgrounds can understand it naturally; it does not mean erasing my voice or cultural perspective.
+
+6. NATURAL TRANSLATION AND LOGICAL FLOW
+
+Translate the meaning and effect of my Bengali expressions rather than mechanically reproducing their word order.
+
+- Use natural English expressions that convey the same meaning and emotional or rhetorical effect.
+- Adjust sentence structure when necessary to make the English grammatical and fluent.
+- Preserve the logical relationships between sentences and paragraphs.
+- Retain the original progression of thought and the relationship between ideas.
+- Preserve meaningful repetition, emphasis, contrasts, and qualifications.
+- Avoid unnecessary repetition only when removing it does not weaken my intended emphasis or change my writing style.
+- Use transitions only when they accurately reflect relationships already present in the original.
+- Do not introduce transitions, explanations, or connecting ideas simply to make the writing appear more logically developed.
+- Do not restructure the entire piece according to your preferred writing style.
+
+When naturalness and stylistic fidelity appear to conflict, first look for an English expression that satisfies both. If a choice is unavoidable, preserve my intended meaning, distinctive voice, and emphasis rather than making the writing generically polished.
+
+The final English should read naturally on its own while remaining faithful to the Bengali original.
+
+7. PUBLICATION READINESS FOR MEDIUM.COM
+
+The translated content is intended for publication on Medium.com.
+
+Make the English suitable for that context by ensuring natural phrasing, readability, clear sentence structure, and smooth paragraph flow.
+
+However, do not assume that every piece of content needs to follow a conventional Medium article format.
+
+- Do not invent a headline, subtitle, hook, introduction, conclusion, storytelling element, or call to action unless it exists in the original or I explicitly request it.
+- Do not add headings or subheadings merely because they are common in online articles.
+- Do not make the writing more dramatic, persuasive, or engaging by adding ideas or rhetorical devices that I did not use.
+- Preserve my original structure unless a minor adjustment is necessary for natural English readability.
+- Do not sacrifice my voice or intended meaning in the name of publication readiness.
+
+The objective is to make my writing ready for a global audience on Medium.com while allowing it to remain recognisably mine.
+
+8. TRANSLATION, NOT INDEPENDENT REWRITING
+
+Your task is to translate my Bengali content, not to independently edit, improve, expand, or rewrite its underlying ideas.
+
+You may adjust vocabulary, grammar, sentence structure, punctuation, and paragraphing when necessary to express my meaning naturally in English.
+
+However, every adjustment must serve the faithful expression of my original thoughts and writing style.
+
+Do not silently repair perceived weaknesses in my reasoning, resolve arguments that seem incomplete, remove ideas you consider unnecessary, or make my writing conform to your preferred standards of good writing.
+
+Do not assume that a different expression is better simply because it sounds more polished, sophisticated, concise, or conventional.
+
+Translate what I mean in the way I naturally express it—not what you think I should have written.
+
+9. FINAL OUTPUT INSTRUCTIONS
+
+Provide the complete English translation as the primary and only output.
+
+- Do not include the original Bengali alongside the translation.
+- Do not explain your translation choices.
+- Do not provide alternative translations or multiple stylistic versions.
+- Do not add an introductory note, summary, evaluation, or concluding commentary.
+- Do not mention these instructions in your response.
+- Preserve meaningful headings, lists, quotations, and formatting from the original where applicable.
+
+Return only the finished English translation, ready for me to review and publish on Medium.com.
+
+Before submitting the translation, silently check that the meaning, point of view, authorial voice, emphasis, and progression of thought remain faithful to the original. Also check that the English is natural, clear, and understandable to a global reader.
+
+If an essential ambiguity prevents an accurate translation, ask me a brief clarification question instead of guessing. Otherwise, provide the translation directly.
+
+BENGALI CONTENT TO TRANSLATE
+
+[Paste the complete Bengali content here]`
+      }
+    ];
+
+    function createCards() {
+      const container = document.getElementById('promptsContainer');
+      container.innerHTML = '';
+      templates.forEach(t => {
+        const card = document.createElement('div');
+        card.className = 'step-card';
+        card.innerHTML = `
+          <div class="step-header">
+            <span class="step-label">Prompt #${t.id}</span>
+          </div>
+          <div class="prompt-content" id="p${t.id}"></div>
+          <button class="btn copy-btn" onclick="copyText('p${t.id}', this)">
+            <span>Copy Prompt #${t.id}</span>
+          </button>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function updatePrompts() {
+      const inputVal = document.getElementById('inputBengaliContent').value.trim() || "[Paste the complete Bengali content here]";
+
+      templates.forEach(t => {
+        let updatedText = t.text;
+        if (t.id === 1) {
+          updatedText = updatedText.split('[Paste the complete Bengali content here]').join(inputVal);
+        }
+        document.getElementById(`p${t.id}`).innerText = updatedText;
+      });
+    }
+
+    function resetInput(fieldId) {
+      document.getElementById(fieldId).value = "";
+      updatePrompts();
+    }
+
+    function copyText(id, btn) {
+      const text = document.getElementById(id).innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const originalText = btn.innerHTML;
+        btn.innerHTML = `<span>Copied to Clipboard!</span>`;
+        btn.classList.add('copied');
+        
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+
+    // Initialize on page load
+    window.onload = () => {
+      createCards();
+      updatePrompts();
+    };
+  </script>
+</body>
+</html>
