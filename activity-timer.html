@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Activity Stopwatch</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background: radial-gradient(circle at top, #1e293b, #0f172a);
+      color: #f8fafc;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .watch-card {
+      background: rgba(30, 41, 59, 0.7);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 28px;
+      padding: 40px 32px;
+      width: 100%;
+      max-width: 460px;
+      text-align: center;
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.6);
+    }
+
+    .title {
+      font-size: 1.1rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #94a3b8;
+      margin-bottom: 24px;
+    }
+
+    /* Optional Activity Name Input */
+    .input-wrapper {
+      margin-bottom: 25px;
+    }
+
+    .input-wrapper input {
+      width: 100%;
+      background: #0f172a;
+      border: 1px solid #334155;
+      padding: 12px 16px;
+      border-radius: 12px;
+      color: #f1f5f9;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .input-wrapper input:focus {
+      border-color: #38bdf8;
+    }
+
+    /* Digital Watch Face */
+    .watch-dial {
+      background: #090d16;
+      border-radius: 20px;
+      padding: 28px 20px;
+      border: 2px solid #1e293b;
+      margin-bottom: 30px;
+      box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.7);
+    }
+
+    .time-display {
+      display: flex;
+      justify-content: center;
+      align-items: baseline;
+      font-family: "Courier New", Courier, monospace;
+      font-weight: 700;
+      color: #38bdf8;
+      text-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+    }
+
+    .unit-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 75px;
+    }
+
+    .digits {
+      font-size: 3rem;
+      line-height: 1;
+    }
+
+    .colon {
+      font-size: 2.5rem;
+      margin: 0 4px;
+      color: #475569;
+      animation: blink 1s step-start infinite;
+    }
+
+    .labels {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 10px;
+      font-size: 0.75rem;
+      color: #64748b;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+
+    /* Control Buttons */
+    .controls {
+      display: flex;
+      gap: 12px;
+    }
+
+    button {
+      flex: 1;
+      padding: 14px 20px;
+      border-radius: 14px;
+      font-size: 1rem;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-toggle {
+      background: #22c55e;
+      color: #ffffff;
+    }
+
+    .btn-toggle:hover {
+      background: #16a34a;
+    }
+
+    .btn-toggle.running {
+      background: #ef4444;
+      animation: pulse 1.5s infinite;
+    }
+
+    .btn-toggle.running:hover {
+      background: #dc2626;
+    }
+
+    .btn-reset {
+      background: #334155;
+      color: #cbd5e1;
+    }
+
+    .btn-reset:hover {
+      background: #475569;
+      color: #ffffff;
+    }
+
+    /* Completed Activity Records Log */
+    .history {
+      margin-top: 30px;
+      text-align: left;
+    }
+
+    .history h3 {
+      font-size: 0.9rem;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+
+    .history-list {
+      list-style: none;
+      max-height: 160px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .history-list::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    .history-list::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 4px;
+    }
+
+    .history-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(15, 23, 42, 0.6);
+      padding: 10px 14px;
+      border-radius: 8px;
+      margin-bottom: 8px;
+      font-size: 0.9rem;
+      border-left: 3px solid #38bdf8;
+    }
+
+    .history-item span:last-child {
+      font-family: monospace;
+      color: #38bdf8;
+      font-weight: bold;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.85; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="watch-card">
+    <div class="title">Activity Timer</div>
+
+    <!-- Optional input to name your activity -->
+    <div class="input-wrapper">
+      <input type="text" id="taskName" placeholder="Activity name (e.g., Reading, Workout)..." />
+    </div>
+
+    <!-- Watch Display -->
+    <div class="watch-dial">
+      <div class="time-display">
+        <div class="unit-block">
+          <span class="digits" id="hours">00</span>
+        </div>
+        <span class="colon">:</span>
+        <div class="unit-block">
+          <span class="digits" id="minutes">00</span>
+        </div>
+        <span class="colon">:</span>
+        <div class="unit-block">
+          <span class="digits" id="seconds">00</span>
+        </div>
+      </div>
+      <div class="labels">
+        <span>HOURS</span>
+        <span>MINUTES</span>
+        <span>SECONDS</span>
+      </div>
+    </div>
+
+    <!-- Buttons -->
+    <div class="controls">
+      <button id="toggleBtn" class="btn-toggle">Start Activity</button>
+      <button id="resetBtn" class="btn-reset">Reset</button>
+    </div>
+
+    <!-- Completed Sessions History -->
+    <div class="history" id="historySection" style="display: none;">
+      <h3>Completed Activities</h3>
+      <ul class="history-list" id="historyList"></ul>
+    </div>
+  </div>
+
+  <script>
+    let timerInterval = null;
+    let startTime = 0;
+    let elapsedTime = 0;
+    let isRunning = false;
+
+    // Elements
+    const hoursEl = document.getElementById("hours");
+    const minutesEl = document.getElementById("minutes");
+    const secondsEl = document.getElementById("seconds");
+    const toggleBtn = document.getElementById("toggleBtn");
+    const resetBtn = document.getElementById("resetBtn");
+    const taskInput = document.getElementById("taskName");
+    const historySection = document.getElementById("historySection");
+    const historyList = document.getElementById("historyList");
+
+    // Format helper to pad 0 (e.g. 5 -> "05")
+    function pad(unit) {
+      return String(unit).padStart(2, "0");
+    }
+
+    // Update screen display
+    function updateDisplay(timeInMs) {
+      const totalSeconds = Math.floor(timeInMs / 1000);
+      const hours = Math.floor(totalSeconds / 3600);
+      const minutes = Math.floor((totalSeconds % 3600) / 60);
+      const seconds = totalSeconds % 60;
+
+      hoursEl.textContent = pad(hours);
+      minutesEl.textContent = pad(minutes);
+      secondsEl.textContent = pad(seconds);
+    }
+
+    // Toggle Start / Stop
+    toggleBtn.addEventListener("click", () => {
+      if (!isRunning) {
+        // --- SWITCH ON / START ---
+        // Date.now() ensures exact accuracy even if browser tabs sleep
+        startTime = Date.now() - elapsedTime;
+        timerInterval = setInterval(() => {
+          elapsedTime = Date.now() - startTime;
+          updateDisplay(elapsedTime);
+        }, 200);
+
+        isRunning = true;
+        toggleBtn.textContent = "Complete / Stop";
+        toggleBtn.classList.add("running");
+      } else {
+        // --- SWITCH OFF / STOP ---
+        clearInterval(timerInterval);
+        isRunning = false;
+        toggleBtn.textContent = "Start Activity";
+        toggleBtn.classList.remove("running");
+
+        // Save entry if time is greater than 0
+        if (elapsedTime > 0) {
+          saveActivityLog(elapsedTime);
+        }
+      }
+    });
+
+    // Reset button
+    resetBtn.addEventListener("click", () => {
+      clearInterval(timerInterval);
+      isRunning = false;
+      elapsedTime = 0;
+      updateDisplay(0);
+
+      toggleBtn.textContent = "Start Activity";
+      toggleBtn.classList.remove("running");
+    });
+
+    // Add entry to log
+    function saveActivityLog(timeInMs) {
+      const totalSeconds = Math.floor(timeInMs / 1000);
+      const h = pad(Math.floor(totalSeconds / 3600));
+      const m = pad(Math.floor((totalSeconds % 3600) / 60));
+      const s = pad(totalSeconds % 60);
+
+      const taskTitle = taskInput.value.trim() || "Activity";
+
+      const li = document.createElement("li");
+      li.className = "history-item";
+      li.innerHTML = `<span>${taskTitle}</span> <span>${h}:${m}:${s}</span>`;
+
+      historyList.prepend(li);
+      historySection.style.display = "block";
+    }
+  </script>
+</body>
+</html>
