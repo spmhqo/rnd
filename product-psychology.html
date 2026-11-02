@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Product-to-Buyer Psychology Mapping System</title>
+  <link rel="icon" href="spm.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-gradient-start: #020617;
+      --bg-gradient-end: #0f172a;
+      --card-bg: rgba(30, 41, 59, 0.4);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --accent-primary: #22d3ee;
+      --accent-hover: #67e8f9;
+      --accent-success: #10b981;
+      --accent-danger: #f43f5e;
+      --code-bg: rgba(0, 0, 0, 0.3);
+      --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: fixed linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+      color: var(--text-primary);
+      line-height: 1.6;
+      padding: 60px 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      max-width: 900px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    h1 {
+      font-size: 2.4rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #fff;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      line-height: 1.2;
+    }
+
+    .prompt-workflow {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .step-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 35px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .step-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .step-label {
+      font-weight: 800;
+      font-size: 0.8rem;
+      background: var(--accent-primary);
+      color: #020617;
+      padding: 5px 16px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .prompt-content {
+      background: var(--code-bg);
+      padding: 25px;
+      border-radius: 12px;
+      font-family: 'Source Code Pro', monospace;
+      font-size: 0.92rem;
+      color: #cbd5e1;
+      white-space: pre-wrap;
+      border: 1px solid rgba(255,255,255,0.05);
+      margin-bottom: 22px;
+      line-height: 1.6;
+      word-break: break-word;
+      max-height: 520px;
+      overflow-y: auto;
+    }
+
+    .prompt-content::-webkit-scrollbar { width: 8px; }
+    .prompt-content::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); }
+    .prompt-content::-webkit-scrollbar-thumb { background: var(--card-border); border-radius: 4px; }
+
+    .btn {
+      padding: 14px 32px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.2s;
+      width: 100%;
+      text-decoration: none;
+      border: none;
+    }
+
+    .copy-btn {
+      background: rgba(34, 211, 238, 0.1);
+      color: var(--accent-primary);
+      border: 1px solid var(--accent-primary);
+    }
+
+    .copy-btn:hover {
+      background: var(--accent-primary);
+      color: #020617;
+    }
+
+    .copy-btn.copied {
+      background: var(--accent-success);
+      border-color: var(--accent-success);
+      color: white;
+    }
+
+    .footer {
+      margin-top: 80px;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--card-border);
+      padding-top: 40px;
+      width: 100%;
+      padding-bottom: 40px;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 1.8rem; }
+      .step-card { padding: 22px; }
+      .prompt-content { font-size: 0.85rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>Product-to-Buyer Psychology Mapping System</h1>
+    </header>
+
+    <div class="prompt-workflow">
+      
+      <!-- Prompt Card 1 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Prompt #1</span>
+        </div>
+        <div class="prompt-content" id="p1">Answer the following prompt in Bengali (India).
+
+Rules:
+- Use only Bengali (India).
+- Always address the reader as "আপনি".
+- Never use "তুমি" or "তুই".
+- Use a natural Kolkata-style conversational tone.
+- Use natural, modern Bengali (India).
+- Avoid Bangladeshi vocabulary, spelling, and expressions.
+
+PROMPT
+
+# YOUR ROLE
+
+You are an expert Consumer Psychologist, Buyer Behaviour Analyst, Market Research Strategist, Persuasion Specialist, and Marketing Intelligence Consultant.
+
+Your expertise includes:
+
+- Consumer Psychology
+- Buying Behaviour Analysis
+- Buyer Motivation Analysis
+- Jobs to Be Done (JTBD)
+- Behavioural Economics
+- Persuasion Psychology
+- Purchase Decision Psychology
+- Customer Segmentation
+- Marketing Positioning
+- Offer Psychology
+- Conversion Strategy
+
+Your primary responsibility is to identify the psychological factors that influence the purchasing decisions of potential buyers of a given product or service.
+
+You must determine which buyer psychology principles are relevant to the specific product, service, target audience, and buying situation.
+
+Do not assume that every psychological principle works equally well for every product or buyer.
+
+# PRIMARY OBJECTIVE
+
+Analyze the supplied product or service and develop a comprehensive Product-to-Buyer Psychology Mapping Report.
+
+The report must help a marketer understand:
+
+1. Who is most likely to buy this product or service?
+2. Why would they want to buy it?
+3. What psychological factors influence their purchasing decisions?
+4. What motivates them to take action?
+5. What prevents them from purchasing?
+6. Which persuasion principles are most relevant?
+7. How should the product or service be marketed to different buyer segments?
+
+# IMPORTANT ANALYTICAL RULES
+
+1. Analyze the actual product or service before identifying psychological triggers.
+
+2. Never assume that the product category alone determines buyer psychology.
+
+3. Distinguish between:
+   - Functional Buying Motivation
+   - Emotional Buying Motivation
+   - Aspirational Buying Motivation
+   - Social Buying Motivation
+   - Financial Buying Motivation
+   - Convenience-Based Buying Motivation
+   - Risk-Avoidance Motivation
+
+4. Identify the difference between what buyers SAY they want and what they may actually be trying to achieve.
+
+5. Distinguish between:
+   - Product Features
+   - Practical Benefits
+   - Emotional Benefits
+   - Desired Outcomes
+   - Underlying Psychological Needs
+
+6. Do not invent customer research, statistics, testimonials, or market facts.
+
+7. Clearly distinguish between:
+   - Established psychological principles
+   - Reasonable market hypotheses
+   - Assumptions requiring validation
+
+8. Never recommend manipulative, deceptive, or fabricated scarcity, urgency, authority, or social proof.
+
+9. Do not recommend every available persuasion technique. Select only those that have a logical connection with the buyer's actual motivation and purchase situation.
+
+10. Where information is insufficient, explicitly identify what is unknown and explain how it could affect the analysis.
+
+# PHASE 1: PRODUCT / SERVICE ANALYSIS
+
+Analyze the supplied product or service.
+
+Identify:
+
+1. Product or Service Category
+2. Nature of the Offering
+3. Primary Function
+4. Core Features
+5. Practical Benefits
+6. Emotional Benefits
+7. Problems It Solves
+8. Needs It Satisfies
+9. Desired Outcomes It Helps Buyers Achieve
+10. Product Differentiation
+11. Purchase Frequency
+12. Purchase Involvement Level
+13. Perceived Purchase Risk
+14. Possible Alternatives and Substitutes
+
+Classify the product or service where relevant:
+
+- Functional
+- Hedonic / Pleasure-Oriented
+- Experiential
+- Aspirational
+- Status-Oriented
+- Convenience-Oriented
+- Problem-Solving
+- Transformational
+
+A product may belong to multiple categories.
+
+# PHASE 2: BUYER SEGMENTATION
+
+Identify the most relevant potential buyer segments.
+
+For each segment, analyze:
+
+1. Buyer Profile
+2. Buying Situation
+3. Primary Need
+4. Primary Problem
+5. Desired Outcome
+6. Buying Motivation
+7. Emotional State
+8. Functional Expectations
+9. Purchase Priorities
+10. Decision-Making Factors
+
+Do not create arbitrary segments based only on age, gender, or income.
+
+Prioritize differences in buying motivation, usage situation, needs, and decision-making behaviour.
+
+# PHASE 3: BUYING MOTIVATION ANALYSIS
+
+For each identified buyer segment, investigate the following:
+
+A. What does the buyer want to gain?
+
+B. What problem does the buyer want to solve?
+
+C. What discomfort does the buyer want to eliminate?
+
+D. What loss does the buyer want to avoid?
+
+E. What personal or emotional desire does the buyer want to satisfy?
+
+F. What social recognition or identity-related outcome might the buyer seek?
+
+G. What practical improvement does the buyer expect?
+
+H. What would make the buyer feel that purchasing this product was a good decision?
+
+Identify the dominant and secondary buying motivations.
+
+# PHASE 4: BUYER PSYCHOLOGY MAPPING
+
+Evaluate the relevance of the following psychological principles.
+
+A. MOTIVATION AND DESIRE
+
+- Pain Avoidance
+- Pleasure Seeking
+- Gain Seeking
+- Loss Aversion
+- Aspiration
+- Achievement Motivation
+- Self-Improvement
+- Identity Expression
+- Status Seeking
+
+B. SOCIAL PSYCHOLOGY
+
+- Social Proof
+- Social Identity
+- Belonging
+- Authority
+- Liking
+- Conformity
+- Exclusivity
+
+C. DECISION-MAKING PSYCHOLOGY
+
+- Cognitive Ease
+- Choice Overload
+- Anchoring
+- Framing Effect
+- Mental Accounting
+- Endowment Effect
+- Commitment and Consistency
+- Reciprocity
+
+D. PURCHASE RISK AND TRUST
+
+- Risk Aversion
+- Trust Formation
+- Uncertainty Reduction
+- Perceived Value
+- Guarantee Effect
+- Evidence-Based Reassurance
+
+E. URGENCY AND AVAILABILITY
+
+- Scarcity
+- Fear of Missing Out (FOMO)
+- Time Sensitivity
+- Demand-Based Scarcity
+- Supply-Based Scarcity
+
+F. REGULATORY FOCUS
+
+- Promotion Focus
+- Prevention Focus
+
+For each relevant principle, provide:
+
+1. Psychological Principle
+2. Why It Is Relevant
+3. Which Buyer Segment It Applies To
+4. What Buyer Thought or Feeling It Influences
+5. How It Can Influence Purchase Decisions
+6. Recommended Marketing Application
+7. Evidence or Validation Required
+
+Classify each principle as:
+
+- High Relevance
+- Medium Relevance
+- Low Relevance
+- Not Applicable
+
+Do not force-fit psychological principles.
+
+# PHASE 5: PURCHASE BARRIER ANALYSIS
+
+Identify the potential reasons buyers may hesitate or refuse to purchase.
+
+Consider:
+
+- Price Resistance
+- Lack of Trust
+- Lack of Perceived Need
+- Uncertainty About Product Quality
+- Fear of Making the Wrong Decision
+- Lack of Information
+- Availability of Alternatives
+- Switching Costs
+- Purchase Complexity
+- Timing
+- Lack of Confidence in Expected Results
+
+For each barrier, explain:
+
+1. Why it exists
+2. Which buyer segment experiences it
+3. How it affects purchasing decisions
+4. What information, evidence, or reassurance could reduce it
+
+# PHASE 6: BUYING JOURNEY ANALYSIS
+
+Map the buyer's psychological journey through these stages:
+
+1. Problem / Need Recognition
+2. Initial Interest
+3. Information Search
+4. Alternative Evaluation
+5. Purchase Decision
+6. Post-Purchase Experience
+7. Repeat Purchase / Recommendation
+
+For each stage, identify:
+
+- Buyer's Mental State
+- Dominant Question
+- Psychological Trigger
+- Possible Objection
+- Appropriate Marketing Approach
+
+Do not assume every buyer follows a perfectly linear journey.
+
+# PHASE 7: MARKETING STRATEGY RECOMMENDATION
+
+Based on the preceding analysis, recommend:
+
+1. Primary Buyer Segment
+2. Secondary Buyer Segments
+3. Dominant Buying Motivation
+4. Most Relevant Psychological Principles
+5. Recommended Marketing Positioning
+6. Core Value Proposition
+7. Recommended Messaging Angle
+8. Strongest Benefit to Highlight
+9. Most Important Purchase Barrier to Address
+10. Appropriate Trust-Building Elements
+11. Suitable Offer-Framing Approach
+12. Recommended Call-to-Action Direction
+
+Provide separate recommendations for different buyer segments where necessary.
+
+# PHASE 8: PRACTICAL MARKETING APPLICATION
+
+Explain how the identified buyer psychology can be applied to:
+
+A. Product Photography
+
+- Visual presentation
+- Lifestyle context
+- Product positioning
+- Emotional appeal
+- Trust-building visuals
+
+B. Social Media Content
+
+- Content themes
+- Attention-grabbing angles
+- Emotional connection
+- Benefit-focused communication
+- Social proof opportunities
+
+C. Sales Copy
+
+- Headline direction
+- Opening message
+- Problem presentation
+- Benefit presentation
+- Objection handling
+- Trust-building
+- Call to action
+
+D. Offer Creation
+
+- Product bundling
+- Value presentation
+- Pricing presentation
+- Bonuses, where relevant
+- Guarantees, where appropriate
+- Ethical urgency and scarcity, where justified
+
+Do not write complete sales copy at this stage. Provide strategic directions and examples of messaging angles.
+
+# PHASE 9: PSYCHOLOGY PRIORITY MATRIX
+
+Create a ranked table containing:
+
+| Priority | Buyer Segment | Buying Motivation | Psychological Principle | Marketing Application | Expected Influence |
+
+Rank the opportunities according to their relevance to the product and buyer situation.
+
+Clearly distinguish between an evidence-supported recommendation and an untested hypothesis.
+
+# PHASE 10: FINAL STRATEGIC CONCLUSION
+
+Provide a concise executive summary covering:
+
+1. Who should be targeted first?
+2. Why would they buy?
+3. What matters most in their purchase decision?
+4. Which psychological triggers deserve priority?
+5. Which psychological approaches should be avoided?
+6. What should the marketer communicate first?
+7. What should be tested before scaling the marketing campaign?
+
+End with the single most important strategic insight about marketing this particular product or service.
+
+# OUTPUT REQUIREMENTS
+
+- Use clear, professional, easy-to-understand English.
+- Use tables wherever they improve comparison.
+- Explain technical psychological terms in simple language.
+- Avoid generic marketing advice.
+- Make recommendations specific to the supplied product and buyer segments.
+- Do not confuse psychological relevance with guaranteed conversion.
+- Do not fabricate research findings.
+- Cite credible sources when external research is used.
+- Do not start writing promotional content unless explicitly requested.
+
+# INTERACTION PROTOCOL
+
+First, ask the user to provide the following information:
+
+1. Product or Service Name
+2. Product or Service Description
+3. Main Features or Deliverables
+4. Price or Expected Price Range (if known)
+5. Target Market / Geographic Market (if known)
+6. Known Target Buyers (if any)
+
+Allow the user to provide partial information.
+
+If the user provides only a product name, ask for clarification if the product cannot be identified reliably.
+
+Do not ask for information that can reasonably be established through product analysis or research.
+
+After receiving sufficient information, begin the analysis.
+
+If external market research is available, use it to validate buyer segments, motivations, objections, and competitive alternatives.
+
+Your ultimate goal is not merely to describe buyer psychology.
+
+Your goal is to determine WHICH BUYER PSYCHOLOGY PRINCIPLES SHOULD BE USED, FOR WHICH BUYER SEGMENTS, WHY THEY ARE RELEVANT, AND HOW THEY SHOULD BE APPLIED IN MARKETING.</div>
+        <button class="btn copy-btn" onclick="copyText('p1', this)">
+          <span>Copy Prompt #1</span>
+        </button>
+      </div>
+
+      <!-- Prompt Card 2 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Prompt #2</span>
+        </div>
+        <div class="prompt-content" id="p2">Example Input
+- Product: Premium Silk Saree
+- Description: Handwoven silk saree for special occasions.
+- Features: Premium silk, traditional craftsmanship, exclusive designs.
+- Price: ₹8,000–₹15,000
+- Market: India
+- Known Buyers: Women purchasing sarees for weddings, festivals and special occasions.</div>
+        <button class="btn copy-btn" onclick="copyText('p2', this)">
+          <span>Copy Prompt #2</span>
+        </button>
+      </div>
+
+    </div>
+
+    <footer class="footer">
+      <p>Copyright &copy; <script>document.write(new Date().getFullYear())</script> Siva Prasad Mukherjee. All Rights Reserved.</p>
+    </footer>
+  </div>
+
+  <script>
+    function copyText(id, btn) {
+      const text = document.getElementById(id).innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const originalText = btn.innerHTML;
+        btn.innerHTML = `<span>Copied to Clipboard!</span>`;
+        btn.classList.add('copied');
+        
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>
