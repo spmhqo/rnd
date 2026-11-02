@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PRODUCT INTELLIGENCE RESEARCH PROMPT MASTER</title>
+  <link rel="icon" href="spm.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-gradient-start: #020617;
+      --bg-gradient-end: #0f172a;
+      --card-bg: rgba(30, 41, 59, 0.4);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --accent-primary: #22d3ee;
+      --accent-hover: #67e8f9;
+      --accent-success: #10b981;
+      --accent-danger: #f43f5e;
+      --code-bg: rgba(0, 0, 0, 0.3);
+      --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: fixed linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+      color: var(--text-primary);
+      line-height: 1.6;
+      padding: 60px 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      max-width: 900px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #fff;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      line-height: 1.2;
+    }
+
+    .sub-header {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--accent-primary);
+      letter-spacing: 0.02em;
+    }
+
+    /* Note Card */
+    .note-card {
+      background: rgba(34, 211, 238, 0.05);
+      border: 1px solid rgba(34, 211, 238, 0.25);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 30px;
+      box-shadow: var(--shadow);
+    }
+
+    .note-card h3 {
+      font-size: 1.1rem;
+      color: var(--accent-primary);
+      margin-bottom: 12px;
+      font-weight: 700;
+    }
+
+    .note-card ol {
+      margin-left: 20px;
+      margin-bottom: 14px;
+      color: #e2e8f0;
+      font-size: 0.95rem;
+    }
+
+    .note-card ol li {
+      margin-bottom: 6px;
+    }
+
+    .note-card p {
+      color: var(--text-secondary);
+      font-size: 0.92rem;
+      line-height: 1.5;
+    }
+
+    .prompt-workflow {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .step-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 35px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .step-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .step-label {
+      font-weight: 800;
+      font-size: 0.8rem;
+      background: var(--accent-primary);
+      color: #020617;
+      padding: 5px 16px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .clear-btn {
+      background: transparent;
+      border: 1px solid var(--accent-danger);
+      color: var(--accent-danger);
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-transform: uppercase;
+      transition: all 0.2s;
+    }
+
+    .clear-btn:hover {
+      background: var(--accent-danger);
+      color: white;
+    }
+
+    label {
+      display: block;
+      color: var(--accent-primary);
+      font-weight: 700;
+      font-size: 0.9rem;
+      margin-bottom: 12px;
+      letter-spacing: 0.03em;
+    }
+
+    .dynamic-input {
+      width: 100%;
+      background: var(--code-bg);
+      border: 1px solid var(--card-border);
+      padding: 16px;
+      border-radius: 12px;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      line-height: 1.5;
+      outline: none;
+      resize: vertical;
+      min-height: 90px;
+      transition: border-color 0.3s;
+    }
+
+    .dynamic-input:focus {
+      border-color: var(--accent-primary);
+    }
+
+    .prompt-content {
+      background: var(--code-bg);
+      padding: 25px;
+      border-radius: 12px;
+      font-family: 'Source Code Pro', monospace;
+      font-size: 0.92rem;
+      color: #cbd5e1;
+      white-space: pre-wrap;
+      border: 1px solid rgba(255,255,255,0.05);
+      margin-bottom: 22px;
+      line-height: 1.6;
+      word-break: break-word;
+      max-height: 520px;
+      overflow-y: auto;
+    }
+
+    .prompt-content::-webkit-scrollbar { width: 8px; }
+    .prompt-content::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); }
+    .prompt-content::-webkit-scrollbar-thumb { background: var(--card-border); border-radius: 4px; }
+
+    .btn {
+      padding: 14px 32px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.2s;
+      width: 100%;
+      text-decoration: none;
+      border: none;
+    }
+
+    .copy-btn {
+      background: rgba(34, 211, 238, 0.1);
+      color: var(--accent-primary);
+      border: 1px solid var(--accent-primary);
+    }
+
+    .copy-btn:hover {
+      background: var(--accent-primary);
+      color: #020617;
+    }
+
+    .copy-btn.copied {
+      background: var(--accent-success);
+      border-color: var(--accent-success);
+      color: white;
+    }
+
+    .footer {
+      margin-top: 80px;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--card-border);
+      padding-top: 40px;
+      width: 100%;
+      padding-bottom: 40px;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 1.7rem; }
+      .sub-header { font-size: 1rem; }
+      .step-card { padding: 22px; }
+      .prompt-content { font-size: 0.85rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>PRODUCT INTELLIGENCE RESEARCH PROMPT MASTER</h1>
+      <p class="sub-header">(physical and digital)</p>
+    </header>
+
+    <!-- Instructional Note Box -->
+    <div class="note-card">
+      <h3>How to use this prompt</h3>
+      <ol>
+        <li>Copy the complete prompt.</li>
+        <li>Replace [Enter Product Name] with your actual product name.</li>
+        <li>If you know the brand, enter it too.</li>
+        <li>Submit the prompt to ChatGPT with web research enabled when you need current Indian market information.</li>
+      </ol>
+      <p>It also creates a useful foundation for your product marketing work because it connects three things: Product Knowledge → Buyer Understanding → Purchase Decision.</p>
+    </div>
+
+    <div class="prompt-workflow">
+      
+      <!-- Multiline Input Card 1 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Product Name</span>
+          <button class="clear-btn" onclick="resetInput('inputProductName')">Reset</button>
+        </div>
+        <label for="inputProductName">Product name:</label>
+        <textarea id="inputProductName" class="dynamic-input" placeholder="Type or paste the product name here..." oninput="updatePrompts()"></textarea>
+      </div>
+
+      <!-- Multiline Input Card 2 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Brand Name</span>
+          <button class="clear-btn" onclick="resetInput('inputBrandName')">Reset</button>
+        </div>
+        <label for="inputBrandName">Brand Name:</label>
+        <textarea id="inputBrandName" class="dynamic-input" placeholder="Enter Brand Name, if known..." oninput="updatePrompts()"></textarea>
+      </div>
+
+      <!-- Prompt Result Cards -->
+      <div id="promptsContainer">
+        <!-- Prompts injected by JavaScript -->
+      </div>
+
+    </div>
+
+    <footer class="footer">
+      <p>Copyright &copy; <script>document.write(new Date().getFullYear())</script> Siva Prasad Mukherjee. All Rights Reserved.</p>
+    </footer>
+  </div>
+
+  <script>
+    const templates = [
+      {
+        id: 1,
+        title: "Prompt#1: Physical Product",
+        text: `Answer the following prompt in Bengali (India).
+
+Rules:
+- Use only Bengali (India).
+- Always address the reader as "আপনি".
+- Never use "তুমি" or "তুই".
+- Use a natural Kolkata-style conversational tone.
+- Use natural, modern Bengali (India).
+- Avoid Bangladeshi vocabulary, spelling, and expressions.
+
+PROMPT
+
+1. YOUR ROLE
+
+Act as an experienced Product Intelligence Researcher, Product Usage Advisor, Market Research Analyst, Competitive Intelligence Analyst, and Buyer Psychology Researcher.
+
+Your task is to develop a comprehensive understanding of a particular product from the perspective of an ordinary potential buyer or existing buyer.
+
+Your research must help buyers understand:
+- What the product does and what value it offers.
+- How to use it effectively and safely.
+- How to get the best possible results from it.
+- What other products may be needed alongside it.
+- What alternatives and competing products are available.
+- Why people buy it and what influences their purchasing decisions.
+- Whether purchasing it is actually worthwhile for them.
+
+2. RESEARCH INPUT
+
+**Product Name:** [Enter Product Name]
+
+**Product Brand:** [Enter Brand Name, if known]
+
+**Target Market:** India
+
+**Target Buyer:** Ordinary individual consumers.
+
+If any input is unavailable, work with the information provided. Do not invent missing product details.
+
+3. RESEARCH OBJECTIVES AND QUESTIONS
+
+Investigate the product and answer all the following 12 questions.
+
+#SECTION A: PRODUCT USAGE INTELLIGENCE
+
+**1. How should a buyer use [product name]?**
+
+Explain the correct method of using the product, including preparation, application, operation, or other relevant usage instructions.
+
+**2. When should a buyer use [product name]?**
+
+Explain the appropriate time, situation, circumstances, or conditions for using the product.
+
+**3. Why should a buyer use [product name]?**
+
+Explain its primary purpose, intended benefits, practical applications, and the problems it is designed to solve.
+
+**4. How many times should a buyer use [product name]?**
+
+Explain the recommended frequency and duration of use, where applicable. Mention whether usage frequency depends on individual requirements, product type, or other conditions.
+
+**5. How can a buyer get better results from using [product name] by following practices that most people don't follow?**
+
+Identify lesser-known but useful practices, techniques, usage tips, and common mistakes that may affect the results.
+
+Focus on practical recommendations supported by reliable information rather than unverified tricks or exaggerated claims.
+
+**6. What else should or must a buyer know about [product name] before using it and while using it?**
+
+Cover relevant information such as:
+- Precautions and safety considerations.
+- Possible side effects or risks, where applicable.
+- Storage and maintenance.
+- Compatibility and incompatibility.
+- Common usage mistakes.
+- Limitations and realistic expectations.
+- Situations in which the product should not be used.
+
+#SECTION B: COMPLEMENTARY PRODUCT INTELLIGENCE
+
+**7. What other products should or must be used alongside [product name], and why?**
+
+Identify products that may be needed or recommended to complement, support, enhance, or complete the intended use of the primary product.
+
+Explain the purpose and practical benefits of each complementary product.
+
+**8. Which complementary products are essential (must-haves), and which are optional? Why?**
+
+Classify the identified complementary products into:
+
+- Essential: Necessary for safe, correct, or intended use, where applicable.
+- Recommended: Useful for improving the overall experience or results.
+- Optional: Additional products that may provide convenience or supplementary benefits but are not necessary.
+
+Explain the reasoning behind each classification.
+
+Do not classify a product as essential unless there is a genuine justification.
+
+#SECTION C: PRODUCT ALTERNATIVES AND COMPETITIVE INTELLIGENCE
+
+**9. What are the alternatives to [product name]?**
+
+Identify alternative products or solutions that can serve the same or similar purpose.
+
+Explain:
+- How they differ from the primary product.
+- Their respective advantages and disadvantages.
+- Differences in effectiveness, features, convenience, and cost.
+- Situations in which an alternative might be a better choice.
+
+Include non-product alternatives where relevant.
+
+**10. What competing products are currently available in the Indian market in reference to [product name]?**
+
+Identify actual competing products available in India.
+
+For each competitor, provide:
+- Product name.
+- Brand name.
+- Product category or type.
+- Key features and benefits.
+- Major differences compared with [product name].
+- Approximate Indian market price (INR).
+- Intended or typical target buyers.
+
+Use current market information wherever possible.
+
+Do not include products merely because they belong to the same broad category. Establish their actual competitive relevance.
+
+#SECTION D: BUYER PSYCHOLOGY AND PURCHASE DECISION INTELLIGENCE
+
+**11. What psychological factors influence buyers to purchase [product name]?**
+
+Investigate the psychology behind purchasing decisions, including:
+
+- Problems and frustrations that motivate buyers.
+- Needs, desires, and aspirations.
+- Emotional buying triggers.
+- Practical and rational buying motivations.
+- Expected benefits and desired outcomes.
+- Fears, doubts, and objections.
+- Social influence and peer recommendations.
+- Trust, brand perception, and credibility.
+- Price sensitivity and perceived value.
+- Situations that create purchase urgency.
+
+Explain what buyers are actually looking for when they purchase the product, beyond its basic features.
+
+Distinguish between established buyer insights and reasonable hypotheses.
+
+**12. What factors should a potential buyer consider before deciding whether to purchase [product name]?**
+
+Explain:
+- Who should consider buying it.
+- Who might not need it.
+- What problems or requirements justify purchasing it.
+- What expectations are realistic.
+- What factors should be evaluated before spending money.
+- When purchasing it would be worthwhile.
+- When an alternative or no purchase at all might be a better decision.
+
+Provide a practical purchase decision guide.
+
+4. RESEARCH AND ACCURACY REQUIREMENTS
+
+Follow these rules throughout the research:
+
+1. Prioritize reliable, verifiable, and product-specific information.
+2. Consult the manufacturer's official website, product documentation, labels, and instructions wherever available.
+3. For current Indian market information, investigate relevant Indian brand websites, e-commerce platforms, and other reliable sources.
+4. Use up-to-date information for competitor products and prices.
+5. Never invent product specifications, usage instructions, benefits, prices, or competitor information.
+6. Clearly distinguish verified facts, manufacturer claims, expert recommendations, and general observations.
+7. Where reliable information is unavailable, explicitly state that.
+8. Avoid exaggerated marketing claims and unsupported assumptions.
+9. Do not recommend unnecessary complementary products merely to encourage additional purchases.
+10. Consider the buyer's actual requirements, safety, convenience, and value for money.
+
+5. OUTPUT STRUCTURE
+
+Present your research in the following order:
+
+1. Product Overview and Understanding
+2. Product Usage Intelligence (Questions 1–6)
+3. Complementary Product Intelligence (Questions 7–8)
+4. Product Alternatives (Question 9)
+5. Indian Market Competitive Analysis (Question 10)
+6. Buyer Psychology Analysis (Question 11)
+7. Purchase Decision Guide (Question 12)
+8. Key Takeaways for Buyers
+
+Use clear headings, tables where appropriate, practical examples, and simple language.
+
+Make the report comprehensive but easy for an ordinary consumer to understand.
+
+Include source links for important factual claims, particularly product instructions, safety information, competitor details, and current market prices.
+
+6. FINAL INSTRUCTION
+
+Think from the buyer's perspective, not the seller's perspective.
+
+Your primary responsibility is to help the buyer make an informed decision, use the product correctly, get the best possible value from it, and avoid unnecessary purchases.
+
+Do not assume that buying the product is always the right decision.
+
+The ultimate objective is:
+
+**Help the buyer understand the product, become capable of using it effectively, and make a confident and informed purchasing decision.**`
+      },
+      {
+        id: 2,
+        title: "Prompt#2: Digital Product",
+        text: `Answer the following prompt in Bengali (India).
+
+Rules:
+- Use only Bengali (India).
+- Always address the reader as "আপনি".
+- Never use "তুমি" or "তুই".
+- Use a natural Kolkata-style conversational tone.
+- Use natural, modern Bengali (India).
+- Avoid Bangladeshi vocabulary, spelling, and expressions.
+
+PROMPT
+
+1. YOUR ROLE
+
+Act as an experienced Product Intelligence Researcher, Product Usage Advisor, Market Research Analyst, Competitive Intelligence Analyst, and Buyer Psychology Researcher.
+
+Your task is to develop a comprehensive understanding of a particular product from the perspective of an ordinary potential buyer or existing buyer.
+
+Your research must help buyers understand:
+- What the product does and what value it offers.
+- How to use it effectively and safely.
+- How to get the best possible results from it.
+- What other products may be needed alongside it.
+- What alternatives and competing products are available.
+- Why people buy it and what influences their purchasing decisions.
+- Whether purchasing it is actually worthwhile for them.
+
+2. RESEARCH INPUT
+
+**Product Name:** [Enter Product Name]
+
+**Product Brand:** [Enter Brand Name, if known]
+
+**Target Market:** India
+
+**Target Buyer:** Ordinary individual consumers.
+
+If any input is unavailable, work with the information provided. Do not invent missing product details.
+
+3. RESEARCH OBJECTIVES AND QUESTIONS
+
+Investigate the product and answer all the following 12 questions.
+
+#SECTION A: PRODUCT USAGE INTELLIGENCE
+
+**1. How should a buyer use [product name]?**
+
+Explain the correct method of using the product, including preparation, application, operation, or other relevant usage instructions.
+
+**2. When should a buyer use [product name]?**
+
+Explain the appropriate time, situation, circumstances, or conditions for using the product.
+
+**3. Why should a buyer use [product name]?**
+
+Explain its primary purpose, intended benefits, practical applications, and the problems it is designed to solve.
+
+**4. How many times should a buyer use [product name]?**
+
+Explain the recommended frequency and duration of use, where applicable. Mention whether usage frequency depends on individual requirements, product type, or other conditions.
+
+**5. How can a buyer get better results from using [product name] by following practices that most people don't follow?**
+
+Identify lesser-known but useful practices, techniques, usage tips, and common mistakes that may affect the results.
+
+Focus on practical recommendations supported by reliable information rather than unverified tricks or exaggerated claims.
+
+**6. What else should or must a buyer know about [product name] before using it and while using it?**
+
+Cover relevant information such as:
+- Precautions and safety considerations.
+- Possible side effects or risks, where applicable.
+- Storage and maintenance.
+- Compatibility and incompatibility.
+- Common usage mistakes.
+- Limitations and realistic expectations.
+- Situations in which the product should not be used.
+
+#SECTION B: COMPLEMENTARY PRODUCT INTELLIGENCE
+
+**7. What other products should or must be used alongside [product name], and why?**
+
+Identify products that may be needed or recommended to complement, support, enhance, or complete the intended use of the primary product.
+
+Explain the purpose and practical benefits of each complementary product.
+
+**8. Which complementary products are essential (must-haves), and which are optional? Why?**
+
+Classify the identified complementary products into:
+
+- Essential: Necessary for safe, correct, or intended use, where applicable.
+- Recommended: Useful for improving the overall experience or results.
+- Optional: Additional products that may provide convenience or supplementary benefits but are not necessary.
+
+Explain the reasoning behind each classification.
+
+Do not classify a product as essential unless there is a genuine justification.
+
+#SECTION C: PRODUCT ALTERNATIVES AND COMPETITIVE INTELLIGENCE
+
+**9. What are the alternatives to [product name]?**
+
+Identify alternative products or solutions that can serve the same or similar purpose.
+
+Explain:
+- How they differ from the primary product.
+- Their respective advantages and disadvantages.
+- Differences in effectiveness, features, convenience, and cost.
+- Situations in which an alternative might be a better choice.
+
+Include non-product alternatives where relevant.
+
+**10. What competing products are currently available in the Indian market in reference to [product name]?**
+
+Identify actual competing products available in India.
+
+For each competitor, provide:
+- Product name.
+- Brand name.
+- Product category or type.
+- Key features and benefits.
+- Major differences compared with [product name].
+- Approximate Indian market price (INR).
+- Intended or typical target buyers.
+
+Use current market information wherever possible.
+
+Do not include products merely because they belong to the same broad category. Establish their actual competitive relevance.
+
+#SECTION D: BUYER PSYCHOLOGY AND PURCHASE DECISION INTELLIGENCE
+
+**11. What psychological factors influence buyers to purchase [product name]?**
+
+Investigate the psychology behind purchasing decisions, including:
+
+- Problems and frustrations that motivate buyers.
+- Needs, desires, and aspirations.
+- Emotional buying triggers.
+- Practical and rational buying motivations.
+- Expected benefits and desired outcomes.
+- Fears, doubts, and objections.
+- Social influence and peer recommendations.
+- Trust, brand perception, and credibility.
+- Price sensitivity and perceived value.
+- Situations that create purchase urgency.
+
+Explain what buyers are actually looking for when they purchase the product, beyond its basic features.
+
+Distinguish between established buyer insights and reasonable hypotheses.
+
+**12. What factors should a potential buyer consider before deciding whether to purchase [product name]?**
+
+Explain:
+- Who should consider buying it.
+- Who might not need it.
+- What problems or requirements justify purchasing it.
+- What expectations are realistic.
+- What factors should be evaluated before spending money.
+- When purchasing it would be worthwhile.
+- When an alternative or no purchase at all might be a better decision.
+
+Provide a practical purchase decision guide.
+
+4. RESEARCH AND ACCURACY REQUIREMENTS
+
+Follow these rules throughout the research:
+
+1. Prioritize reliable, verifiable, and product-specific information.
+2. Consult the manufacturer's official website, product documentation, labels, and instructions wherever available.
+3. For current Indian market information, investigate relevant Indian brand websites, e-commerce platforms, and other reliable sources.
+4. Use up-to-date information for competitor products and prices.
+5. Never invent product specifications, usage instructions, benefits, prices, or competitor information.
+6. Clearly distinguish verified facts, manufacturer claims, expert recommendations, and general observations.
+7. Where reliable information is unavailable, explicitly state that.
+8. Avoid exaggerated marketing claims and unsupported assumptions.
+9. Do not recommend unnecessary complementary products merely to encourage additional purchases.
+10. Consider the buyer's actual requirements, safety, convenience, and value for money.
+
+5. OUTPUT STRUCTURE
+
+Present your research in the following order:
+
+1. Product Overview and Understanding
+2. Product Usage Intelligence (Questions 1–6)
+3. Complementary Product Intelligence (Questions 7–8)
+4. Product Alternatives (Question 9)
+5. Indian Market Competitive Analysis (Question 10)
+6. Buyer Psychology Analysis (Question 11)
+7. Purchase Decision Guide (Question 12)
+8. Key Takeaways for Buyers
+
+Use clear headings, tables where appropriate, practical examples, and simple language.
+
+Make the report comprehensive but easy for an ordinary consumer to understand.
+
+Include source links for important factual claims, particularly product instructions, safety information, competitor details, and current market prices.
+
+6. FINAL INSTRUCTION
+
+Think from the buyer's perspective, not the seller's perspective.
+
+Your primary responsibility is to help the buyer make an informed decision, use the product correctly, get the best possible value from it, and avoid unnecessary purchases.
+
+Do not assume that buying the product is always the right decision.
+
+The ultimate objective is:
+
+**Help the buyer understand the product, become capable of using it effectively, and make a confident and informed purchasing decision.**
+
+#Additional Instructions for Digital Products
+
+If the product is digital, adapt the research to its specific nature.
+
+Investigate the following wherever relevant:
+
+- Technical requirements and device compatibility.
+- Account creation, installation, setup and activation.
+- Internet connectivity requirements.
+- Subscription, renewal, cancellation and refund policies.
+- Usage limits, licensing and access restrictions.
+- Integration with other software, tools or platforms.
+- Data privacy and security considerations.
+- Required skills or learning curve.
+- Updates, technical support and ongoing maintenance.
+- Whether the product requires additional paid tools, subscriptions or services.
+
+For digital products, identify complementary digital tools, platforms, resources and services, distinguishing essential requirements from optional enhancements.
+
+Evaluate alternatives and competitors based on functionality, usability, pricing models, limitations and overall value.`
+      }
+    ];
+
+    function createCards() {
+      const container = document.getElementById('promptsContainer');
+      container.innerHTML = '';
+      templates.forEach(t => {
+        const card = document.createElement('div');
+        card.className = 'step-card';
+        card.innerHTML = `
+          <div class="step-header">
+            <span class="step-label">${t.title}</span>
+          </div>
+          <div class="prompt-content" id="p${t.id}"></div>
+          <button class="btn copy-btn" onclick="copyText('p${t.id}', this)">
+            <span>Copy ${t.title}</span>
+          </button>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function updatePrompts() {
+      const prodVal = document.getElementById('inputProductName').value.trim();
+      const brandVal = document.getElementById('inputBrandName').value.trim();
+
+      templates.forEach(t => {
+        let updatedText = t.text;
+
+        if (prodVal) {
+          updatedText = updatedText.split('[Enter Product Name]').join(prodVal);
+          updatedText = updatedText.split('[product name]').join(prodVal);
+        }
+
+        if (brandVal) {
+          updatedText = updatedText.split('[Enter Brand Name, if known]').join(brandVal);
+        }
+
+        document.getElementById(`p${t.id}`).innerText = updatedText;
+      });
+    }
+
+    function resetInput(fieldId) {
+      document.getElementById(fieldId).value = "";
+      updatePrompts();
+    }
+
+    function copyText(id, btn) {
+      const text = document.getElementById(id).innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const originalText = btn.innerHTML;
+        btn.innerHTML = `<span>Copied to Clipboard!</span>`;
+        btn.classList.add('copied');
+        
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+
+    // Initialize on page load
+    window.onload = () => {
+      createCards();
+      updatePrompts();
+    };
+  </script>
+</body>
+</html>
