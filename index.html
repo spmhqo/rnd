@@ -25,11 +25,7 @@
       --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
     }
 
-    * { 
-      box-sizing: border-box; 
-      margin: 0; 
-      padding: 0; 
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: 'Inter', sans-serif;
@@ -118,7 +114,7 @@
 
     /* Sections */
     .section-block {
-      margin-bottom: 40px;
+      margin-bottom: 45px;
     }
 
     .section-heading {
@@ -128,7 +124,7 @@
       display: flex;
       align-items: center;
       gap: 12px;
-      margin-bottom: 20px;
+      margin-bottom: 22px;
       text-transform: uppercase;
       letter-spacing: 0.05em;
     }
@@ -182,7 +178,7 @@
       font-size: 0.95rem;
       color: #cbd5e1;
       white-space: pre-wrap;
-      border: 1px solid rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255,255,255,0.05);
       margin-bottom: 20px;
       line-height: 1.6;
       word-break: break-all;
@@ -192,7 +188,7 @@
     }
 
     .prompt-content::-webkit-scrollbar { width: 8px; }
-    .prompt-content::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.2); }
+    .prompt-content::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); }
     .prompt-content::-webkit-scrollbar-thumb { background: var(--card-border); border-radius: 4px; }
 
     .btn-group {
@@ -307,7 +303,7 @@
           {
             id: 1,
             name: "Prompt",
-            url: "",
+            url: null,
             text: `A Prompt or A Content`
           },
           {
@@ -538,6 +534,12 @@
             name: "Translate in English",
             url: "https://spmhqo.github.io/rnd/translate-pgp-bangla-post.html",
             text: `https://spmhqo.github.io/rnd/translate-pgp-bangla-post.html`
+          },
+          {
+            id: 36,
+            name: "my 10 Core Points",
+            url: "https://spmhqo.github.io/rnd/my-10-core-points.html",
+            text: `https://spmhqo.github.io/rnd/my-10-core-points.html`
           }
         ]
       }
@@ -550,7 +552,7 @@
       sectionsData.forEach(section => {
         const sectionWrapper = document.createElement('div');
         sectionWrapper.className = 'section-block';
-        sectionWrapper.id = `section-${section.sectionName.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
+        sectionWrapper.id = `section-${section.sectionName.toLowerCase().replace(/[^a-z0-9]/g, '-')}`;
 
         const heading = document.createElement('h2');
         heading.className = 'section-heading';
@@ -567,11 +569,7 @@
           card.setAttribute('data-name', p.name.toLowerCase());
           card.setAttribute('data-text', p.text.toLowerCase());
 
-          const linkButtonHtml = p.url ? `
-            <a href="${p.url}" target="_blank" rel="noopener noreferrer" class="btn link-btn">
-              <span>Open Link</span>
-            </a>
-          ` : '';
+          const hasUrl = p.url && p.url.trim().length > 0;
 
           card.innerHTML = `
             <div class="step-header">
@@ -582,7 +580,11 @@
               <button class="btn copy-btn" onclick="copyText('p${p.id}', this)">
                 <span>Copy Prompt</span>
               </button>
-              ${linkButtonHtml}
+              ${hasUrl ? `
+                <a href="${p.url}" target="_blank" rel="noopener noreferrer" class="btn link-btn">
+                  <span>Open Link</span>
+                </a>
+              ` : ''}
             </div>
           `;
           promptWorkflow.appendChild(card);
@@ -643,13 +645,14 @@
           }
         });
 
-        const sectionElem = document.getElementById(`section-${section.sectionName.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`);
+        const sectionElem = document.getElementById(`section-${section.sectionName.toLowerCase().replace(/[^a-z0-9]/g, '-')}`);
         if (sectionElem) {
           sectionElem.style.display = sectionVisibleCount > 0 ? 'block' : 'none';
         }
       });
     }
 
+    // Reset button handler: clears input field and refreshes/restores all prompt boxes
     function resetInputField(fieldId) {
       const field = document.getElementById(fieldId);
       if (field) {
