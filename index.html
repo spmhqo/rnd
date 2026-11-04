@@ -277,7 +277,7 @@
         type="text" 
         id="promptSearch" 
         class="single-input" 
-        placeholder="Search or filter prompts by title or text..." 
+        placeholder="Search or filter prompts by title or URL..." 
         oninput="filterPrompts(this.value)" 
       />
       <button type="button" class="reset-btn" onclick="resetInputField('promptSearch')">
@@ -303,7 +303,7 @@
           {
             id: 1,
             name: "Prompt",
-            url: null,
+            url: "",
             text: `A Prompt or A Content`
           },
           {
@@ -552,6 +552,12 @@
             name: "Ecosystem",
             url: "https://spmhqo.github.io/rnd/ecosystem.html",
             text: `https://spmhqo.github.io/rnd/ecosystem.html`
+          },
+          {
+            id: 39,
+            name: "Index Group Post",
+            url: "https://spmhqo.github.io/rnd/index-group-post.html",
+            text: `https://spmhqo.github.io/rnd/index-group-post.html`
           }
         ]
       }
@@ -564,7 +570,7 @@
       sectionsData.forEach(section => {
         const sectionWrapper = document.createElement('div');
         sectionWrapper.className = 'section-block';
-        sectionWrapper.id = `section-${section.sectionName.toLowerCase().replace(/[^a-z0-9]/g, '-')}`;
+        sectionWrapper.id = `section-${section.sectionName.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
 
         const heading = document.createElement('h2');
         heading.className = 'section-heading';
@@ -581,22 +587,22 @@
           card.setAttribute('data-name', p.name.toLowerCase());
           card.setAttribute('data-text', p.text.toLowerCase());
 
-          const linkButtonHtml = p.url 
-            ? `<a href="${p.url}" target="_blank" rel="noopener noreferrer" class="btn link-btn">
-                 <span>Open Link</span>
-               </a>` 
-            : '';
+          const isLink = p.url && p.url.trim().startsWith('http');
 
           card.innerHTML = `
             <div class="step-header">
               <span class="step-label">${p.name}</span>
             </div>
-            <div class="prompt-content" id="p${p.id}">${p.text}</div>
+            <div class="prompt-content" id="p${p.id}">${escapeHtml(p.text)}</div>
             <div class="btn-group">
-              <button class="btn copy-btn" onclick="copyText('p${p.id}', this)">
+              <button type="button" class="btn copy-btn" onclick="copyText('p${p.id}', this)">
                 <span>Copy Prompt</span>
               </button>
-              ${linkButtonHtml}
+              ${isLink ? `
+                <a href="${p.url}" target="_blank" rel="noopener noreferrer" class="btn link-btn">
+                  <span>Open Link</span>
+                </a>
+              ` : ''}
             </div>
           `;
           promptWorkflow.appendChild(card);
@@ -607,38 +613,53 @@
       });
     }
 
+    function escapeHtml(string) {
+      const div = document.createElement('div');
+      div.innerText = string;
+      return div.innerHTML;
+    }
+
     function copyText(id, btn) {
       const element = document.getElementById(id);
       if (!element) return;
       const text = element.innerText;
 
-      navigator.clipboard.writeText(text).then(() => {
-        const originalText = btn.innerHTML;
-        btn.innerHTML = `<span>Copied to Clipboard!</span>`;
-        btn.classList.add('copied');
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(() => {
+          showCopiedState(btn);
+        }).catch(() => {
+          fallbackCopyText(text, btn);
+        });
+      } else {
+        fallbackCopyText(text, btn);
+      }
+    }
 
-        setTimeout(() => {
-          btn.innerHTML = originalText;
-          btn.classList.remove('copied');
-        }, 2000);
-      }).catch(() => {
-        // Fallback for older browsers
-        const textarea = document.createElement('textarea');
-        textarea.value = text;
-        document.body.appendChild(textarea);
-        textarea.select();
+    function fallbackCopyText(text, btn) {
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.style.position = 'fixed';
+      textarea.style.left = '-9999px';
+      document.body.appendChild(textarea);
+      textarea.select();
+      try {
         document.execCommand('copy');
-        document.body.removeChild(textarea);
+        showCopiedState(btn);
+      } catch (err) {
+        console.error('Copy fallback failed: ', err);
+      }
+      document.body.removeChild(textarea);
+    }
 
-        const originalText = btn.innerHTML;
-        btn.innerHTML = `<span>Copied to Clipboard!</span>`;
-        btn.classList.add('copied');
+    function showCopiedState(btn) {
+      const originalHtml = btn.innerHTML;
+      btn.innerHTML = `<span>Copied to Clipboard!</span>`;
+      btn.classList.add('copied');
 
-        setTimeout(() => {
-          btn.innerHTML = originalText;
-          btn.classList.remove('copied');
-        }, 2000);
-      });
+      setTimeout(() => {
+        btn.innerHTML = originalHtml;
+        btn.classList.remove('copied');
+      }, 2000);
     }
 
     function filterPrompts(query) {
@@ -658,14 +679,13 @@
           }
         });
 
-        const sectionElem = document.getElementById(`section-${section.sectionName.toLowerCase().replace(/[^a-z0-9]/g, '-')}`);
+        const sectionElem = document.getElementById(`section-${section.sectionName.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`);
         if (sectionElem) {
           sectionElem.style.display = sectionVisibleCount > 0 ? 'block' : 'none';
         }
       });
     }
 
-    // Reset button handler: clears input field and refreshes/restores all prompt boxes
     function resetInputField(fieldId) {
       const field = document.getElementById(fieldId);
       if (field) {
