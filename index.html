@@ -277,7 +277,7 @@
         type="text" 
         id="promptSearch" 
         class="single-input" 
-        placeholder="Search or filter prompts by title or content..." 
+        placeholder="Search or filter prompts by title or text..." 
         oninput="filterPrompts(this.value)" 
       />
       <button type="button" class="reset-btn" onclick="resetInputField('promptSearch')">
@@ -303,7 +303,7 @@
           {
             id: 1,
             name: "Prompt",
-            url: "",
+            url: null,
             text: `A Prompt or A Content`
           },
           {
@@ -540,6 +540,18 @@
             name: "Answer A Reader's Question",
             url: "https://spmhqo.github.io/rnd/answer-q-for-community-content.html",
             text: `https://spmhqo.github.io/rnd/answer-q-for-community-content.html`
+          },
+          {
+            id: 37,
+            name: "Product Name Genie",
+            url: "https://spmhqo.github.io/rnd/product-name-genie.html",
+            text: `https://spmhqo.github.io/rnd/product-name-genie.html`
+          },
+          {
+            id: 38,
+            name: "Ecosystem",
+            url: "https://spmhqo.github.io/rnd/ecosystem.html",
+            text: `https://spmhqo.github.io/rnd/ecosystem.html`
           }
         ]
       }
@@ -552,7 +564,7 @@
       sectionsData.forEach(section => {
         const sectionWrapper = document.createElement('div');
         sectionWrapper.className = 'section-block';
-        sectionWrapper.id = `section-${section.sectionName.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
+        sectionWrapper.id = `section-${section.sectionName.toLowerCase().replace(/[^a-z0-9]/g, '-')}`;
 
         const heading = document.createElement('h2');
         heading.className = 'section-heading';
@@ -569,6 +581,12 @@
           card.setAttribute('data-name', p.name.toLowerCase());
           card.setAttribute('data-text', p.text.toLowerCase());
 
+          const linkButtonHtml = p.url 
+            ? `<a href="${p.url}" target="_blank" rel="noopener noreferrer" class="btn link-btn">
+                 <span>Open Link</span>
+               </a>` 
+            : '';
+
           card.innerHTML = `
             <div class="step-header">
               <span class="step-label">${p.name}</span>
@@ -578,11 +596,7 @@
               <button class="btn copy-btn" onclick="copyText('p${p.id}', this)">
                 <span>Copy Prompt</span>
               </button>
-              ${p.url ? `
-                <a href="${p.url}" target="_blank" rel="noopener noreferrer" class="btn link-btn">
-                  <span>Open Link</span>
-                </a>
-              ` : ''}
+              ${linkButtonHtml}
             </div>
           `;
           promptWorkflow.appendChild(card);
@@ -644,7 +658,7 @@
           }
         });
 
-        const sectionElem = document.getElementById(`section-${section.sectionName.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`);
+        const sectionElem = document.getElementById(`section-${section.sectionName.toLowerCase().replace(/[^a-z0-9]/g, '-')}`);
         if (sectionElem) {
           sectionElem.style.display = sectionVisibleCount > 0 ? 'block' : 'none';
         }
