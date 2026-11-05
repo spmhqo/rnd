@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Audience Traffic Miner Deep Mining</title>
+<style>
+:root {
+    --bg: #fbfaf6;
+    --white: #ffffff;
+    --brown-dark: #3b2a1b;
+    --brown: #6a4a2f;
+    --brown-light: #9b7653;
+    --gold-dark: #a87408;
+    --gold: #d4a72c;
+    --gold-light: #f1dc9a;
+    --gold-pale: #fff8df;
+    --green-dark: #245c3a;
+    --green: #34794e;
+    --green-light: #e9f4ed;
+    --text: #27231f;
+    --muted: #706a62;
+    --border: #e4ddd2;
+    --shadow: 0 6px 18px rgba(59, 42, 27, 0.08);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.5;
+}
+
+.wrapper {
+    width: 100%;
+    max-width: 950px;
+    margin: 0 auto;
+    padding: 30px 24px 60px;
+}
+
+.hero {
+    padding: 0;
+    margin: 0 0 28px;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+}
+
+.hero-badge {
+    display: inline-block;
+    background: var(--gold-pale);
+    color: var(--gold-dark);
+    border: 1px solid var(--gold-light);
+    padding: 7px 11px;
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 14px;
+}
+
+.hero-logo-wrap {
+    text-align: center;
+    margin: 0 0 12px;
+}
+
+.hero-logo {
+    display: block;
+    width: 100%;
+    max-width: 420px;
+    height: auto;
+    margin: 0 auto;
+}
+
+.hero-sub {
+    max-width: 790px;
+    font-size: 19px;
+    color: var(--muted);
+    margin: 0 auto;
+    text-align: center;
+}
+
+.hero-stats {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 24px;
+}
+
+.stat {
+    background: var(--green-light);
+    color: var(--green-dark);
+    border: 1px solid #c9dfd0;
+    padding: 10px 14px;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.context-panel {
+    background: var(--white);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    padding: 30px;
+    margin-bottom: 30px;
+}
+
+.section-eyebrow {
+    color: var(--gold-dark);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 12px;
+    font-weight: 800;
+    margin-bottom: 5px;
+}
+
+.context-panel h2,
+.info-panel h2,
+.category-title h2 {
+    margin: 0 0 8px;
+    color: var(--brown-dark);
+    font-size: 28px;
+}
+
+.context-panel p,
+.info-panel p,
+.category-title p {
+    margin: 0 0 20px;
+    color: var(--muted);
+}
+
+.context-panel textarea {
+    width: 100%;
+    min-height: 170px;
+    resize: vertical;
+    background: #fffdfa;
+    color: var(--text);
+    border: 2px solid var(--border);
+    padding: 18px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    outline: none;
+}
+
+.context-panel textarea:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(212, 167, 44, 0.13);
+}
+
+.context-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 14px;
+}
+
+.action-btn,
+.ai-open-btn,
+.mine-btn,
+.copy-btn,
+.close-btn {
+    border: 0;
+    padding: 14px 16px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 800;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.action-btn {
+    background: var(--green);
+    color: #fff;
+}
+
+.action-btn:hover,
+.mine-btn:hover {
+    background: var(--green-dark);
+}
+
+.clear-btn {
+    background: #f1ede7;
+    color: var(--brown-dark);
+    border: 1px solid var(--border);
+}
+
+.clear-btn:hover {
+    background: #e7e0d6;
+}
+
+.ai-open-btn {
+    background: var(--brown-dark);
+    color: #fff;
+    border: 1px solid var(--brown-dark);
+}
+
+.ai-open-btn:hover {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: var(--brown-dark);
+}
+
+.info-panel {
+    background: var(--white);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    padding: 26px 30px;
+    margin-bottom: 36px;
+}
+
+.mini-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.mini-card {
+    background: #fffdfa;
+    border: 1px solid var(--border);
+    border-top: 4px solid var(--gold);
+    padding: 18px;
+}
+
+.mini-card h3 {
+    margin: 0 0 8px;
+    font-size: 18px;
+    color: var(--brown-dark);
+}
+
+.mini-card p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.category {
+    margin-bottom: 28px;
+}
+
+.category-header {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    margin-bottom: 16px;
+}
+
+.category-number {
+    width: 56px;
+    min-width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--brown-dark);
+    color: #fff;
+    font-size: 23px;
+    font-weight: 800;
+}
+
+.prompt-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.prompt-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-left: 5px solid var(--gold);
+    padding: 18px;
+    position: relative;
+    transition: 0.18s ease;
+}
+
+.prompt-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+    border-left-color: var(--green);
+}
+
+.prompt-number {
+    color: var(--brown-light);
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 4px;
+}
+
+.prompt-card h3 {
+    margin: 0 0 8px;
+    color: var(--brown-dark);
+    font-size: 18px;
+}
+
+.prompt-card p {
+    margin: 0 0 16px;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.45;
+}
+
+.mine-btn {
+    width: 100%;
+    background: var(--green);
+    color: #fff;
+}
+
+
+.inline-prompt {
+    margin-top: 16px;
+    background: #fffdfa;
+    border: 1px solid var(--border);
+    border-top: 4px solid var(--gold);
+    padding: 16px;
+}
+
+.inline-prompt-label {
+    color: var(--gold-dark);
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 8px;
+}
+
+.prompt-textarea {
+    width: 100%;
+    min-height: 280px;
+    padding: 15px;
+    background: #fff;
+    color: var(--text);
+    border: 1px solid var(--border);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    line-height: 1.55;
+    resize: vertical;
+    overflow: hidden;
+    outline: none;
+}
+
+.prompt-textarea:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(212, 167, 44, 0.13);
+}
+
+.prompt-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.copy-btn {
+    border: 0;
+    padding: 14px 16px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 800;
+    background: var(--gold);
+    color: var(--brown-dark);
+}
+
+.copy-btn:hover {
+    background: var(--gold-dark);
+    color: #fff;
+}
+
+.setup-inline-prompt {
+    margin-top: 20px;
+}
+
+.prompt-card .inline-prompt {
+    margin-top: 14px;
+}
+
+.prompt-card .prompt-textarea {
+    min-height: 340px;
+}
+
+.footer-note {
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+    margin-top: 50px;
+}
+
+.footer-note a {
+    color: var(--green-dark);
+    font-weight: 800;
+    text-decoration: none;
+}
+
+.footer-note a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 780px) {
+    .wrapper { padding: 18px 14px 40px; }
+    .context-panel,
+    .info-panel { padding: 24px; }
+    .prompt-grid,
+    .mini-grid { grid-template-columns: 1fr; }
+    .hero-sub { font-size: 17px; }
+    .prompt-actions .ai-open-btn,
+    .prompt-actions .copy-btn { width: 100%; text-align: center; }
+}
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+    <section class="hero">
+<div class="hero-logo-wrap">
+
+        </div>
+        <p class="hero-sub">
+            Turn one broad niche into 25 richer audience angles you can copy and paste straight into Audience Traffic Miner.
+        </p>
+    </section>
+
+    <section class="context-panel">
+        <div class="section-eyebrow">Step 1</div>
+        <h2>Load Your Broad Niche</h2>
+        <p>
+            Enter a broad niche, market, topic, or keyword. Load the setup prompt into your AI chat once, then copy each Deep Miner prompt below into that same chat.
+        </p>
+        <textarea id="contextInput" placeholder="Examples: affiliate marketing, ADHD, weight loss, dog training, golf, parenting, local business marketing..."></textarea>
+        <div class="context-actions">
+            <button class="action-btn" onclick="loadContext()">Build Setup Prompt</button>
+            <button class="action-btn clear-btn" onclick="clearAll()">Clear All</button>
+            <a class="ai-open-btn" href="https://chatgpt.com/" target="_blank" rel="noopener noreferrer">Open ChatGPT</a>
+            <a class="ai-open-btn" href="https://claude.ai/" target="_blank" rel="noopener noreferrer">Open Claude</a>
+            <a class="ai-open-btn" href="https://grok.com/" target="_blank" rel="noopener noreferrer">Open Grok</a>
+            <a class="ai-open-btn" href="https://gemini.google.com/" target="_blank" rel="noopener noreferrer">Open Gemini</a>
+        </div>
+
+        <div id="setupPromptBox" class="inline-prompt setup-inline-prompt">
+            <div class="inline-prompt-label">Setup Prompt</div>
+            <textarea id="setupPromptOutput" class="prompt-textarea" readonly placeholder="Enter your broad niche above and your complete setup prompt will appear here."></textarea>
+            <div class="prompt-actions">
+                <button class="copy-btn" type="button" onclick="copyInlinePrompt(this)">Copy Prompt</button>
+                <a class="ai-open-btn" href="https://chatgpt.com/" target="_blank" rel="noopener noreferrer">Open ChatGPT</a>
+                <a class="ai-open-btn" href="https://claude.ai/" target="_blank" rel="noopener noreferrer">Open Claude</a>
+                <a class="ai-open-btn" href="https://grok.com/" target="_blank" rel="noopener noreferrer">Open Grok</a>
+                <a class="ai-open-btn" href="https://gemini.google.com/" target="_blank" rel="noopener noreferrer">Open Gemini</a>
+            </div>
+        </div>
+    </section>
+<div id="categories"></div>
+
+    <p class="footer-note">
+        Copyright &copy; <script>document.write(new Date().getFullYear())</script> Siva Prasad Mukherjee. All Rights Reserved.
+    </p>
+
+</div>
+
+<script>
+
+const baseOutput = `
+
+Generate exactly 5 distinct audience angles.
+
+For each angle, provide:
+
+1. AUDIENCE ANGLE
+Give the angle a short, clear name that immediately explains who this person is or what situation defines them.
+
+2. WHO THEY ARE
+Describe the person in practical terms.
+Focus on their current stage, situation, behavior, experience level, role, or recurring circumstances.
+Do not rely on generic demographics unless the niche genuinely requires them.
+
+3. WHAT THEY WANT
+State the specific result, relief, improvement, change, or outcome they want most in this situation.
+
+4. WHAT KEEPS HAPPENING
+Describe the recurring problem, frustration, behavior, obstacle, failed attempt, or pattern that keeps them from getting what they want.
+
+5. THREE PRIVATE THOUGHTS
+Write exactly 3 short first-person thoughts this person could realistically keep repeating to themselves.
+These should sound like real internal thoughts, not slogans or marketing copy.
+Use them to expose frustration, desire, doubt, hope, contradiction, or urgency.
+
+6. PASTE-READY AUDIENCE TRAFFIC MINER CONTEXT
+Write one self-contained context block that can be copied directly into the "Load Your Audience Context" box inside Audience Traffic Miner.
+
+The context block should naturally include:
+- who this audience is
+- their current situation
+- what they want
+- what frustrates them
+- what keeps happening
+- what they may already have tried
+- what they are tired of
+- what they wish were easier, clearer, faster, safer, or more reliable
+- the emotional tension or private thoughts driving the situation
+- why solving this matters to them
+
+Write the context block as clear natural prose, not a list.
+Make it specific enough that the 50 Audience Traffic Miner prompts have rich material to analyze.
+Do not tell Audience Traffic Miner what conclusions to reach.
+Give it strong audience context and let the miners do the mining.
+
+QUALITY STANDARD:
+- Keep all 5 angles meaningfully different.
+- Do not give me 5 variations of the same audience.
+- Avoid generic labels such as "beginners who want success."
+- Favor recognizable human situations, recurring behavior, specific frustrations, and clear desires.
+- Do not over-segment into tiny audiences with no practical market value.
+- Do not invent statistics, research, direct quotes, customer histories, or factual claims.
+- When something is inferred, keep it plausible and grounded in the niche.
+- The paste-ready context must stand on its own even if someone copies only that block into a brand-new Audience Traffic Miner chat.
+`;
+
+
+
+const categories = [
+    {
+        number: 1,
+        title: "Deep Mining Engines",
+        description: "Use these five prompts to turn one broad niche into 25 stronger audience angles and paste-ready context blocks.",
+        items: [
+            [
+                "Audience Segment Finder",
+                "Break the broad niche into 5 distinct, meaningful groups of people.",
+                `Using the broad niche and everything already established in this conversation, identify 5 genuinely different audience segments inside this market.
+
+Do not create generic demographic segments.
+
+Segment the market using differences that materially change what the person wants, struggles with, responds to, or needs.
+
+Look especially for differences in:
+- experience level
+- stage of progress
+- current situation
+- role
+- recurring behavior
+- previous attempts
+- level of frustration
+- buying context
+- desired outcome
+- type of obstacle
+- degree of urgency
+
+A strong segment should make someone think:
+"Yes, that is a real type of person inside this niche, and their situation is meaningfully different from the others."
+
+Avoid:
+- five versions of beginner/intermediate/advanced unless stage truly changes the problem
+- segments based only on age or gender without a meaningful reason
+- broad subtopics that are not actual audiences
+- tiny novelty segments with little practical market value
+
+Find 5 audience segments that give Audience Traffic Miner genuinely different people to analyze.`
+            ],
+            [
+                "Problem Angle Finder",
+                "Find 5 audiences defined by a recurring problem they strongly want solved.",
+                `Using the broad niche and everything already established in this conversation, identify 5 distinct audience angles built around recurring problems inside this market.
+
+Each angle must represent a real type of person whose experience is shaped by one specific problem, bottleneck, frustration, or unwanted pattern.
+
+Prioritize problems that:
+- happen repeatedly
+- create recognizable real-life moments
+- cost time, money, energy, confidence, progress, or peace of mind
+- have likely triggered previous attempts to solve them
+- create enough tension that the person actively wants relief
+- are easy for the audience to recognize in themselves
+
+Do not simply name broad pain points.
+
+For each angle, identify the kind of person living with that problem and the pattern surrounding it.
+
+Look for problems such as:
+- something they keep starting over
+- something they cannot make consistent
+- something that repeatedly wastes time or money
+- something they understand intellectually but cannot get working
+- something they have tried multiple ways to fix
+- something that creates a recurring emotional reaction
+- something they keep tolerating because they do not know a better way
+
+Make the 5 problems fundamentally different so Audience Traffic Miner receives five genuinely different problem contexts.`
+            ],
+            [
+                "Desire Angle Finder",
+                "Find 5 audiences defined by a specific result or change they strongly want.",
+                `Using the broad niche and everything already established in this conversation, identify 5 distinct audience angles built around strong desires inside this market.
+
+Each angle should represent a type of person who wants a specific result badly enough that it shapes what they read, search for, buy, try, compare, or pay attention to.
+
+Do not stop at surface desires such as:
+- more money
+- more confidence
+- better results
+- more freedom
+
+Make the desire concrete.
+
+Look for desires involving:
+- a specific outcome
+- relief from a recurring burden
+- greater control
+- speed
+- simplicity
+- certainty
+- independence
+- recognition
+- consistency
+- status
+- identity change
+- a meaningful transformation
+- a result they have struggled to achieve before
+
+For each audience, distinguish:
+- what they say they want
+- what getting it would change
+- why it matters now
+- what currently prevents it
+
+Make all 5 desires meaningfully different so Audience Traffic Miner receives five distinct motivational contexts.`
+            ],
+            [
+                "Identity And Situation Finder",
+                "Find 5 audiences people instantly recognize themselves as belonging to.",
+                `Using the broad niche and everything already established in this conversation, identify 5 distinct audience angles based on identity, role, life situation, working situation, stage, or self-recognition.
+
+The strongest angles should make a person immediately think:
+"That is me."
+
+Focus on identities or situations that meaningfully affect:
+- what they want
+- what frustrates them
+- what they have already tried
+- how they interpret the problem
+- what kind of outcome matters
+- what they are afraid of
+- what they wish other people understood
+
+Useful sources of identity or situation may include:
+- starting over
+- being stuck at a particular stage
+- having knowledge but not results
+- juggling a specific role or responsibility
+- feeling behind peers
+- having tried many solutions
+- being newly exposed to the niche
+- being experienced but frustrated
+- wanting to move from one identity to another
+- being caught between two stages
+
+Do not use identity labels that are merely decorative.
+The identity or situation must materially change the person's experience inside the niche.
+
+Make the 5 contexts clearly different from one another and from earlier Deep Miner outputs.`
+            ],
+            [
+                "Buyer Context Builder",
+                "Build 5 complete audience contexts engineered to give Audience Traffic Miner its richest possible starting material.",
+                `Using the broad niche and everything learned from the previous Deep Miners in this conversation, create 5 of the strongest complete audience contexts you can find inside this market.
+
+This is the synthesis miner.
+
+Do not merely repeat the earlier outputs.
+Use what has been learned to build richer audience contexts that combine the strongest dimensions of:
+- a clearly identifiable person or group
+- a specific current situation
+- a strong desire
+- a recurring problem
+- repeated behavior
+- previous attempts
+- frustration with the status quo
+- emotional tension
+- private thoughts
+- a reason the problem matters now
+
+Prioritize contexts where the person has both:
+1. something meaningful they want
+2. something repeatedly preventing them from getting it
+
+The resulting audience should feel alive and specific enough that Audience Traffic Miner could run all 50 miners against the context without needing additional clarification.
+
+Make the 5 contexts meaningfully different.
+Favor depth over cleverness.
+Favor recognizable reality over marketing jargon.
+Favor audiences with clear problems, desires, tension, and repeated behavior.`
+            ]
+        ]
+    }
+];
+
+
+const setupPrompt = (context) => `
+You are an elite audience-research strategist, market-segmentation analyst, buyer-behavior analyst, and niche-clarity expert.
+
+For the rest of this conversation, treat the information below as the CORE NICHE CONTEXT:
+
+${context}
+
+YOUR JOB:
+Take this broad niche, market, topic, or keyword and turn it into specific, recognizable, commercially useful audience contexts that can be copied directly into Audience Traffic Miner.
+
+The user may give you only one or two words.
+Do not ask them to provide a detailed avatar unless the niche is genuinely ambiguous.
+Use reasonable inference to explore the market while clearly avoiding invented facts.
+
+THE END GOAL:
+Every Deep Miner should uncover audience context that is dramatically richer than the original broad keyword.
+
+The strongest outputs will tell us:
+- who the person is in this market
+- what stage or situation they are in
+- what they want
+- what keeps frustrating them
+- what they repeatedly do, avoid, tolerate, or try
+- what they are tired of
+- what they wish would change
+- what they may already have tried
+- what they keep telling themselves
+- why the situation matters to them
+
+CONTINUITY RULE:
+Everything happens in this same chat.
+
+As I run the five Deep Miners:
+- retain useful context from earlier outputs
+- avoid recycling the same audience angle under a new name
+- use earlier discoveries to go deeper when helpful
+- deliberately search for angles the previous miners missed
+- keep the five outputs inside each miner distinct from one another
+- keep later miners distinct from earlier miners whenever possible
+
+SEGMENTATION STANDARD:
+Prefer meaningful differences in:
+- current situation
+- stage of progress
+- recurring problem
+- desired outcome
+- behavior
+- prior attempts
+- identity
+- role
+- buying context
+- emotional tension
+
+Do not create weak segmentation based only on superficial demographics unless those demographics materially change the problem or desire.
+
+ACCURACY STANDARD:
+Do not invent:
+- statistics
+- studies
+- survey findings
+- direct customer quotes
+- specific personal histories
+- unsupported factual claims
+
+Use plausible audience inference where needed, but never present an inference as proven research.
+
+AUDIENCE TRAFFIC MINER HANDOFF:
+The final context blocks produced later must work as standalone inputs inside Audience Traffic Miner.
+
+Do not pre-write content.
+Do not create sales copy.
+Do not solve the problem for the audience.
+Your job is to create rich source material that gives Audience Traffic Miner enough context to uncover pain, desire, fear, identity, motivation, private thoughts, and content angles from its own 50 miners.
+
+Respond only with:
+"Deep Mining context loaded. Ready for Deep Miner 1."
+`.trim();
+
+function autoSizePrompt(textarea) {
+    if (!textarea || !textarea.value.trim()) return;
+    textarea.style.height = "auto";
+    textarea.style.height = Math.max(280, textarea.scrollHeight + 4) + "px";
+}
+
+function updateSetupPrompt(scrollToPrompt = false) {
+    const context = document.getElementById("contextInput").value.trim();
+    const output = document.getElementById("setupPromptOutput");
+
+    if (!context) {
+        output.value = "";
+        output.style.height = "280px";
+        return false;
+    }
+
+    output.value = setupPrompt(context);
+    autoSizePrompt(output);
+
+    if (scrollToPrompt) {
+        document.getElementById("setupPromptBox").scrollIntoView({
+            behavior: "smooth",
+            block: "nearest"
+        });
+    }
+
+    return true;
+}
+
+function loadContext() {
+    const context = document.getElementById("contextInput").value.trim();
+
+    if (!context) {
+        alert("Enter a broad niche, market, topic, or keyword first.");
+        return;
+    }
+
+    updateSetupPrompt(true);
+}
+
+async function copyInlinePrompt(button) {
+    const box = button.closest(".inline-prompt");
+    const output = box ? box.querySelector(".prompt-textarea") : null;
+
+    if (!output || !output.value.trim()) {
+        alert("Enter your broad niche first so the setup prompt can be created.");
+        return;
+    }
+
+    const original = button.textContent;
+
+    try {
+        await navigator.clipboard.writeText(output.value);
+        button.textContent = "Copied!";
+        setTimeout(() => {
+            button.textContent = original;
+        }, 1400);
+    } catch (err) {
+        output.select();
+        document.execCommand("copy");
+        button.textContent = "Copied!";
+        setTimeout(() => {
+            button.textContent = original;
+        }, 1400);
+    }
+}
+
+function clearAll() {
+    const contextInput = document.getElementById("contextInput");
+    const setupOutput = document.getElementById("setupPromptOutput");
+
+    contextInput.value = "";
+    setupOutput.value = "";
+    setupOutput.placeholder = "Enter your broad niche above and your complete setup prompt will appear here.";
+    autoSizePrompt(setupOutput);
+
+    document.querySelectorAll(".copy-btn").forEach(button => {
+        button.textContent = "Copy Prompt";
+    });
+
+    contextInput.focus();
+}
+
+document.getElementById("contextInput").addEventListener("input", () => {
+    updateSetupPrompt(false);
+});
+
+const container = document.getElementById("categories");
+let minerIndex = 1;
+
+categories.forEach(category => {
+    const section = document.createElement("section");
+    section.className = "category";
+
+    section.innerHTML = `
+        <div class="category-header">
+            <div class="category-number">${category.number}</div>
+            <div class="category-title">
+                <h2>${category.title}</h2>
+                <p>${category.description}</p>
+            </div>
+        </div>
+        <div class="prompt-grid"></div>
+    `;
+
+    const grid = section.querySelector(".prompt-grid");
+
+    category.items.forEach(item => {
+        const [title, description, prompt] = item;
+        const card = document.createElement("div");
+        card.className = "prompt-card";
+        card.innerHTML = `
+            <div class="prompt-number">Deep Miner ${minerIndex}</div>
+            <h3>${title}</h3>
+            <p>${description}</p>
+            <div class="inline-prompt miner-inline-prompt">
+                <div class="inline-prompt-label">Deep Miner Prompt</div>
+                <textarea class="prompt-textarea" readonly></textarea>
+                <div class="prompt-actions">
+                    <button class="copy-btn" type="button">Copy Prompt</button>
+                </div>
+            </div>
+        `;
+
+        const promptArea = card.querySelector(".prompt-textarea");
+        promptArea.value = prompt + baseOutput;
+        autoSizePrompt(promptArea);
+
+        card.querySelector(".copy-btn").addEventListener("click", function () {
+            copyInlinePrompt(this);
+        });
+
+        grid.appendChild(card);
+        minerIndex++;
+    });
+
+    container.appendChild(section);
+});
+</script>
+</body>
+</html>
