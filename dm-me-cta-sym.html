@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DM Me CTA - (for speak your mind post)</title>
+  <link rel="icon" href="spm.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-gradient-start: #020617;
+      --bg-gradient-end: #0f172a;
+      --card-bg: rgba(30, 41, 59, 0.4);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --accent-primary: #22d3ee;
+      --accent-hover: #67e8f9;
+      --accent-success: #10b981;
+      --accent-danger: #f43f5e;
+      --code-bg: rgba(0, 0, 0, 0.3);
+      --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: fixed linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+      color: var(--text-primary);
+      line-height: 1.6;
+      padding: 60px 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      max-width: 900px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #fff;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .sub-header {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--accent-primary);
+      letter-spacing: 0.02em;
+    }
+
+    .note-box {
+      background: rgba(34, 211, 238, 0.05);
+      border: 1px solid rgba(34, 211, 238, 0.2);
+      border-radius: 16px;
+      padding: 20px 24px;
+      margin-bottom: 30px;
+      color: #cbd5e1;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(8px);
+    }
+
+    .note-box strong {
+      color: var(--accent-primary);
+      font-weight: 700;
+    }
+
+    .prompt-workflow {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .step-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 35px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .step-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .step-label {
+      font-weight: 800;
+      font-size: 0.8rem;
+      background: var(--accent-primary);
+      color: #020617;
+      padding: 5px 16px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .clear-btn {
+      background: transparent;
+      border: 1px solid var(--accent-danger);
+      color: var(--accent-danger);
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-transform: uppercase;
+      transition: all 0.2s;
+    }
+
+    .clear-btn:hover {
+      background: var(--accent-danger);
+      color: white;
+    }
+
+    label {
+      display: block;
+      color: var(--accent-primary);
+      font-weight: 700;
+      font-size: 0.9rem;
+      margin-bottom: 12px;
+      letter-spacing: 0.03em;
+    }
+
+    .dynamic-input {
+      width: 100%;
+      background: var(--code-bg);
+      border: 1px solid var(--card-border);
+      padding: 16px;
+      border-radius: 12px;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      line-height: 1.5;
+      outline: none;
+      resize: vertical;
+      min-height: 110px;
+      transition: border-color 0.3s;
+    }
+
+    .dynamic-input:focus {
+      border-color: var(--accent-primary);
+    }
+
+    .prompt-content {
+      background: var(--code-bg);
+      padding: 25px;
+      border-radius: 12px;
+      font-family: 'Source Code Pro', monospace;
+      font-size: 0.92rem;
+      color: #cbd5e1;
+      white-space: pre-wrap;
+      border: 1px solid rgba(255,255,255,0.05);
+      margin-bottom: 22px;
+      line-height: 1.6;
+      word-break: break-word;
+      max-height: 520px;
+      overflow-y: auto;
+    }
+
+    .prompt-content::-webkit-scrollbar { width: 8px; }
+    .prompt-content::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); }
+    .prompt-content::-webkit-scrollbar-thumb { background: var(--card-border); border-radius: 4px; }
+
+    .btn {
+      padding: 14px 32px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.2s;
+      width: 100%;
+      text-decoration: none;
+      border: none;
+    }
+
+    .copy-btn {
+      background: rgba(34, 211, 238, 0.1);
+      color: var(--accent-primary);
+      border: 1px solid var(--accent-primary);
+    }
+
+    .copy-btn:hover {
+      background: var(--accent-primary);
+      color: #020617;
+    }
+
+    .copy-btn.copied {
+      background: var(--accent-success);
+      border-color: var(--accent-success);
+      color: white;
+    }
+
+    .footer {
+      margin-top: 80px;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--card-border);
+      padding-top: 40px;
+      width: 100%;
+      padding-bottom: 40px;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 2rem; }
+      .sub-header { font-size: 1rem; }
+      .step-card { padding: 22px; }
+      .prompt-content { font-size: 0.85rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>DM Me CTA</h1>
+      <p class="sub-header">(for speak your mind post)</p>
+    </header>
+
+    <!-- Advisory Note Box -->
+    <div class="note-box">
+      <strong>ব্যবহারের পরামর্শ:</strong> Use Version 1 when adapting different types of text. Use Version 2 when your primary objective is to create strategy-focused promotional messages with an appropriate strategy name.
+    </div>
+
+    <div class="prompt-workflow">
+      
+      <!-- Multiline Input Card 1 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Input Data 1</span>
+          <button class="clear-btn" onclick="resetInput('inputText')">Reset</button>
+        </div>
+        <label for="inputText">[Insert Your Text Here]</label>
+        <textarea id="inputText" class="dynamic-input" placeholder="Type or paste your text here..." oninput="updatePrompts()"></textarea>
+      </div>
+
+      <!-- Multiline Input Card 2 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Input Data 2</span>
+          <button class="clear-btn" onclick="resetInput('inputContent')">Reset</button>
+        </div>
+        <label for="inputContent">[Insert Your Content Here]</label>
+        <textarea id="inputContent" class="dynamic-input" placeholder="Type or paste your content here..." oninput="updatePrompts()"></textarea>
+      </div>
+
+      <!-- Prompt Result Cards Container -->
+      <div id="promptsContainer">
+        <!-- Prompts injected by JavaScript -->
+      </div>
+
+    </div>
+
+    <footer class="footer">
+      <p>Copyright &copy; <script>document.write(new Date().getFullYear())</script> Siva Prasad Mukherjee. All Rights Reserved.</p>
+    </footer>
+  </div>
+
+  <script>
+    const templates = [
+      {
+        id: 1,
+        text: `Repurpose the TEXT below so that it accurately reflects and aligns with the CONTENT provided.
+
+INSTRUCTIONS:
+
+1. Preserve the original wording, sentence structure, tone, style, and intent as closely as possible.
+2. Change only those words or phrases that are necessary to make the TEXT relevant to the CONTENT.
+3. Do not unnecessarily rewrite, paraphrase, expand, shorten, or introduce new ideas.
+4. Retain the original message and call to action.
+5. If the original TEXT contains placeholders (such as [strategy name]), replace them with the most appropriate information derived from the CONTENT.
+6. Ensure the final output is entirely in natural English. Do not retain any Bengali words or sentences.
+7. Provide only the adapted text, without explanations or additional commentary.
+8. Identify the most appropriate and descriptive name for the strategy based on the CONTENT. Choose a name that accurately captures the strategy's central idea and purpose. Do not simply copy a phrase from the CONTENT if a better, more precise name can be identified.
+
+TEXT:
+
+[Insert Your Text Here]
+
+CONTENT:
+
+[Insert Your Content Here]`
+      },
+      {
+        id: 2,
+        text: `Repurpose the TEXT below so that it accurately reflects and aligns with the CONTENT provided.
+
+INSTRUCTIONS:
+
+1. Preserve the original wording, sentence structure, tone, style, and intent as closely as possible.
+2. Change only those words or phrases that are necessary to make the TEXT relevant to the CONTENT.
+3. Do not unnecessarily rewrite, paraphrase, expand, shorten, or introduce new ideas.
+4. Retain the original message and call to action.
+5. Identify the most appropriate and descriptive name for the strategy presented in the CONTENT. The name should accurately capture the strategy's central idea, purpose, and approach. Prioritise clarity, relevance, and accuracy over creativity.
+6. If the original TEXT contains placeholders (such as [strategy name]), replace them with the identified strategy name. Do not leave any placeholder unresolved.
+7. Ensure the final output is entirely in natural English. Do not retain any Bengali words or sentences.
+8. Provide only the adapted text, without explanations or additional commentary.
+
+TEXT:
+
+DM me if you'd like to learn how to put this [strategy name] strategy into action.
+
+CONTENT:
+
+[Insert Your Content Here]`
+      }
+    ];
+
+    function createCards() {
+      const container = document.getElementById('promptsContainer');
+      container.innerHTML = '';
+      templates.forEach(t => {
+        const card = document.createElement('div');
+        card.className = 'step-card';
+        card.style.marginBottom = '30px';
+        card.innerHTML = `
+          <div class="step-header">
+            <span class="step-label">Prompt #${t.id}</span>
+          </div>
+          <div class="prompt-content" id="p${t.id}"></div>
+          <button class="btn copy-btn" onclick="copyText('p${t.id}', this)">
+            <span>Copy Prompt #${t.id}</span>
+          </button>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function updatePrompts() {
+      const textVal = document.getElementById('inputText').value.trim() || "[Insert Your Text Here]";
+      const contentVal = document.getElementById('inputContent').value.trim() || "[Insert Your Content Here]";
+
+      templates.forEach(t => {
+        let updatedText = t.text;
+        if (t.id === 1) {
+          updatedText = updatedText.split('[Insert Your Text Here]').join(textVal);
+        }
+        updatedText = updatedText.split('[Insert Your Content Here]').join(contentVal);
+        document.getElementById(`p${t.id}`).innerText = updatedText;
+      });
+    }
+
+    function resetInput(fieldId) {
+      document.getElementById(fieldId).value = "";
+      updatePrompts();
+    }
+
+    function copyText(id, btn) {
+      const text = document.getElementById(id).innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const originalText = btn.innerHTML;
+        btn.innerHTML = `<span>Copied to Clipboard!</span>`;
+        btn.classList.add('copied');
+        
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+
+    // Initialize on page load
+    window.onload = () => {
+      createCards();
+      updatePrompts();
+    };
+  </script>
+</body>
+</html>
